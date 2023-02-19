@@ -8,6 +8,8 @@ import {
   faUser,
   faPowerOff,
   faUserPlus,
+  faLock,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   FontAwesomeModule,
@@ -33,6 +35,6 @@ import { HRModule } from './hr/hr.module';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faUser, faPowerOff, faUserPlus);
+    library.addIcons(faUser, faPowerOff, faUserPlus, faLock, faCheck);
   }
 }
