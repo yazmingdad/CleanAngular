@@ -26,8 +26,12 @@ export class SigninComponent implements OnInit {
         next: () => {
           this.router.navigateByUrl('/hr');
         },
-        error: (err) => {
-          console.log(err);
+        error: ({ error }) => {
+          if(error==='Wrong Credentials'){
+            this.authForm.setErrors({credentials:true});
+          }else{
+            this.authForm.setErrors({ unknownError: true });
+          }
         },
       });
   }
