@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoggedInUser } from '../interfaces/LoggedInUser';
 import { AuthService, UserCredentials } from '../services/auth.service';
 @Component({
   selector: 'app-signin',
@@ -12,9 +13,13 @@ export class SigninComponent implements OnInit {
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+    console.log('random', Math.ceil(Math.random() * 1000));
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.clear();
+  }
 
   onSubmit() {
     if (this.authForm.invalid) {
@@ -27,9 +32,9 @@ export class SigninComponent implements OnInit {
           this.router.navigateByUrl('/hr');
         },
         error: ({ error }) => {
-          if(error==='Wrong Credentials'){
-            this.authForm.setErrors({credentials:true});
-          }else{
+          if (error === 'Wrong Credentials') {
+            this.authForm.setErrors({ credentials: true });
+          } else {
             this.authForm.setErrors({ unknownError: true });
           }
         },

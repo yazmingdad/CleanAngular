@@ -17,6 +17,8 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { AuthHttpInterceptor } from './auth/auth-http.interceptor';
 import { HRModule } from './hr/hr.module';
+import { AuthService } from './auth/services/auth.service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +26,7 @@ import { HRModule } from './hr/hr.module';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    SharedModule,
     HRModule,
     HttpClientModule,
     FontAwesomeModule,

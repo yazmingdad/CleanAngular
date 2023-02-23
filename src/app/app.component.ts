@@ -17,13 +17,6 @@ export class AppComponent {
     this.authService.loggedIn$.subscribe((loggedInUser) => {
       this.loggedInUser = loggedInUser;
     });
-
-    this.authService.checkAuth().subscribe({
-      next: () => this.router.navigateByUrl('/hr'),
-      error: (err) => {
-        this.router.navigateByUrl('/');
-      },
-    });
   }
 
   ngOnChanges() {

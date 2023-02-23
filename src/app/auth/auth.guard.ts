@@ -18,11 +18,13 @@ export class AuthGuard implements CanLoad {
     | boolean
     | UrlTree {
     return this.authService.loggedIn$.pipe(
-      skipWhile((value) => value === null),
+      //skipWhile((value) => value === null),
       map((value) => value !== null),
       take(1),
       tap((authenticated) => {
         console.log('authenticated', authenticated);
+        // console.log(route, 'route');
+        // console.log(segments, 'segments');
         console.log(this.authService.loggedIn$.value);
         if (!authenticated) {
           this.router.navigateByUrl('/');

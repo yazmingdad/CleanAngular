@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   catchError,
+  delay,
   EMPTY,
   Observable,
   switchMap,
@@ -83,6 +85,25 @@ export class AuthService {
     });
   }
 
+  // checkAuth() {
+  //   try {
+  //     const token = JSON.parse(localStorage.getItem('token') || '');
+  //     if (token) {
+  //       return this.getLoggedInUserInfo({
+  //         access_Token: token,
+  //         username: '',
+  //       });
+  //     }
+  //   } catch {}
+
+  //   return throwError(() => {
+  //     this.loggedIn$.next(null);
+  //     const error: any = new Error('Unauthorized');
+  //     error.timestamp = Date.now();
+  //     return error;
+  //   });
+  // }
+
   checkAuth() {
     try {
       const token = JSON.parse(localStorage.getItem('token') || '');
@@ -90,7 +111,7 @@ export class AuthService {
         return this.getLoggedInUserInfo({
           access_Token: token,
           username: '',
-        });
+        }).pipe(delay(2000));
       }
     } catch {}
 
@@ -99,6 +120,6 @@ export class AuthService {
       const error: any = new Error('Unauthorized');
       error.timestamp = Date.now();
       return error;
-    });
+    }).pipe(delay(2000));
   }
 }
