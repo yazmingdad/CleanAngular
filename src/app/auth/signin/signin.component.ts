@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoggedInUser } from '../interfaces/LoggedInUser';
-import { AuthService, UserCredentials } from '../services/auth.service';
+import {
+  AuthService,
+  UserCredentials,
+} from 'src/app/core/service/auth.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',

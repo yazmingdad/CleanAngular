@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   faUser,
   faPowerOff,
@@ -15,25 +14,20 @@ import {
   FontAwesomeModule,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
-import { AuthHttpInterceptor } from './auth/auth-http.interceptor';
-import { HRModule } from './hr/hr.module';
-import { AuthService } from './auth/services/auth.service';
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     AuthModule,
+    CoreModule,
     SharedModule,
-    HRModule,
-    HttpClientModule,
     FontAwesomeModule,
+    AppRoutingModule,
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {
