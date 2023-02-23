@@ -5,8 +5,8 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignoutComponent } from './signout/signout.component';
-import { SharedModule } from '../shared/shared.module';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [

@@ -15,7 +15,7 @@ export class WelcomeComponent {
       next: () => {
         this.router.navigateByUrl('/hr');
       },
-      error: () => {
+      error: (err) => {
         this.router.navigateByUrl('/signin');
       },
     });

@@ -64,7 +64,7 @@ export class AuthService {
       catchError(() => {
         localStorage.clear();
         this.loggedIn$.next(null);
-        return EMPTY;
+        return throwError(() => new Error('Cannot retrieve user info'));
       })
     );
   }
@@ -86,7 +86,9 @@ export class AuthService {
       observer.next();
     }).pipe(
       switchMap(() => this.getLoggedInUserInfo()),
-      catchError(() => throwError(() => new Error('Unauthorized')))
+      catchError((error) => {
+        return throwError(() => new Error(error));
+      })
     );
   }
 }

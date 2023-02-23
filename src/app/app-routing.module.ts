@@ -6,7 +6,8 @@ const routes: Routes = [
   {
     path: 'hr',
     canMatch: [AuthGuard],
-    loadChildren: () => import('./hr/hr.module').then((m) => m.HRModule),
+    loadChildren: () =>
+      import('./modules/hr/hr.module').then((m) => m.HRModule),
   },
 ];
 
