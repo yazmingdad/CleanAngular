@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { AuthService, LoggedInUser } from 'src/app/core/service/auth.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { AuthService, LoggedInUser } from 'src/app/core/service/auth.service';
 })
 export class NavbarComponent {
   loggedInUser: LoggedInUser | null = null;
+  @Output() toggleMenu = new EventEmitter();
 
   constructor(private authService: AuthService) {}
 
@@ -15,5 +16,9 @@ export class NavbarComponent {
     this.authService.loggedIn$.subscribe((loggedInUser) => {
       this.loggedInUser = loggedInUser;
     });
+  }
+
+  onLogoClick() {
+    this.toggleMenu.emit();
   }
 }

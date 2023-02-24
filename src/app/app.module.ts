@@ -17,9 +17,10 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { NavbarComponent } from './layout/navbar/navbar.component';
+import { MenuComponent } from './layout/sidebar/menu/menu.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, MenuComponent],
   imports: [
     BrowserModule,
     AuthModule,

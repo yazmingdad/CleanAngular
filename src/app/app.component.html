@@ -1,60 +1,10 @@
-<app-navbar></app-navbar>
+<app-navbar (toggleMenu)="toggleMenu()"></app-navbar>
 <div class="main-container">
-  <aside class="sidebar show-sidebar">
-    <!-- links -->
-    <ul class="links">
-      <li>
-        <a href="cart.html"><i class="fas fa-cart-plus link-icon"></i>cart</a>
-      </li>
-      <li>
-        <a href="products.html"
-          ><i class="fas fa-search link-icon"></i>search product</a
-        >
-      </li>
-      <li>
-        <a href="about.html"
-          ><i class="fas fa-exchange-alt link-icon"></i>transfer stock</a
-        >
-      </li>
-      <li>
-        <a href="projects.html"
-          ><i class="fas fa-users link-icon"></i>customer</a
-        >
-      </li>
-      <li>
-        <a href="contact.html"
-          ><i class="fas fa-history link-icon"></i>last session report</a
-        >
-      </li>
-      <li>
-        <a href="index.html"
-          ><i class="fas fa-bullhorn link-icon"></i>promotion</a
-        >
-      </li>
-
-      <li>
-        <a href="projects.html"
-          ><i class="fas fa-sync link-icon"></i>cloud sync</a
-        >
-      </li>
-      <li>
-        <a href="contact.html"><i class="fas fa-cog link-icon"></i>settings</a>
-      </li>
-    </ul>
-    <!-- social media -->
-    <ul class="sidebar-icons">
-      <li>
-        <button class="icon-btn">
-          <i class="fas fa-power-off"></i>
-        </button>
-      </li>
-      <li><span>Licenced to TCC</span></li>
-      <li>
-        <button class="close-btn icon-btn">
-          <i class="fas fa-times"></i>
-        </button>
-      </li>
-    </ul>
-  </aside>
+  <app-menu [showMenu]="showMenu" (close)="showMenu = !showMenu"></app-menu>
   <router-outlet></router-outlet>
 </div>
+<div
+  (click)="showMenu = !showMenu"
+  class="overlay"
+  [ngClass]="{ show: showMenu }"
+></div>
