@@ -1,0 +1,53 @@
+<!-- navbar -->
+<nav class="nav" id="nav">
+  <div class="nav-center">
+    <!-- nav header -->
+    <div class="nav-header">
+      <div class="nav-company">
+        <img src="assets/images/logo.ico" class="logo" alt="nav logo" />
+        <span>Tradante</span>
+      </div>
+
+      <span class="nav-date">12 May 2022</span>
+    </div>
+    <!-- nav-session -->
+
+    <div class="nav-session">
+      <span [ngClass]="{ 'nav-session-role': true }">
+        {{ loggedInUser ? "Admin" : "Unauthorized Please Log In" }}
+      </span>
+      <div class="nav-user">
+        <ng-container *ngIf="loggedInUser">
+          <div class="nav-dropdown">
+            <span>{{ loggedInUser.username }}</span>
+            <div class="nav-dropdown-content container">
+              <ul class="nav-links">
+                <li>
+                  <a routerLink="/signout">
+                    <fa-icon [icon]="['fas', 'power-off']"></fa-icon> Sign out
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/resetpassword">
+                    <fa-icon [icon]="['fas', 'lock']"></fa-icon>Reset Password
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="img-container">
+            <span class="check">
+              <!-- <fa-icon [icon]="['fas', 'check']"></fa-icon> -->
+            </span>
+
+            <img
+              src="https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883334/person-1_rfzshl.jpg"
+              class="img user-img"
+              alt=""
+            />
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</nav>
