@@ -1,1 +1,11 @@
+:host {
+  display: block;
+  height: calc(100vh - var(--navbar-thick));
+  margin: 0 auto;
+}
 
+@media screen and (min-width: 676px) {
+  :host {
+    height: calc(100vh - var(--navbar-thin));
+  }
+}
