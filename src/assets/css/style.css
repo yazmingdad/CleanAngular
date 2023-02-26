@@ -10,6 +10,15 @@ html {
   font-size: 100%;
 } /*16px*/
 
+/* prevent horizontal scroll */
+html,
+body {
+  overflow-x: hidden;
+}
+body {
+  position: relative;
+}
+
 :root {
   /* colors */
   --primary-100: #ede9fe;
@@ -47,6 +56,9 @@ html {
   --green-dark: #0f5132;
   --orange-medium: #ffac1c;
   --gold: #c59d5f;
+  --light-gold: #fbe492;
+  --lighter-gold: #fbf5e0;
+  --light-blue-gray: #d0d8e2;
 
   /* fonts  */
   --headingFont: "Roboto", sans-serif;
@@ -329,9 +341,52 @@ img:not(.logo) {
 }
 /*
 =============== 
-FLipper
+Icons
 ===============
 */
+.item-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--white);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  transition: var(--transition);
+  cursor: pointer;
+  font-size: 1rem;
+  border-color: transparent;
+  margin: 0 0.5rem;
+  background: var(--orange-medium);
+  font-weight: 900;
+}
+
+.item-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  display: flex;
+  transition: var(--transition);
+}
+
+/*
+=============== 
+Welcome
+===============
+*/
+
+.welcome img {
+  width: 10rem;
+  height: 10rem;
+  margin: 0 auto;
+}
+
+.welcome h5 {
+  color: var(--white);
+  text-align: center;
+  font-weight: 600;
+}
 
 /*
 =============== 
@@ -580,7 +635,7 @@ Sidebar
 
 .overlay {
   position: fixed;
-  top: var(--navbar-thin);
+  top: var(--navbar-thick);
   width: 100%;
   height: 100%;
   background: var(--grey-overlay);
@@ -652,6 +707,9 @@ Sidebar
 }
 
 @media screen and (min-width: 768px) {
+  .overlay {
+    top: var(--navbar-thin);
+  }
   .sidebar {
     top: var(--navbar-thin);
     width: 350px;
@@ -673,75 +731,97 @@ Employee list
 .employee-list {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr;
   /* place-items: center; */
-  gap: 0.4rem;
+  gap: 0.2rem;
   /* margin-bottom: 4rem; */
   padding: 0.25rem;
-  border: 2px solid green;
+
   width: 100%;
   margin: 0 auto;
 }
 
 @media screen and (min-width: 1170px) {
   .employee-list {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
   }
 }
-
-/* @media screen and (min-width: 576px) {
-  .employee-list {
-    padding: 0.25rem 0.5rem;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(2, 1fr);
-  }
-} */
 
 /*
 =============== 
 Single Employee
 ===============
 */
-/* .single-employee {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0 1.25rem;
-  max-width: 25rem;
+.single-employee {
+  border-radius: 15px;
+  min-width: 100%;
+  box-shadow: var(--shadow-3);
+  transition: var(--transition);
+  background-origin: border-box;
+  background: no-repeat bottom center url("../images/logo-bw-t.png"),
+    linear-gradient(
+      90deg,
+      rgba(208, 216, 226, 1) 0%,
+      rgba(251, 245, 224, 1) 32%,
+      rgba(251, 228, 146, 1) 92%
+    );
+  opacity: 0.9;
 }
 
-.employee-photo {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
+.single-employee .card-body {
+  padding: 1.25rem !important;
 }
 
-.employee-photo img {
-  object-fit: cover;
-  height: 5rem;
-  width: 5rem;
-  border: 0.25rem solid var(--gold);
-  border-radius: 50%;
+.single-employee:hover {
+  transform: scale(1.007);
 }
-.item-info header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 0.5px dotted var(--grey-600);
-}
-.item-info h5 {
-  margin-bottom: 0.5rem;
-}
-.price {
-  color: var(--clr-gold);
-}
-.item-text {
+
+.single-employee p {
   margin-bottom: 0;
-  padding-top: 1rem;
 }
 
-@media screen and (min-width: 576px) {
-  .single-employee {
-    gap: 1rem 2rem;
-    max-width: 40rem;
-  }
-} */
+.single-employee .name {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.single-employee .rank {
+  color: var(--primary-700);
+  font-weight: 600;
+}
+
+.single-employee .department {
+  color: var(--primary-900);
+  font-weight: 600;
+}
+
+.single-employee .ssn {
+  color: var(--primary-900);
+  font-weight: 600;
+}
+
+.single-employee .card-number {
+  color: var(--primary-900);
+  font-size: 1.15rem;
+  font-weight: 600;
+  background: var(--light-gold);
+  border: 2px solid var(--primary-500);
+  border-radius: var(--borderRadius);
+  padding: 0;
+}
+
+.single-employee .label {
+  font-weight: 600;
+}
+
+.single-employee:hover .item-icons {
+  opacity: 1;
+}
+
+.employee-img {
+  max-width: 140px;
+  border-radius: 10px;
+  border-right: 8px solid var(--green-lime);
+  border-left: 8px solid var(--green-lime);
+}

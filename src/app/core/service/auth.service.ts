@@ -86,6 +86,7 @@ export class AuthService {
       observer.next();
     }).pipe(
       switchMap(() => this.getLoggedInUserInfo()),
+      delay(2000),
       catchError((error) => {
         return throwError(() => new Error(error));
       })

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent {
-  employees = [1];
+  employees = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 }
