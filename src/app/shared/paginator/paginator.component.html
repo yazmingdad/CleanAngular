@@ -1,0 +1,19 @@
+<div class="paginator">
+  <button type="button" class="prev-btn" (click)="onPrev()">
+    <i class="fas fa-arrow-left fa-2x"></i>
+  </button>
+  <div class="pages-btns-container">
+    <button
+      *ngFor="let page of pageOptions"
+      type="button"
+      class="btn page-btn"
+      [ngClass]="{ selected: page === frame.currentPage }"
+      (click)="onGetPage(page)"
+    >
+      {{ page }}
+    </button>
+  </div>
+  <button type="button" class="next-btn" (click)="onNext()">
+    <i class="fas fa-arrow-right fa-2x"></i>
+  </button>
+</div>

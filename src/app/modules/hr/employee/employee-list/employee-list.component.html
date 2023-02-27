@@ -1,5 +1,5 @@
-<div><h4>Search bar</h4></div>
+<app-searcher></app-searcher>
 <div class="employee-list">
   <app-employee *ngFor="let i of employees"></app-employee>
 </div>
-<div><h4>Pagination</h4></div>
+<app-paginator [numberOfPages]="numberOfPages"></app-paginator>

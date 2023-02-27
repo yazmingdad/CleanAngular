@@ -7,10 +7,12 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { faPowerOff, faLock } from '@fortawesome/free-solid-svg-icons';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { SearcherComponent } from './searcher/searcher.component';
 @NgModule({
-  declarations: [InputComponent],
+  declarations: [InputComponent, PaginatorComponent, SearcherComponent],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
-  exports: [InputComponent],
+  exports: [InputComponent, SearcherComponent, PaginatorComponent],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {
