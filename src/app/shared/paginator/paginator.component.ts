@@ -57,7 +57,7 @@ export class PaginatorComponent {
     this.getPage.emit(page - 1);
   }
 
-  onPrev() {
+  prev() {
     let { currentPage, firstPage, lastPage } = this.frame;
 
     if (firstPage > 1) {
@@ -69,10 +69,11 @@ export class PaginatorComponent {
 
       this.frame = { currentPage, firstPage, lastPage };
       this.getOptions();
+      this.getPage.emit(currentPage - 1);
     }
   }
 
-  onNext() {
+  next() {
     let { currentPage, firstPage, lastPage } = this.frame;
 
     if (lastPage < this.numberOfPages) {
@@ -83,6 +84,7 @@ export class PaginatorComponent {
       currentPage++;
       this.frame = { currentPage, firstPage, lastPage };
       this.getOptions();
+      this.getPage.emit(currentPage - 1);
     }
   }
 }

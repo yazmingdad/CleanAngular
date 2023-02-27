@@ -1,5 +1,11 @@
-<app-searcher></app-searcher>
+<app-searcher (search)="search($event)"></app-searcher>
 <div class="employee-list">
-  <app-employee *ngFor="let i of employees"></app-employee>
+  <app-employee
+    *ngFor="let employee of employees"
+    [employee]="employee"
+  ></app-employee>
 </div>
-<app-paginator [numberOfPages]="numberOfPages"></app-paginator>
+<app-paginator
+  [numberOfPages]="numberOfPages"
+  (getPage)="getPage($event)"
+></app-paginator>

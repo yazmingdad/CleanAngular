@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Employee } from 'src/app/data/schema/employee';
+import { HRService } from 'src/app/data/service/hr.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -6,6 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent {
-  employees = [1, 2, 3, 4, 5, 6];
+  employees: Employee[];
   numberOfPages = 15;
+
+  constructor(private hrService: HRService) {
+    this.employees = hrService.getEmployeeAll();
+    console.log(this.employees);
+  }
+
+  search(event: string) {
+    console.log('search', event);
+  }
+  getPage(event: number) {
+    console.log('getPage', event);
+  }
 }

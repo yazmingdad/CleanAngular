@@ -57,6 +57,7 @@ body {
   --orange-medium: #ffac1c;
   --gold: #c59d5f;
   --light-gold: #fbe492;
+  --light-gold-rgba-color: 251, 228, 146, 0.5;
   --lighter-gold: #fbf5e0;
   --light-blue-gray: #d0d8e2;
 
@@ -874,13 +875,17 @@ Single Employee
 }
 
 .single-employee .card-number {
-  color: var(--primary-900);
   font-size: 1.15rem;
   font-weight: 600;
-  background: var(--light-gold);
-  border: 2px solid var(--primary-500);
+  background: rgba(var(--light-gold-rgba-color));
+  border-top: 2px solid var(--primary-500);
+  border-bottom: 2px solid var(--primary-500);
   border-radius: var(--borderRadius);
   padding: 0;
+}
+
+.single-employee .card-number :not(.label) {
+  color: var(--primary-900);
 }
 
 .single-employee .label {
