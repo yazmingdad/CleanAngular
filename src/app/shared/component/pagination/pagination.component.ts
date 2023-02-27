@@ -13,11 +13,11 @@ interface PageFrame {
 }
 
 @Component({
-  selector: 'app-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.css'],
+  selector: 'app-pagination',
+  templateUrl: './pagination.component.html',
+  styleUrls: ['./pagination.component.css'],
 })
-export class PaginatorComponent {
+export class PaginationComponent {
   @Input()
   numberOfPages: number;
 
