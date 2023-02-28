@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError, EMPTY } from 'rxjs';
 import { catchError, delay, switchMap, tap } from 'rxjs/operators';
 import { tokenEndpoint, userEndpoint } from '../constants/endpoints';
+import { NotificationsService } from './notifications.service';
 
 export interface LoggedInUser {
   id: number;
@@ -27,7 +28,10 @@ interface AuthenticatedUser {
 })
 export class AuthService {
   loggedIn$ = new BehaviorSubject<LoggedInUser | null>(null); // Observable
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationsService
+  ) {}
 
   authenticate(credentials: UserCredentials) {
     const { username, password } = credentials;
@@ -60,10 +64,12 @@ export class AuthService {
     return this.http.get<LoggedInUser>(userEndpoint).pipe(
       tap((loggedInUser) => {
         this.loggedIn$.next(loggedInUser);
+        this.notificationService.addSuccess(`Welcome ${loggedInUser.username}`);
       }),
       catchError(() => {
         localStorage.clear();
         this.loggedIn$.next(null);
+        this.notificationService.addError('Failed Log in');
         return throwError(() => new Error('Cannot retrieve user info'));
       })
     );

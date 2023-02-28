@@ -1,0 +1,11 @@
+<div
+  *ngFor="let message of messages"
+  class="alert alert-dismissible"
+  [ngClass]="{
+    'alert-success': message.type === 'success',
+    'alert-danger': message.type === 'error'
+  }"
+>
+  {{ message.text }}
+  <button class="btn-close" (click)="clearMessage(message.id)"></button>
+</div>

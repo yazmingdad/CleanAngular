@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, merge } from 'rxjs';
+import { Observable, Subject, merge, throwError } from 'rxjs';
 
-import { switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
 import { Employee } from '../../schema/employee';
 import { employees } from '../fake.data';
@@ -22,13 +23,19 @@ export class EmployeeService {
     return this.paginator.output$;
   }
 
-  constructor() {}
+  constructor(private notificationService: NotificationsService) {}
 
   private getAll(isRetired: boolean = false) {
     return new Observable<Employee[]>((observer) => {
       observer.next(employees.filter((e) => !e.isRetired));
       observer.complete();
-    });
+    }).pipe(
+      tap(() => this.notificationService.addSuccess('Fetching Employees done')),
+      catchError((err) => {
+        this.notificationService.addError('Fetching Employees failed');
+        return throwError(() => new Error('Fetching Employees failed'));
+      })
+    );
   }
 
   private getPageSize() {
