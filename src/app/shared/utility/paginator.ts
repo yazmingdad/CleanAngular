@@ -20,22 +20,22 @@ export class Paginator<T> {
     this.list$ = new Subject();
 
     this.output$ = merge(
-      // this.list$.pipe(switchMap((setup) => this.paginate(setup))),
-      this.list$.pipe(map((setup) => this.paginated(setup))),
+      this.list$.pipe(switchMap((setup) => this.paginate(setup))),
+      //this.list$.pipe(map((setup) => this.paginated(setup))),
       this.input$.pipe(map((page) => this.pages[page]))
     );
   }
 
-  private paginated(setup: PaginationSetup<T>) {
-    const { list, pageSize } = setup;
-    const numberOfPages = Math.ceil(list.length / pageSize);
-    this.pages = Array.from({ length: numberOfPages }, (_, index) => {
-      const start = index * pageSize;
-      return list.slice(start, start + pageSize);
-    });
-    this.numberOfPages$.next(numberOfPages);
-    return this.pages[0];
-  }
+  // private paginated(setup: PaginationSetup<T>) {
+  //   const { list, pageSize } = setup;
+  //   const numberOfPages = Math.ceil(list.length / pageSize);
+  //   this.pages = Array.from({ length: numberOfPages }, (_, index) => {
+  //     const start = index * pageSize;
+  //     return list.slice(start, start + pageSize);
+  //   });
+  //   this.numberOfPages$.next(numberOfPages);
+  //   return this.pages[0];
+  // }
 
   private paginate(setup: PaginationSetup<T>) {
     return new Observable<T[]>((observer) => {

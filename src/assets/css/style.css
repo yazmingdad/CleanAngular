@@ -90,6 +90,8 @@ body {
   --fixed-width: 600px;
   --navbar-thick: 7.5rem;
   --navbar-thin: 4rem;
+  --message-img-height: 10rem;
+  --message-img-width: 5rem;
 }
 
 body {
@@ -798,6 +800,22 @@ Sidebar
 
 /*
 =============== 
+Not Found
+===============
+*/
+
+.not-found {
+  display: flex;
+  place-items: center;
+}
+
+.warning-img {
+  height: var(--message-img-height);
+  width: var(--message-img-width);
+}
+
+/*
+=============== 
 Employee list
 ===============
 */
@@ -812,6 +830,12 @@ Employee list
 
   width: 100%;
   margin: 0 auto;
+}
+
+.employee-list.no-element {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  place-items: center;
 }
 
 @media screen and (min-width: 1170px) {

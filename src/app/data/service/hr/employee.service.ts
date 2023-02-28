@@ -54,5 +54,20 @@ export class EmployeeService {
     this.paginator.getPage(page);
   }
 
-  search(query: string) {}
+  search(query: string) {
+    query = query.toLowerCase();
+    const list = this.employees.filter(
+      (e) =>
+        e.fullName.toLowerCase().includes(query) ||
+        e.department.toLowerCase().includes(query) ||
+        e.rank.toLowerCase().includes(query) ||
+        e.cardNumber.toLowerCase().includes(query) ||
+        e.ssn.toLowerCase().includes(query)
+    );
+
+    this.paginator.setup({
+      list,
+      pageSize: this.getPageSize(),
+    });
+  }
 }

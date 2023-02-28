@@ -11,6 +11,10 @@ export class EmployeeListComponent {
   employees: Employee[];
   numberOfPages: number;
 
+  get notFound() {
+    return !this.employees || this.employees.length === 0;
+  }
+
   constructor(private employeeService: EmployeeService) {
     this.employeeService.page$.subscribe({
       next: (employees) => {
@@ -31,10 +35,9 @@ export class EmployeeListComponent {
   }
 
   search(event: string) {
-    console.log('search', event);
+    this.employeeService.search(event);
   }
   getPage(event: number) {
-    console.log('getPage', event);
     this.employeeService.getPage(event);
   }
 }
