@@ -27,7 +27,7 @@ export class EmployeeListComponent {
   }
 
   ngOnInit() {
-    this.employeeService.getPage(1);
+    this.employeeService.refresh();
   }
 
   search(event: string) {
@@ -35,5 +35,6 @@ export class EmployeeListComponent {
   }
   getPage(event: number) {
     console.log('getPage', event);
+    this.employeeService.getPage(event);
   }
 }

@@ -60,31 +60,48 @@ export class PaginationComponent {
   prev() {
     let { currentPage, firstPage, lastPage } = this.frame;
 
-    if (firstPage > 1) {
-      if (currentPage === firstPage) {
+    if (currentPage === 1 && firstPage === 1) {
+      return;
+    }
+
+    if (currentPage > firstPage) {
+      currentPage--;
+    }
+
+    if (currentPage === firstPage) {
+      if (firstPage > 1) {
         firstPage--;
         lastPage--;
+        currentPage--;
       }
-      currentPage--;
-
-      this.frame = { currentPage, firstPage, lastPage };
-      this.getOptions();
-      this.getPage.emit(currentPage - 1);
     }
+
+    this.frame = { currentPage, firstPage, lastPage };
+    this.getOptions();
+    this.getPage.emit(currentPage - 1);
   }
 
   next() {
     let { currentPage, firstPage, lastPage } = this.frame;
 
-    if (lastPage < this.numberOfPages) {
-      if (currentPage === lastPage) {
+    if (currentPage === lastPage && lastPage === this.numberOfPages) {
+      return;
+    }
+
+    if (currentPage < lastPage) {
+      currentPage++;
+    }
+
+    if (currentPage === lastPage) {
+      if (lastPage < this.numberOfPages) {
         firstPage++;
         lastPage++;
+        currentPage++;
       }
-      currentPage++;
-      this.frame = { currentPage, firstPage, lastPage };
-      this.getOptions();
-      this.getPage.emit(currentPage - 1);
     }
+
+    this.frame = { currentPage, firstPage, lastPage };
+    this.getOptions();
+    this.getPage.emit(currentPage - 1);
   }
 }

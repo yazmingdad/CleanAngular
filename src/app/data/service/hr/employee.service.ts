@@ -22,7 +22,23 @@ export class EmployeeService {
     return this.paginator.output$;
   }
 
-  constructor() {
+  constructor() {}
+
+  private getAll(isRetired: boolean = false) {
+    return new Observable<Employee[]>((observer) => {
+      observer.next(employees.filter((e) => !e.isRetired));
+      observer.complete();
+    });
+  }
+
+  private getPageSize() {
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      return 6;
+    }
+    return 2;
+  }
+
+  refresh() {
     this.getAll().subscribe({
       next: (employees) => {
         this.employees = employees;
@@ -32,21 +48,6 @@ export class EmployeeService {
         });
       },
     });
-  }
-
-  private getAll(isRetired: boolean = false) {
-    return new Observable<Employee[]>((observer) => {
-      observer.next(
-        employees.filter((e) => !e.isRetired).filter((e, index) => index < 6)
-      );
-    });
-  }
-
-  private getPageSize() {
-    if (window.matchMedia('(min-width: 1170px)').matches) {
-      return 6;
-    }
-    return 2;
   }
 
   getPage(page: number) {
