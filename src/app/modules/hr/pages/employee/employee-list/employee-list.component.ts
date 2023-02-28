@@ -9,11 +9,25 @@ import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 })
 export class EmployeeListComponent {
   employees: Employee[];
-  numberOfPages = 15;
+  numberOfPages: number;
 
   constructor(private employeeService: EmployeeService) {
-    this.employees = employeeService.getAll();
-    console.log(this.employees);
+    this.employeeService.page$.subscribe({
+      next: (employees) => {
+        this.employees = employees;
+      },
+      error: () => {},
+    });
+    this.employeeService.numberOfPages$.subscribe({
+      next: (value) => {
+        this.numberOfPages = value;
+      },
+      error: () => {},
+    });
+  }
+
+  ngOnInit() {
+    this.employeeService.getPage(1);
   }
 
   search(event: string) {

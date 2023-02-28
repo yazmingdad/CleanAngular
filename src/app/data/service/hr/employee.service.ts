@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, merge } from 'rxjs';
 
 import { switchMap, tap } from 'rxjs/operators';
+import { Paginator } from 'src/app/shared/utility/paginator';
 import { Employee } from '../../schema/employee';
 import { employees } from '../fake.data';
 
@@ -9,50 +10,47 @@ import { employees } from '../fake.data';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private pagesInput: Subject<number>;
-  private searchInput: Subject<string>;
+  private paginator = new Paginator<Employee>();
+
+  private employees: Employee[] = [];
+
+  get numberOfPages$() {
+    return this.paginator.numberOfPages$;
+  }
+
+  get page$() {
+    return this.paginator.output$;
+  }
 
   constructor() {
-    // this.pagesInput = new Subject();
-    // this.searchInput = new Subject();
-    // this.numberOfPages = new Subject();
-    // this.pagesOutput = merge(
-    //   this.pagesInput.pipe(switchMap((value) => this.paginator.getPage(value))),
-    //   this.searchInput.pipe(
-    //     tap((query) => {
-    //       this.paginator.refresh(this.filter(query));
-    //     })
-    //   )
-    // );
-    // .pipe(
-    //   switchMap((params) => {
-    //     return this.http.get<NewsApiResponse>(this.url, { params });
-    //   }),
-    //   tap((response) => {
-    //     const totalPages = Math.ceil(response.totalResults / this.pageSize);
-    //     this.numberOfPages.next(totalPages);
-    //   }),
-    //   pluck('articles')
-    // );
+    this.getAll().subscribe({
+      next: (employees) => {
+        this.employees = employees;
+        this.paginator.setup({
+          list: employees,
+          pageSize: this.getPageSize(),
+        });
+      },
+    });
   }
 
-  filter(query: string) {
-    // return this.paginator.list.filter(
-    //   (e) =>
-    //     e.fullName.includes(query) ||
-    //     e.department.includes(query) ||
-    //     e.rank.includes(query)
-    // );
+  private getAll(isRetired: boolean = false) {
+    return new Observable<Employee[]>((observer) => {
+      observer.next(
+        employees.filter((e) => !e.isRetired).filter((e, index) => index < 6)
+      );
+    });
   }
 
-  getAll(isRetired: boolean = false): Employee[] {
-    return employees
-      .filter((e) => !e.isRetired)
-      .filter((e, index) => index < 6);
+  private getPageSize() {
+    if (window.matchMedia('(min-width: 1170px)').matches) {
+      return 6;
+    }
+    return 2;
   }
 
   getPage(page: number) {
-    this.pagesInput.next(page);
+    this.paginator.getPage(page);
   }
 
   search(query: string) {}
