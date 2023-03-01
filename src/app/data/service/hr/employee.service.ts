@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, merge, throwError } from 'rxjs';
-
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
 import { Employee } from '../../schema/employee';
 import { employees } from '../fake.data';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class EmployeeService {
   private paginator = new Paginator<Employee>();
 
@@ -20,10 +17,12 @@ export class EmployeeService {
   }
 
   get page$() {
-    return this.paginator.output$;
+    return this.paginator.page$;
   }
 
-  constructor(private notificationService: NotificationsService) {}
+  constructor(private notificationService: NotificationsService) {
+    console.log('new instance');
+  }
 
   private getAll(isRetired: boolean = false) {
     return new Observable<Employee[]>((observer) => {
@@ -38,27 +37,25 @@ export class EmployeeService {
     );
   }
 
-  private getPageSize() {
-    if (window.matchMedia('(min-width: 768px)').matches) {
-      return 6;
-    }
-    return 2;
+  private setList(list: Employee[]) {
+    this.paginator.list = list;
   }
 
-  refresh() {
-    this.getAll().subscribe({
-      next: (employees) => {
-        this.employees = employees;
-        this.paginator.setup({
-          list: employees,
-          pageSize: this.getPageSize(),
-        });
-      },
-    });
+  setPageSize(pageSize: number) {
+    this.paginator.pageSize = pageSize;
   }
 
   getPage(page: number) {
     this.paginator.getPage(page);
+  }
+
+  load() {
+    this.getAll().subscribe({
+      next: (employees) => {
+        this.employees = employees;
+        this.setList(employees);
+      },
+    });
   }
 
   search(query: string) {
@@ -71,10 +68,6 @@ export class EmployeeService {
         e.cardNumber.toLowerCase().includes(query) ||
         e.ssn.toLowerCase().includes(query)
     );
-
-    this.paginator.setup({
-      list,
-      pageSize: this.getPageSize(),
-    });
+    this.setList(list);
   }
 }
