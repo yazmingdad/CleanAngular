@@ -4,10 +4,5 @@
   <div class="section-center">
     <router-outlet></router-outlet>
   </div>
+  <app-notification-list></app-notification-list>
 </div>
-<div
-  (click)="showMenu = !showMenu"
-  class="overlay"
-  [ngClass]="{ show: showMenu }"
-></div>
-<app-notification-list></app-notification-list>

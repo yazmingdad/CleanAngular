@@ -10,12 +10,17 @@ import { faPowerOff, faLock } from '@fortawesome/free-solid-svg-icons';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { SearchComponent } from './component/search/search.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
+import { ModalComponent } from './component/modal/modal.component';
+import { OverlayComponent } from './component/overlay/overlay.component';
+
 @NgModule({
   declarations: [
     InputComponent,
     SearchComponent,
     PaginationComponent,
     NotFoundComponent,
+    ModalComponent,
+    OverlayComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   exports: [
@@ -23,6 +28,7 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
     SearchComponent,
     PaginationComponent,
     NotFoundComponent,
+    OverlayComponent,
   ],
 })
 export class SharedModule {

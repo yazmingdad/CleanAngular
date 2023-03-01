@@ -103,6 +103,7 @@ body {
 }
 
 .main-container {
+  position: relative;
   height: calc(100vh - var(--navbar-thick));
   background: var(--white);
   max-width: var(--max-width);
@@ -721,7 +722,7 @@ Sidebar
 .overlay {
   position: fixed;
   top: var(--navbar-thick);
-  width: 100%;
+  width: var(--max-width);
   height: 100%;
   background: var(--grey-overlay);
   display: grid;
