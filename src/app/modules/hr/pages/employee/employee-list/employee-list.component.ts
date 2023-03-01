@@ -9,7 +9,7 @@ import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 })
 export class EmployeeListComponent {
   employees: Employee[];
-  numberOfPages: number;
+  numberOfPages: { value: number };
 
   get notFound() {
     return !this.employees || this.employees.length === 0;
@@ -24,7 +24,7 @@ export class EmployeeListComponent {
     });
     this.employeeService.numberOfPages$.subscribe({
       next: (value) => {
-        this.numberOfPages = value;
+        this.numberOfPages = { value };
       },
       error: () => {},
     });

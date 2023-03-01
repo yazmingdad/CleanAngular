@@ -19,7 +19,7 @@ interface PageFrame {
 })
 export class PaginationComponent {
   @Input()
-  numberOfPages: number;
+  numberOfPages: { value: number };
 
   @Output()
   getPage = new EventEmitter<number>();
@@ -40,7 +40,7 @@ export class PaginationComponent {
     this.frame = {
       currentPage: 1,
       firstPage: 1,
-      lastPage: Math.min(this.numberOfPages, 5),
+      lastPage: Math.min(this.numberOfPages.value, 5),
     };
     this.getOptions();
   }
@@ -84,7 +84,7 @@ export class PaginationComponent {
   next() {
     let { currentPage, firstPage, lastPage } = this.frame;
 
-    if (currentPage === lastPage && lastPage === this.numberOfPages) {
+    if (currentPage === lastPage && lastPage === this.numberOfPages.value) {
       return;
     }
 
@@ -93,7 +93,7 @@ export class PaginationComponent {
     }
 
     if (currentPage === lastPage) {
-      if (lastPage < this.numberOfPages) {
+      if (lastPage < this.numberOfPages.value) {
         firstPage++;
         lastPage++;
         currentPage++;
