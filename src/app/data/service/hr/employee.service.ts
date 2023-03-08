@@ -3,8 +3,10 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
-import { Employee } from '../../schema/employee';
+import { Employee, EmployeeResponse } from '../../schema/employee';
 import { employees } from '../fake.data';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { employeeGetAll } from 'src/app/core/constants/endpoints';
 
 @Injectable()
 export class EmployeeService {
@@ -20,8 +22,16 @@ export class EmployeeService {
     return this.paginator.page$;
   }
 
-  constructor(private notificationService: NotificationsService) {
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationsService
+  ) {
     console.log('new instance');
+  }
+
+  private getEmployees(isRetired: boolean = false) {
+    const params = new HttpParams().set('isRetired', isRetired);
+    return this.http.get<EmployeeResponse[]>(employeeGetAll, { params });
   }
 
   private getAll(isRetired: boolean = false) {

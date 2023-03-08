@@ -54,4 +54,10 @@
     </li>
   </ul>
 </aside>
-<app-overlay [show]="showMenu"> </app-overlay>
+<div class="overlay" [ngClass]="{ show: showMenu }">
+  <div class="modal">
+    <div class="modal-header"></div>
+    <div class="modal-content"></div>
+    <div class="modal-footer"></div>
+  </div>
+</div>

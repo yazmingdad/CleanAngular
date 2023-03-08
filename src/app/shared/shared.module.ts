@@ -11,7 +11,6 @@ import { PaginationComponent } from './component/pagination/pagination.component
 import { SearchComponent } from './component/search/search.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { ModalComponent } from './component/modal/modal.component';
-import { OverlayComponent } from './component/overlay/overlay.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { OverlayComponent } from './component/overlay/overlay.component';
     PaginationComponent,
     NotFoundComponent,
     ModalComponent,
-    OverlayComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   exports: [
@@ -28,7 +26,6 @@ import { OverlayComponent } from './component/overlay/overlay.component';
     SearchComponent,
     PaginationComponent,
     NotFoundComponent,
-    OverlayComponent,
   ],
 })
 export class SharedModule {
