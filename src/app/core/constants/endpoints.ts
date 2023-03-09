@@ -4,4 +4,4 @@ export const userEndpoint = `${rootUrl}/api/User`;
 
 const collectorUrl = 'https://localhost:7083';
 
-export const employeeGetAll = `${collectorUrl}/Employee`;
+export const employeeGetAll = `${collectorUrl}/api/Employee`;

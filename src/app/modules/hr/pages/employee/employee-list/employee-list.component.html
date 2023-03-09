@@ -1,18 +1,23 @@
-<app-search (search)="search($event)"></app-search>
+<app-search title="Add New Employee" (search)="search($event)">
+  <app-employee-create></app-employee-create>
+</app-search>
+
 <div class="employee-list" [ngClass]="{ 'no-element': notFound }">
-  <ng-container *ngIf="!notFound; else elseNotFound">
+  <ng-container *ngIf="!notFound && !isLoading; else elseNotFoundOrLoading">
     <app-employee
       *ngFor="let employee of employees"
       [employee]="employee"
     ></app-employee>
   </ng-container>
-  <ng-template #elseNotFound>
+  <ng-template #elseNotFoundOrLoading>
+    <app-spinner *ngIf="isLoading"></app-spinner>
     <app-not-found
-      *ngIf="notFound"
+      *ngIf="notFound && !isLoading"
       message="sorry no employee was found"
     ></app-not-found>
   </ng-template>
 </div>
+
 <app-pagination
   [numberOfPages]="numberOfPages"
   (getPage)="getPage($event)"

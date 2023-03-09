@@ -11,6 +11,7 @@ import { PaginationComponent } from './component/pagination/pagination.component
 import { SearchComponent } from './component/search/search.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { ModalComponent } from './component/modal/modal.component';
+import { SpinnerComponent } from './component/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ModalComponent } from './component/modal/modal.component';
     PaginationComponent,
     NotFoundComponent,
     ModalComponent,
+    SpinnerComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   exports: [
@@ -26,6 +28,8 @@ import { ModalComponent } from './component/modal/modal.component';
     SearchComponent,
     PaginationComponent,
     NotFoundComponent,
+    SpinnerComponent,
+    ModalComponent,
   ],
 })
 export class SharedModule {

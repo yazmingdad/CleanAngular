@@ -21,7 +21,12 @@ import { MenuComponent } from './layout/sidebar/menu/menu.component';
 import { NotificationListComponent } from './layout/notification-list/notification-list.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, MenuComponent, NotificationListComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    MenuComponent,
+    NotificationListComponent,
+  ],
   imports: [
     BrowserModule,
     AuthModule,

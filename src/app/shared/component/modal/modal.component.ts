@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -6,11 +12,15 @@ import { Component, Output, EventEmitter, ElementRef } from '@angular/core';
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
+  @Input() title = 'Alert';
   @Output() dismiss = new EventEmitter();
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
-    document.body.appendChild(this.el.nativeElement);
+    const container = document.querySelector('.main-container');
+    if (container) {
+      container.appendChild(this.el.nativeElement);
+    }
   }
 
   ngOnDestroy() {

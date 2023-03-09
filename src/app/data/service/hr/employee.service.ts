@@ -3,16 +3,16 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
-import { Employee, EmployeeResponse } from '../../schema/employee';
-import { employees } from '../fake.data';
+import { EmployeeCard } from '../../schema/employee';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { employeeGetAll } from 'src/app/core/constants/endpoints';
+import { Loading } from 'src/app/shared/utility/loading';
 
 @Injectable()
 export class EmployeeService {
-  private paginator = new Paginator<Employee>();
+  private paginator = new Paginator<EmployeeCard>();
 
-  private employees: Employee[] = [];
+  private employees: EmployeeCard[] = [];
 
   get numberOfPages$() {
     return this.paginator.numberOfPages$;
@@ -29,25 +29,12 @@ export class EmployeeService {
     console.log('new instance');
   }
 
-  private getEmployees(isRetired: boolean = false) {
-    const params = new HttpParams().set('isRetired', isRetired);
-    return this.http.get<EmployeeResponse[]>(employeeGetAll, { params });
-  }
-
   private getAll(isRetired: boolean = false) {
-    return new Observable<Employee[]>((observer) => {
-      observer.next(employees.filter((e) => !e.isRetired));
-      observer.complete();
-    }).pipe(
-      tap(() => this.notificationService.addSuccess('Fetching Employees done')),
-      catchError((err) => {
-        this.notificationService.addError('Fetching Employees failed');
-        return throwError(() => new Error('Fetching Employees failed'));
-      })
-    );
+    const params = new HttpParams().set('isRetired', isRetired);
+    return this.http.get<EmployeeCard[]>(employeeGetAll, { params });
   }
 
-  private setList(list: Employee[]) {
+  private setList(list: EmployeeCard[]) {
     this.paginator.list = list;
   }
 
@@ -73,9 +60,9 @@ export class EmployeeService {
     const list = this.employees.filter(
       (e) =>
         e.fullName.toLowerCase().includes(query) ||
-        e.department.toLowerCase().includes(query) ||
-        e.rank.toLowerCase().includes(query) ||
-        e.cardNumber.toLowerCase().includes(query) ||
+        e.department.name.toLowerCase().includes(query) ||
+        e.rank.name.toLowerCase().includes(query) ||
+        e.activeCard?.number.toLowerCase().includes(query) ||
         e.ssn.toLowerCase().includes(query)
     );
     this.setList(list);

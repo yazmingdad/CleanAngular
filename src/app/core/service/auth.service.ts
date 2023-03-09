@@ -11,6 +11,7 @@ export interface LoggedInUser {
   roleNames: string[];
   isFirstLogin: boolean;
   isDown: boolean;
+  avatar: string;
 }
 
 export interface UserCredentials {

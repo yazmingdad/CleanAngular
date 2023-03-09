@@ -6,6 +6,7 @@ import { EmployeeListComponent } from './pages/employee/employee-list/employee-l
 import { EmployeeComponent } from './pages/employee/employee/employee.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EmployeeFormComponent } from './pages/employee/employee-form/employee-form.component';
+import { EmployeeCreateComponent } from './pages/employee/employee-create/employee-create.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { EmployeeFormComponent } from './pages/employee/employee-form/employee-f
     EmployeeListComponent,
     EmployeeComponent,
     EmployeeFormComponent,
+    EmployeeCreateComponent,
   ],
   imports: [CommonModule, HRRoutingModule, SharedModule],
 })

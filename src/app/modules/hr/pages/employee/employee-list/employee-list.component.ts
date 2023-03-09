@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Employee } from 'src/app/data/schema/employee';
+import { EmployeeCard } from 'src/app/data/schema/employee';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { media } from 'src/app/shared/utility/media';
 
@@ -16,7 +16,8 @@ export class EmployeeListComponent {
     lg$: media(`(min-width: 1200px)`),
   };
 
-  employees: Employee[];
+  isLoading = true;
+  employees: EmployeeCard[];
   numberOfPages: { value: number };
 
   get notFound() {
@@ -36,6 +37,7 @@ export class EmployeeListComponent {
 
     this.employeeService.page$.subscribe({
       next: (employees) => {
+        this.isLoading = false;
         this.employees = employees;
       },
       error: () => {},

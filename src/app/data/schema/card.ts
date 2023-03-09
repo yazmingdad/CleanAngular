@@ -1,5 +1,5 @@
 export interface Card {
   id: number;
-  number: number;
+  number: string;
   employeeId: number;
 }

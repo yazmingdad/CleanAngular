@@ -13,12 +13,11 @@ export interface Employee {
   isRetired: boolean;
 }
 
-export interface EmployeeResponse {
+export interface EmployeeCard {
   id: string;
   fullName: string;
   ssn: string;
   avatar: string;
-  isRetired: boolean;
   rank: Rank;
   activeCard: Card;
   department: Department;
