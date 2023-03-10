@@ -39,6 +39,7 @@ export class EmployeeListComponent {
       next: (employees) => {
         this.isLoading = false;
         this.employees = employees;
+        console.log('employees', employees);
       },
       error: () => {},
     });

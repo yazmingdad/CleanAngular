@@ -12,6 +12,8 @@ import { SearchComponent } from './component/search/search.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { ModalComponent } from './component/modal/modal.component';
 import { SpinnerComponent } from './component/spinner/spinner.component';
+import { SelectComponent } from './component/select/select.component';
+import { InputFileComponent } from './component/input-file/input-file.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,14 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
     NotFoundComponent,
     ModalComponent,
     SpinnerComponent,
+    SelectComponent,
+    InputFileComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   exports: [
     InputComponent,
+    InputFileComponent,
+    SelectComponent,
     SearchComponent,
     PaginationComponent,
     NotFoundComponent,

@@ -1,0 +1,18 @@
+<div class="form-row">
+  <div class="form-label">
+    <label [ngClass]="{ 'form-alert': showErrors() }">{{ label }}</label>
+    <ng-container *ngIf="showErrors()" class="error">
+      <div class="input-errors">
+        <small *ngIf="control.errors?.['required']" class="form-alert"
+          >required</small
+        >
+      </div>
+    </ng-container>
+  </div>
+
+  <select [formControl]="control" class="form-input">
+    <option *ngFor="let option of options" [ngValue]="option.id">
+      {{ option.value }}
+    </option>
+  </select>
+</div>

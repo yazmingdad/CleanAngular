@@ -1,1 +1,66 @@
-<p>employee-form works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="employeeForm">
+  <!-- <div class="employee-form">
+    <div class="employee-form-input"> -->
+
+  <app-input
+    inputType="text"
+    label="First Name"
+    [control]="getControl('firstName')"
+  ></app-input>
+  <app-input
+    inputType="text"
+    label="Last Name"
+    [control]="getControl('lastName')"
+  ></app-input>
+  <app-input
+    inputType="text"
+    format="000-00-0000"
+    label="SSN"
+    [control]="getControl('ssn')"
+  ></app-input>
+  <app-input
+    inputType="text"
+    format="0000 0000 0000 0000"
+    label="New Card"
+    [control]="getControl('cardNumber')"
+  ></app-input>
+  <app-input
+    inputType="text"
+    label="Confirm New Card"
+    [control]="getControl('confirmCardNumber')"
+  ></app-input>
+
+  <!-- </div> -->
+  <!-- <div class="employee-form-select"> -->
+  <app-select
+    [options]="ranks"
+    label="Rank"
+    [control]="getControl('rankId')"
+  ></app-select>
+  <app-select
+    [options]="ranks"
+    label="Department"
+    [control]="getControl('departmentId')"
+  ></app-select>
+  <app-select
+    *ngIf="!isCreateForm"
+    [options]="ranks"
+    label="Card"
+    [control]="getControl('activeCardId')"
+  ></app-select>
+  <!-- </div>
+  </div> -->
+
+  <app-input-file></app-input-file>
+
+  <div *ngIf="employeeForm.errors" class="text-danger">
+    <p *ngIf="employeeForm.errors['credentials']">
+      Invalid username or password
+    </p>
+    <p *ngIf="employeeForm.errors?.['unknownError']">
+      Failed to sign up,try later
+    </p>
+  </div>
+
+  <button type="submit" class="btn btn-block">Add New Employee</button>
+</form>

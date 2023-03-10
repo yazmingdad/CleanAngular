@@ -1,0 +1,9 @@
+<div class="input-file">
+  <img src="assets/images/no-image.png" alt="" class="input-file-img" />
+  <label for="file">Avatar</label>
+  <input
+    type="file"
+    (change)="onFileSelected($any($event.target).files)"
+    #fileUpload
+  />
+</div>

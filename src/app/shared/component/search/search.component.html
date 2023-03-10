@@ -11,5 +11,6 @@
   </button>
   <app-modal [title]="title" (dismiss)="showModal = false" *ngIf="showModal">
     <ng-content></ng-content>
+    <div modalFooter></div>
   </app-modal>
 </form>

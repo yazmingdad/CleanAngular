@@ -1,28 +1,31 @@
 <div class="form-row">
-  <label class="form-label">{{ label }}</label>
+  <div class="form-label">
+    <label [ngClass]="{ 'form-alert': showErrors() }">{{ label }}</label>
+    <ng-container *ngIf="showErrors()" class="error">
+      <div class="input-errors">
+        <small *ngIf="control.errors?.['required']" class="form-alert"
+          >required</small
+        >
+        <small *ngIf="control.errors?.['minlength']" class="form-alert">
+          minimum length is
+          {{control.errors?.['minlength'].requiredLength}} characters
+        </small>
+        <small *ngIf="control.errors?.['maxlength']" class="form-alert">
+          maximum length is
+          {{control.errors?.['maxlength'].requiredLength}} characters
+        </small>
+        <small *ngIf="control.errors?.['pattern']" class="form-alert"
+          >required format is {{ format }}</small
+        >
+        <small *ngIf="control.errors?.['nonUniqueUsername']" class="form-alert"
+          >Username is taken</small
+        >
+        <small *ngIf="control.errors?.['noConnection']" class="form-alert"
+          >No internet connection</small
+        >
+      </div>
+    </ng-container>
+  </div>
+
   <input [type]="inputType" [formControl]="control" class="form-input" />
-  <ng-container *ngIf="showErrors()" class="error">
-    <small *ngIf="control.errors?.['required']" class="form-alert"
-      >Value is required</small
-    >
-    <small *ngIf="control.errors?.['minlength']" class="form-alert">
-      Value you entered is
-      {{control.errors?.['minlength'].actualLength}} charaters long, but it must
-      be at least {{control.errors?.['minlength'].requiredLength}}}
-    </small>
-    <small *ngIf="control.errors?.['maxlength']" class="form-alert">
-      Value you entered is
-      {{control.errors?.['maxlength'].actualLength}} charaters long, but it
-      cannot be longer than {{control.errors?.['maxlength'].requiredLength}}}
-    </small>
-    <small *ngIf="control.errors?.['pattern']" class="form-alert"
-      >Invalid format</small
-    >
-    <small *ngIf="control.errors?.['nonUniqueUsername']" class="form-alert"
-      >Username is taken</small
-    >
-    <small *ngIf="control.errors?.['noConnection']" class="form-alert"
-      >No internet connection</small
-    >
-  </ng-container>
 </div>

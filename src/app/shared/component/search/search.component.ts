@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SearchComponent {
   showModal = false;
-  @Input() title = 'Add New';
+  @Input() title = '';
   @Output() search = new EventEmitter<string>();
 
   onSearch(value: string) {

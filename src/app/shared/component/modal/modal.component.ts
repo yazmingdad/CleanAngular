@@ -12,7 +12,7 @@ import {
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
-  @Input() title = 'Alert';
+  @Input() title = '';
   @Output() dismiss = new EventEmitter();
   constructor(private el: ElementRef) {}
 
