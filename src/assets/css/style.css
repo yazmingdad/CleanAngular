@@ -245,7 +245,7 @@ img:not(.logo) {
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-2);
   padding: 0.5rem 1rem;
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   transition: var(--transition);
 }
 
@@ -363,6 +363,7 @@ Input File
   display: flex;
   gap: 1rem;
   align-items: center;
+  padding-bottom: 0.25rem;
 }
 
 .input-file-img {
@@ -370,6 +371,10 @@ Input File
   height: 5rem;
   max-width: 5rem;
   border: none;
+}
+
+.input-file input {
+  display: none;
 }
 
 /*
@@ -868,7 +873,7 @@ Modal
 }
 
 .modal-content .close-btn {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   background: transparent;
   border-color: transparent;
   color: var(--red-dark);

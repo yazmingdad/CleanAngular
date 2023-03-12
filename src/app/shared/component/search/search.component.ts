@@ -8,8 +8,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class SearchComponent {
   showModal = false;
   @Input() title = '';
+  @Output() dismiss = new EventEmitter();
   @Output() search = new EventEmitter<string>();
 
+  onDismiss = () => {
+    this.showModal = false;
+    this.dismiss.emit();
+  };
   onSearch(value: string) {
     this.search.emit(value);
   }

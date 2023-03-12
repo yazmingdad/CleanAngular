@@ -1,5 +1,5 @@
-<app-search (search)="search($event)">
-  <app-employee-create></app-employee-create>
+<app-search (dismiss)="onDismiss()" (search)="search($event)">
+  <app-employee-create [reset$]="reset$"></app-employee-create>
 </app-search>
 
 <div class="employee-list" [ngClass]="{ 'no-element': notFound }">

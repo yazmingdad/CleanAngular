@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Employee } from 'src/app/data/schema/employee';
 
 @Component({
@@ -8,7 +9,17 @@ import { Employee } from 'src/app/data/schema/employee';
   styleUrls: ['./employee-form.component.css'],
 })
 export class EmployeeFormComponent {
-  @Input() employee: Employee;
+  @Input() reset$: Observable<boolean>;
+  @Input() employee: Employee = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    ssn: '',
+    rankId: 0,
+    departmentId: 0,
+    activeCardId: 0,
+    isRetired: false,
+  };
   @Output() employeeSubmit = new EventEmitter();
 
   employeeForm: FormGroup;
@@ -25,6 +36,16 @@ export class EmployeeFormComponent {
 
   ngOnInit() {
     this.initForm();
+    if (this.reset$) {
+      this.reset$.subscribe(() => {
+        console.log('change from form');
+        this.initForm();
+      });
+    }
+  }
+
+  ngOnChange() {
+    console.log('change');
   }
 
   private initForm() {
@@ -71,6 +92,10 @@ export class EmployeeFormComponent {
         'departmentId',
         new FormControl(null, [Validators.required])
       );
+      this.employeeForm.addControl(
+        'avatar',
+        new FormControl('', [Validators.required])
+      );
       return;
     }
   }
@@ -79,8 +104,9 @@ export class EmployeeFormComponent {
     return this.employeeForm.get(name) as FormControl;
   }
 
+  // requiredFileType(arg0: string): import('@angular/forms').ValidatorFn {
+  // throw new Error('Function not implemented.');
+  // }
+
   onSubmit() {}
-}
-function requiredFileType(arg0: string): import('@angular/forms').ValidatorFn {
-  throw new Error('Function not implemented.');
 }

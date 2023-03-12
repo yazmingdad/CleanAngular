@@ -1,7 +1,6 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="employeeForm">
   <!-- <div class="employee-form">
     <div class="employee-form-input"> -->
-
   <app-input
     inputType="text"
     label="First Name"
@@ -51,7 +50,10 @@
   <!-- </div>
   </div> -->
 
-  <app-input-file></app-input-file>
+  <app-input-file
+    label="Avatar"
+    [control]="getControl('avatar')"
+  ></app-input-file>
 
   <div *ngIf="employeeForm.errors" class="text-danger">
     <p *ngIf="employeeForm.errors['credentials']">

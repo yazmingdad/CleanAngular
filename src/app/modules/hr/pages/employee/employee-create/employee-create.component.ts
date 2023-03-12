@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Employee } from 'src/app/data/schema/employee';
 
 @Component({
@@ -7,15 +8,10 @@ import { Employee } from 'src/app/data/schema/employee';
   styleUrls: ['./employee-create.component.css'],
 })
 export class EmployeeCreateComponent {
-  employee: Employee = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    ssn: '',
-    rankId: 0,
-    departmentId: 0,
-    activeCardId: 0,
-    avatar: '',
-    isRetired: false,
-  };
+  @Input() reset$: Observable<boolean>;
+  ngOnInit() {}
+
+  ngOnChange() {
+    console.log('dismiss reached employee create');
+  }
 }

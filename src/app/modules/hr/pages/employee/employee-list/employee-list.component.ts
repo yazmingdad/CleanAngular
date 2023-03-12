@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 import { EmployeeCard } from 'src/app/data/schema/employee';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { media } from 'src/app/shared/utility/media';
@@ -15,6 +16,8 @@ export class EmployeeListComponent {
     md$: media(`(min-width: 768px) and (max-width: 1199px)`),
     lg$: media(`(min-width: 1200px)`),
   };
+
+  reset$ = new Subject<boolean>();
 
   isLoading = true;
   employees: EmployeeCard[];
@@ -62,4 +65,9 @@ export class EmployeeListComponent {
   getPage(event: number) {
     this.employeeService.getPage(event);
   }
+
+  onDismiss = () => {
+    console.log('dismis from employee list');
+    this.reset$.next(true);
+  };
 }

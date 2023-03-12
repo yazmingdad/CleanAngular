@@ -1,9 +1,49 @@
 <div class="input-file">
-  <img src="assets/images/no-image.png" alt="" class="input-file-img" />
-  <label for="file">Avatar</label>
-  <input
+  <img [src]="imageSrc" alt="" class="input-file-img" />
+  <!-- <input
     type="file"
     (change)="onFileSelected($any($event.target).files)"
     #fileUpload
+  /> -->
+
+  <label class="btn btn-hipster" for="files">Select Avatar</label>
+  <label for="">{{ fileName }}</label>
+  <input
+    type="file"
+    id="files"
+    (change)="onFileSelected($any($event.target).files)"
   />
+  <div *ngIf="showErrors()" class="error">
+    <small *ngIf="control.errors?.['required']" class="form-alert">.PNG</small>
+    <small *ngIf="control.errors?.['upload']" class="form-alert"
+      >Upload fail</small
+    >
+    <small *ngIf="control.errors?.['extension']" class="form-alert">
+      required extension .{{ extension | uppercase }}
+    </small>
+  </div>
 </div>
+<!-- <div class="form-row">
+  <div class="form-label">
+    <label [ngClass]="{ 'form-alert': showErrors() }">{{ label }}</label>
+    <ng-container *ngIf="showErrors()" class="error">
+      <div class="input-errors">
+        <small *ngIf="control.errors?.['upload']" class="form-alert"
+          >Upload fail</small
+        >
+        <small *ngIf="control.errors?.['extension']" class="form-alert">
+          required extension
+          {{ extension }}
+        </small>
+      </div>
+    </ng-container>
+  </div>
+  <div class="input-file">
+    <img [src]="imageSrc" alt="" class="input-file-img" />
+    <input
+      type="file"
+      (change)="onFileSelected($any($event.target).files)"
+      #fileUpload
+    />
+  </div>
+</div> -->
