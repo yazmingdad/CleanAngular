@@ -23,11 +23,11 @@
     label="New Card"
     [control]="getControl('cardNumber')"
   ></app-input>
-  <app-input
+  <!-- <app-input
     inputType="text"
     label="Confirm New Card"
     [control]="getControl('confirmCardNumber')"
-  ></app-input>
+  ></app-input> -->
 
   <!-- </div> -->
   <!-- <div class="employee-form-select"> -->
@@ -64,5 +64,7 @@
     </p>
   </div>
 
-  <button type="submit" class="btn btn-block">Add New Employee</button>
+  <button type="submit" class="btn btn-block">
+    {{ isCreateForm ? "add employee" : "update employee" }}
+  </button>
 </form>

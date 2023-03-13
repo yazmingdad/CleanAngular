@@ -10,7 +10,7 @@ export interface Employee {
   departmentId: number;
   activeCardId?: number;
   ssn: string;
-  avatar?: File;
+  avatar: string;
   isRetired: boolean;
 }
 

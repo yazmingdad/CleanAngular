@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EmployeeCard } from 'src/app/data/schema/employee';
 
 @Component({
@@ -8,4 +8,9 @@ import { EmployeeCard } from 'src/app/data/schema/employee';
 })
 export class EmployeeComponent {
   @Input() employee: EmployeeCard;
+  @Output() edit = new EventEmitter<number>();
+
+  onEdit() {
+    this.edit.emit(this.employee.id);
+  }
 }

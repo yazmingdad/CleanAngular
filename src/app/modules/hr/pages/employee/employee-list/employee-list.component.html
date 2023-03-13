@@ -1,12 +1,16 @@
-<app-search (dismiss)="onDismiss()" (search)="search($event)">
-  <app-employee-create [reset$]="reset$"></app-employee-create>
-</app-search>
+<app-modal (dismiss)="onDismiss()" *ngIf="showModal">
+  <app-employee-form [employee]="employee"></app-employee-form>
+  <div modalFooter></div>
+</app-modal>
+
+<app-search (create)="onCreate()" (search)="search($event)"></app-search>
 
 <div class="employee-list" [ngClass]="{ 'no-element': notFound }">
   <ng-container *ngIf="!notFound && !isLoading; else elseNotFoundOrLoading">
     <app-employee
       *ngFor="let employee of employees"
       [employee]="employee"
+      (edit)="onEdit($event)"
     ></app-employee>
   </ng-container>
   <ng-template #elseNotFoundOrLoading>

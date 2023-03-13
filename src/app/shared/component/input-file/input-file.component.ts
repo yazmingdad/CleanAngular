@@ -13,11 +13,11 @@ export class InputFileComponent {
   @Input() extension: string = 'png';
   @Input() control: FormControl;
 
-  fileName = 'No File';
+  fileName = 'File';
   imageSrc: string;
 
   ngOnInit() {
-    this.getImageSrc();
+    this.getImageSrc(this.control.value);
   }
 
   getImageSrc(value: string = '') {
@@ -57,6 +57,7 @@ export class InputFileComponent {
       FileHelper.getBase64(file).subscribe({
         next: (value) => {
           this.getImageSrc(value);
+          this.control.setValue(value.split(',')[1]);
           this.control.setErrors(null);
           console.log(value.split(',')[1]);
         },

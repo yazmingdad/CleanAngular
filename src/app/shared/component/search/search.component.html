@@ -6,11 +6,7 @@
     placeholder="Search"
     (input)="onSearch($any($event.target).value)"
   />
-  <button (click)="showModal = true" type="button" class="btn add-new-btn">
+  <button (click)="onCreate()" type="button" class="btn add-new-btn">
     <i class="fas fa-plus"></i> add new
   </button>
-  <app-modal [title]="title" (dismiss)="onDismiss()" *ngIf="showModal">
-    <ng-content></ng-content>
-    <div modalFooter></div>
-  </app-modal>
 </form>

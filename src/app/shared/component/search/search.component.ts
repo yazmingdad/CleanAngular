@@ -6,14 +6,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent {
-  showModal = false;
   @Input() title = '';
-  @Output() dismiss = new EventEmitter();
+  @Output() create = new EventEmitter();
   @Output() search = new EventEmitter<string>();
 
-  onDismiss = () => {
-    this.showModal = false;
-    this.dismiss.emit();
+  onCreate = () => {
+    this.create.emit();
   };
   onSearch(value: string) {
     this.search.emit(value);

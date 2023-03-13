@@ -9,23 +9,13 @@ import { Employee } from 'src/app/data/schema/employee';
   styleUrls: ['./employee-form.component.css'],
 })
 export class EmployeeFormComponent {
-  @Input() reset$: Observable<boolean>;
-  @Input() employee: Employee = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    ssn: '',
-    rankId: 0,
-    departmentId: 0,
-    activeCardId: 0,
-    isRetired: false,
-  };
+  @Input() employee: Employee | null;
   @Output() employeeSubmit = new EventEmitter();
 
   employeeForm: FormGroup;
 
   get isCreateForm() {
-    return this.employee.id === 0;
+    return this.employee ? false : true;
   }
 
   ranks = [
@@ -35,22 +25,46 @@ export class EmployeeFormComponent {
   ];
 
   ngOnInit() {
+    console.log('id', Math.random());
+
     this.initForm();
-    if (this.reset$) {
-      this.reset$.subscribe(() => {
-        console.log('change from form');
-        this.initForm();
-      });
-    }
   }
 
   ngOnChange() {
     console.log('change');
+    // this.initForm();
   }
 
   private initForm() {
-    const { firstName, lastName, ssn, rankId, departmentId, avatar } =
-      this.employee;
+    let employee;
+
+    if (this.employee) {
+      employee = this.employee;
+    } else {
+      employee = {
+        id: 0,
+        firstName: '',
+        lastName: '',
+        ssn: '',
+        avatar: '',
+        rankId: null,
+        departmentId: null,
+        activeCardId: null,
+        isRetired: false,
+      };
+    }
+
+    const {
+      firstName,
+      lastName,
+      ssn,
+      rankId,
+      departmentId,
+      activeCardId,
+      avatar,
+    } = employee;
+
+    console.log('init', employee);
 
     this.employeeForm = new FormGroup({
       firstName: new FormControl(firstName, [
@@ -67,46 +81,31 @@ export class EmployeeFormComponent {
         Validators.required,
         Validators.pattern(/^\d{3}-\d{2}-\d{4}$/),
       ]),
+      cardNumber: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/),
+      ]),
+      rankId: new FormControl(rankId, [Validators.required]),
+      departmentId: new FormControl(departmentId, [Validators.required]),
+      avatar: new FormControl(avatar, [Validators.required]),
     });
 
     if (this.isCreateForm) {
-      const { firstName, lastName, ssn, rankId, departmentId, avatar } =
-        this.employee;
+      // this.employeeForm.addControl(
+      //   'avatar',
+      //   new FormControl('', [Validators.required])
+      // );
+    } else {
       this.employeeForm.addControl(
-        'cardNumber',
-        new FormControl('', [
-          Validators.required,
-          Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/),
-        ])
+        'activeCardId',
+        new FormControl(activeCardId, [Validators.required])
       );
-      this.employeeForm.addControl(
-        'confirmCardNumber',
-        new FormControl('', [Validators.required])
-      );
-
-      this.employeeForm.addControl(
-        'rankId',
-        new FormControl(null, [Validators.required])
-      );
-      this.employeeForm.addControl(
-        'departmentId',
-        new FormControl(null, [Validators.required])
-      );
-      this.employeeForm.addControl(
-        'avatar',
-        new FormControl('', [Validators.required])
-      );
-      return;
     }
   }
 
   getControl(name: string) {
     return this.employeeForm.get(name) as FormControl;
   }
-
-  // requiredFileType(arg0: string): import('@angular/forms').ValidatorFn {
-  // throw new Error('Function not implemented.');
-  // }
 
   onSubmit() {}
 }

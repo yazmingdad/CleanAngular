@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { EmployeeCard } from 'src/app/data/schema/employee';
+import { Employee, EmployeeCard } from 'src/app/data/schema/employee';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { media } from 'src/app/shared/utility/media';
 
@@ -20,6 +20,18 @@ export class EmployeeListComponent {
   reset$ = new Subject<boolean>();
 
   isLoading = true;
+  showModal = false;
+  employee: Employee | null = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    ssn: '',
+    rankId: 0,
+    departmentId: 0,
+    activeCardId: 0,
+    isRetired: false,
+    avatar: '',
+  };
   employees: EmployeeCard[];
   numberOfPages: { value: number };
 
@@ -66,8 +78,32 @@ export class EmployeeListComponent {
     this.employeeService.getPage(event);
   }
 
-  onDismiss = () => {
-    console.log('dismis from employee list');
-    this.reset$.next(true);
+  onCreate = () => {
+    console.log('create from employee list');
+    this.employee = null;
+    this.showModal = true;
   };
+
+  onEdit = (event: number) => {
+    const card = this.employees.find((e) => e.id === event) as EmployeeCard;
+
+    const { id, firstName, lastName, ssn, isRetired } = card;
+
+    this.employee = {
+      id,
+      firstName,
+      lastName,
+      ssn,
+      rankId: card.rank.id,
+      departmentId: card.department.id,
+      activeCardId: 0,
+      avatar: `data:image/png;base64,${card.avatar}`,
+      isRetired,
+    };
+    this.showModal = true;
+  };
+
+  onDismiss() {
+    this.showModal = false;
+  }
 }
