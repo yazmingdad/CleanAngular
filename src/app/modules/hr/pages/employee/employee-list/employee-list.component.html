@@ -1,5 +1,10 @@
 <app-modal (dismiss)="onDismiss()" *ngIf="showModal">
-  <app-employee-form [employee]="employee"></app-employee-form>
+  <app-employee-form
+    [employee]="employee"
+    [ranks]="ranks"
+    [departments]="departments"
+    (employeeSubmit)="onEmployeeSubmit($event)"
+  ></app-employee-form>
   <div modalFooter></div>
 </app-modal>
 

@@ -1,14 +1,23 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Employee, EmployeeCard } from 'src/app/data/schema/employee';
+import { Department } from 'src/app/data/schema/department';
+import {
+  Employee,
+  EmployeeCard,
+  EmployeePost,
+} from 'src/app/data/schema/employee';
+import { Rank } from 'src/app/data/schema/rank';
+import { DepartmentService } from 'src/app/data/service/hr/department.service';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
+import { RankService } from 'src/app/data/service/hr/rank.service';
 import { media } from 'src/app/shared/utility/media';
+import { Selectable } from 'src/app/shared/utility/select';
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css'],
-  providers: [EmployeeService],
+  providers: [EmployeeService, RankService, DepartmentService],
 })
 export class EmployeeListComponent {
   private medias = {
@@ -17,9 +26,9 @@ export class EmployeeListComponent {
     lg$: media(`(min-width: 1200px)`),
   };
 
-  reset$ = new Subject<boolean>();
+  ranks: Selectable[];
+  departments: Selectable[];
 
-  isLoading = true;
   showModal = false;
   employee: Employee | null = {
     id: 0,
@@ -32,14 +41,22 @@ export class EmployeeListComponent {
     isRetired: false,
     avatar: '',
   };
+
+  isLoading = true;
+
   employees: EmployeeCard[];
+
   numberOfPages: { value: number };
 
   get notFound() {
     return !this.employees || this.employees.length === 0;
   }
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(
+    private employeeService: EmployeeService,
+    private rankService: RankService,
+    private departmentService: DepartmentService
+  ) {
     this.medias.sm$.subscribe(() => {
       this.employeeService.setPageSize(2);
     });
@@ -69,6 +86,24 @@ export class EmployeeListComponent {
 
   ngOnInit() {
     this.employeeService.load();
+
+    this.rankService.getAll().subscribe({
+      next: (ranks) => {
+        this.ranks = ranks.map<Selectable>(({ id, name }) => {
+          return { id, value: name };
+        });
+      },
+      error: () => {},
+    });
+
+    this.departmentService.getAll().subscribe({
+      next: (departments) => {
+        this.departments = departments.map<Selectable>(({ id, name }) => {
+          return { id, value: name };
+        });
+      },
+      error: () => {},
+    });
   }
 
   search(event: string) {
@@ -100,10 +135,20 @@ export class EmployeeListComponent {
       avatar: `data:image/png;base64,${card.avatar}`,
       isRetired,
     };
+
     this.showModal = true;
   };
 
   onDismiss() {
     this.showModal = false;
+  }
+
+  onEmployeeSubmit(event: EmployeePost) {
+    this.employeeService.insert(event).subscribe({
+      next: () => {
+        this.employeeService.load();
+        this.showModal = false;
+      },
+    });
   }
 }

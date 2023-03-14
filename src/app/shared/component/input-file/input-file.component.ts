@@ -1,7 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { map, Observable, Subject, switchMap } from 'rxjs';
 import { fileTypes } from 'src/app/core/constants/files';
 import { FileHelper } from '../../utility/file';
+
+interface FileInfo {
+  src: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-input-file',
@@ -29,7 +35,6 @@ export class InputFileComponent {
       }
       return;
     }
-
     if (this.extension === 'png') {
       this.imageSrc = value;
     }
@@ -48,9 +53,8 @@ export class InputFileComponent {
       const isAccepted = extension && extension === this.extension;
 
       if (!isAccepted) {
-        console.log('not accepted');
+        this.getImageSrc('');
         this.control.setErrors({ extension: true });
-        console.log(this.control.errors);
         return;
       }
       this.fileName = fileName;
@@ -63,8 +67,6 @@ export class InputFileComponent {
         },
         error: (value) => this.control.setErrors({ upload: true }),
       });
-
-      //this.control.setValue('blabla');
     }
   }
 }

@@ -2,6 +2,17 @@ import { Card } from './card';
 import { Rank } from './rank';
 import { Department } from './department';
 
+export interface EmployeePost {
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  ssn: string;
+  cardNumber?: string;
+  rankId: 0;
+  departmentId: 0;
+  isRetired: boolean;
+}
+
 export interface Employee {
   id: number;
   firstName: string;

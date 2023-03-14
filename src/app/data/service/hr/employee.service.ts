@@ -3,10 +3,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
-import { EmployeeCard } from '../../schema/employee';
+import { EmployeeCard, EmployeePost } from '../../schema/employee';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { employeeGetAll } from 'src/app/core/constants/endpoints';
+import { employeeEndpoint } from 'src/app/core/constants/endpoints';
 import { Loading } from 'src/app/shared/utility/loading';
+import { CleanResponse } from '../../schema/response';
 
 @Injectable()
 export class EmployeeService {
@@ -31,7 +32,7 @@ export class EmployeeService {
 
   private getAll(isRetired: boolean = false) {
     const params = new HttpParams().set('isRetired', isRetired);
-    return this.http.get<EmployeeCard[]>(employeeGetAll, { params });
+    return this.http.get<EmployeeCard[]>(employeeEndpoint, { params });
   }
 
   private setList(list: EmployeeCard[]) {
@@ -53,6 +54,26 @@ export class EmployeeService {
         this.setList(employees);
       },
     });
+  }
+
+  insert(payload: EmployeePost) {
+    return this.http.post(employeeEndpoint, payload).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('Employee Added successfully');
+      }),
+      catchError((err) => {
+        let error = err.error as CleanResponse;
+
+        if (!error) {
+          error = {
+            reason: 'Employee Insert Failed',
+          };
+        }
+        console.log(error.reason);
+        this.notificationService.addError(error.reason);
+        return throwError(() => new Error(''));
+      })
+    );
   }
 
   search(query: string) {

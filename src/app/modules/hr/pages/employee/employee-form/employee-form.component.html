@@ -37,13 +37,13 @@
     [control]="getControl('rankId')"
   ></app-select>
   <app-select
-    [options]="ranks"
+    [options]="departments"
     label="Department"
     [control]="getControl('departmentId')"
   ></app-select>
   <app-select
-    *ngIf="!isCreateForm"
-    [options]="ranks"
+    *ngIf="!isCreateForm && cards.length > 0"
+    [options]="cards"
     label="Card"
     [control]="getControl('activeCardId')"
   ></app-select>
@@ -51,7 +51,8 @@
   </div> -->
 
   <app-input-file
-    label="Avatar"
+    label="Picture"
+    extension="png"
     [control]="getControl('avatar')"
   ></app-input-file>
 

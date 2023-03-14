@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Employee } from 'src/app/data/schema/employee';
+import { Employee, EmployeePost } from 'src/app/data/schema/employee';
+import { Selectable } from 'src/app/shared/utility/select';
 
 @Component({
   selector: 'app-employee-form',
@@ -10,7 +11,10 @@ import { Employee } from 'src/app/data/schema/employee';
 })
 export class EmployeeFormComponent {
   @Input() employee: Employee | null;
-  @Output() employeeSubmit = new EventEmitter();
+  @Input() ranks: Selectable[] = [];
+  @Input() departments: Selectable[] = [];
+
+  @Output() employeeSubmit = new EventEmitter<EmployeePost>();
 
   employeeForm: FormGroup;
 
@@ -18,15 +22,14 @@ export class EmployeeFormComponent {
     return this.employee ? false : true;
   }
 
-  ranks = [
-    { id: 1, value: 'Technician' },
-    { id: 2, value: 'Engineer' },
-    { id: 3, value: 'Administrator' },
+  cards = [
+    { id: 1, value: '7875 9854 2587 5547' },
+    { id: 2, value: '1598 8657 6258 3321' },
+    { id: 3, value: '1457 6325 8745 5896' },
   ];
 
   ngOnInit() {
     console.log('id', Math.random());
-
     this.initForm();
   }
 
@@ -81,25 +84,24 @@ export class EmployeeFormComponent {
         Validators.required,
         Validators.pattern(/^\d{3}-\d{2}-\d{4}$/),
       ]),
-      cardNumber: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/),
-      ]),
+      cardNumber: new FormControl(''),
       rankId: new FormControl(rankId, [Validators.required]),
       departmentId: new FormControl(departmentId, [Validators.required]),
       avatar: new FormControl(avatar, [Validators.required]),
     });
 
     if (this.isCreateForm) {
-      // this.employeeForm.addControl(
-      //   'avatar',
-      //   new FormControl('', [Validators.required])
-      // );
+      this.employeeForm.controls['cardNumber'].addValidators([
+        Validators.required,
+        Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/),
+      ]);
     } else {
-      this.employeeForm.addControl(
-        'activeCardId',
-        new FormControl(activeCardId, [Validators.required])
-      );
+      if (this.cards.length > 0) {
+        this.employeeForm.addControl(
+          'activeCardId',
+          new FormControl(activeCardId, [Validators.required])
+        );
+      }
     }
   }
 
@@ -107,5 +109,14 @@ export class EmployeeFormComponent {
     return this.employeeForm.get(name) as FormControl;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    if (this.employeeForm.invalid) {
+      console.log('invalid form', this.employeeForm.value);
+      return;
+    }
+
+    //console.log(this.employeeForm.value);
+
+    this.employeeSubmit.emit(this.employeeForm.value);
+  }
 }
