@@ -15,11 +15,11 @@
   />
   <div *ngIf="showErrors()" class="error">
     <small *ngIf="control.errors?.['required']" class="form-alert">.PNG</small>
-    <small *ngIf="control.errors?.['upload']" class="form-alert"
+    <small *ngIf="control.errors?.['unknown']" class="form-alert"
       >Upload fail</small
     >
     <small *ngIf="control.errors?.['extension']" class="form-alert">
-      required extension .{{ extension | uppercase }}
+      required .{{ extension | uppercase }}
     </small>
   </div>
 </div>

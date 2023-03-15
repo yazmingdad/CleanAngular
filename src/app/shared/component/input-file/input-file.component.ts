@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, Subject, switchMap } from 'rxjs';
 import { fileTypes } from 'src/app/core/constants/files';
-import { FileHelper } from '../../utility/file';
-
-interface FileInfo {
-  src: string;
-  name: string;
-}
+import {
+  Extention,
+  FileInfo,
+  FileConverter,
+  FileReaderMethod,
+} from '../../utility/file';
 
 @Component({
   selector: 'app-input-file',
@@ -16,28 +16,40 @@ interface FileInfo {
 })
 export class InputFileComponent {
   @Input() label: string;
-  @Input() extension: string = 'png';
+  @Input() extension: string = Extention.Png;
+  @Input() method: FileReaderMethod = FileReaderMethod.DataUrl;
   @Input() control: FormControl;
+
+  loader$: FileConverter;
 
   fileName = 'File';
   imageSrc: string;
 
   ngOnInit() {
-    this.getImageSrc(this.control.value);
-  }
+    this.loader$ = new FileConverter(
+      this.extension.toUpperCase() as Extention,
+      this.method
+    );
 
-  getImageSrc(value: string = '') {
-    if (value === '') {
-      if (this.extension === 'png') {
-        this.imageSrc = 'assets/images/no-image.png';
+    this.loader$.file$.subscribe((fileInfo: FileInfo) => {
+      const { name, imgSrc, isRejected, reason } = fileInfo;
+
+      this.fileName = name;
+      this.imageSrc = imgSrc;
+
+      if (isRejected) {
+        if (reason === 'extension') {
+          this.control.setErrors({ extension: true });
+        } else {
+          this.control.setErrors({ unknown: true });
+        }
       } else {
-        this.imageSrc = 'assets/images/search-doc.png';
+        this.control.setErrors(null);
+        this.control.setValue(fileInfo.content);
       }
-      return;
-    }
-    if (this.extension === 'png') {
-      this.imageSrc = value;
-    }
+    });
+
+    this.loader$.loadContent(this.control.value);
   }
 
   showErrors() {
@@ -47,26 +59,6 @@ export class InputFileComponent {
 
   onFileSelected(files: File[]) {
     const file = files[0];
-    if (file) {
-      const fileName = file.name;
-      const extension = fileName.split('.').pop()?.toLocaleLowerCase();
-      const isAccepted = extension && extension === this.extension;
-
-      if (!isAccepted) {
-        this.getImageSrc('');
-        this.control.setErrors({ extension: true });
-        return;
-      }
-      this.fileName = fileName;
-      FileHelper.getBase64(file).subscribe({
-        next: (value) => {
-          this.getImageSrc(value);
-          this.control.setValue(value.split(',')[1]);
-          this.control.setErrors(null);
-          console.log(value.split(',')[1]);
-        },
-        error: (value) => this.control.setErrors({ upload: true }),
-      });
-    }
+    this.loader$.loadFile(file);
   }
 }

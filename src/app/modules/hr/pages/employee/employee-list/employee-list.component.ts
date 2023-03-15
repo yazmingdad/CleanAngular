@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Department } from 'src/app/data/schema/department';
 import {
   Employee,
   EmployeeCard,
@@ -114,7 +112,6 @@ export class EmployeeListComponent {
   }
 
   onCreate = () => {
-    console.log('create from employee list');
     this.employee = null;
     this.showModal = true;
   };
@@ -132,7 +129,7 @@ export class EmployeeListComponent {
       rankId: card.rank.id,
       departmentId: card.department.id,
       activeCardId: 0,
-      avatar: `data:image/png;base64,${card.avatar}`,
+      avatar: `${card.avatar}`,
       isRetired,
     };
 
