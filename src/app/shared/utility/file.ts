@@ -26,7 +26,6 @@ export enum FileReaderMethod {
 
 export interface FileInfo {
   name: string;
-  extension: string;
   imgSrc: string;
   content: string;
   isRejected?: boolean;
@@ -90,7 +89,6 @@ export class FileConverter {
     return new Observable<FileInfo>((observer) =>
       observer.next({
         name: fileName,
-        extension: '',
         imgSrc: this.getDefaultImageSource(null),
         content: '',
         isRejected: true,
@@ -103,7 +101,6 @@ export class FileConverter {
     return new Observable<FileInfo>((observer) =>
       observer.next({
         name: 'string',
-        extension: 'string',
         imgSrc: 'string',
         content: 'string',
       })
@@ -113,7 +110,6 @@ export class FileConverter {
     return new Observable<FileInfo>((observer) =>
       observer.next({
         name: 'string',
-        extension: 'string',
         imgSrc: 'string',
         content: 'string',
       })
@@ -160,7 +156,6 @@ export class FileConverter {
     return new Observable<FileInfo>((observer) =>
       observer.next({
         name: 'string',
-        extension: 'string',
         imgSrc: 'string',
         content: 'string',
       })

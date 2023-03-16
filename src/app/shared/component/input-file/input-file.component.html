@@ -14,7 +14,9 @@
     (change)="onFileSelected($any($event.target).files)"
   />
   <div *ngIf="showErrors()" class="error">
-    <small *ngIf="control.errors?.['required']" class="form-alert">.PNG</small>
+    <small *ngIf="control.errors?.['required']" class="form-alert"
+      >.{{ extension | uppercase }}</small
+    >
     <small *ngIf="control.errors?.['unknown']" class="form-alert"
       >Upload fail</small
     >

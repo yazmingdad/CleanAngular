@@ -1,10 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-interface SelectItem {
-  id: number;
-  value: string;
-}
+import { Selectable } from '../../utility/select';
 
 @Component({
   selector: 'app-select',
@@ -14,7 +10,7 @@ interface SelectItem {
 export class SelectComponent {
   @Input() label: string;
   @Input() control: FormControl;
-  @Input() options: SelectItem[];
+  @Input() options: Selectable[];
 
   showErrors() {
     const { dirty, touched, errors } = this.control;

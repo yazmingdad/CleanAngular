@@ -45,7 +45,7 @@ export class InputFileComponent {
         }
       } else {
         this.control.setErrors(null);
-        this.control.setValue(fileInfo.content);
+        this.control.setValue(fileInfo.content.split(',')[1]);
       }
     });
 

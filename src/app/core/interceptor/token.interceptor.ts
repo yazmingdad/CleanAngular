@@ -20,7 +20,7 @@ export class TokenInterceptor implements HttpInterceptor {
       console.log(`Bearer ${token}`);
       if (token) {
         const headersConfig = {
-          'Content-Type': 'application/json; charset=utf-8',
+          'Content-Type': 'application/json-patch+json; charset=utf-8',
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
         };

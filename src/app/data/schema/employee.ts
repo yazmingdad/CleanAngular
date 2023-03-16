@@ -1,6 +1,12 @@
 import { Card } from './card';
 import { Rank } from './rank';
 import { Department } from './department';
+import { PatchModel } from 'src/app/core/models/patch';
+
+export interface EmployeePatches {
+  patches: PatchModel[];
+  card?: Card;
+}
 
 export interface EmployeePost {
   firstName: string;

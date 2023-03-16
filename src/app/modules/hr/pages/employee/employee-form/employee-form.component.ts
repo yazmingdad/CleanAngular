@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Employee, EmployeePost } from 'src/app/data/schema/employee';
+import {
+  Employee,
+  EmployeePatches,
+  EmployeePost,
+} from 'src/app/data/schema/employee';
 import { Selectable } from 'src/app/shared/utility/select';
 
 @Component({
@@ -14,7 +17,12 @@ export class EmployeeFormComponent {
   @Input() ranks: Selectable[] = [];
   @Input() departments: Selectable[] = [];
 
-  @Output() employeeSubmit = new EventEmitter<EmployeePost>();
+  @Output() employeePost = new EventEmitter<EmployeePost>();
+  @Output() employeePatch = new EventEmitter<EmployeePatches>();
+
+  patches: EmployeePatches = {
+    patches: [],
+  };
 
   employeeForm: FormGroup;
 
@@ -31,6 +39,9 @@ export class EmployeeFormComponent {
   ngOnInit() {
     console.log('id', Math.random());
     this.initForm();
+    this.employeeForm.valueChanges.subscribe((value) => {
+      console.log('change', value);
+    });
   }
 
   ngOnChange() {
@@ -84,7 +95,9 @@ export class EmployeeFormComponent {
         Validators.required,
         Validators.pattern(/^\d{3}-\d{2}-\d{4}$/),
       ]),
-      cardNumber: new FormControl(''),
+      cardNumber: new FormControl('', [
+        Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/),
+      ]),
       rankId: new FormControl(rankId, [Validators.required]),
       departmentId: new FormControl(departmentId, [Validators.required]),
       avatar: new FormControl(avatar, [Validators.required]),
@@ -93,7 +106,6 @@ export class EmployeeFormComponent {
     if (this.isCreateForm) {
       this.employeeForm.controls['cardNumber'].addValidators([
         Validators.required,
-        Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/),
       ]);
     } else {
       if (this.cards.length > 0) {
@@ -114,9 +126,6 @@ export class EmployeeFormComponent {
       console.log('invalid form', this.employeeForm.value);
       return;
     }
-
-    //console.log(this.employeeForm.value);
-
-    this.employeeSubmit.emit(this.employeeForm.value);
+    this.employeePost.emit(this.employeeForm.value);
   }
 }

@@ -140,7 +140,7 @@ export class EmployeeListComponent {
     this.showModal = false;
   }
 
-  onEmployeeSubmit(event: EmployeePost) {
+  onEmployeePost(event: EmployeePost) {
     this.employeeService.insert(event).subscribe({
       next: () => {
         this.employeeService.load();
