@@ -3,7 +3,7 @@
     type="text"
     name="name"
     class="form-input search-input"
-    placeholder="Search"
+    [placeholder]="title"
     (input)="onSearch($any($event.target).value)"
   />
   <button (click)="onCreate()" type="button" class="btn add-new-btn">

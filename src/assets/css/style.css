@@ -394,6 +394,11 @@ Searcher
   border-top-left-radius: var(--borderRadius);
   border-bottom-left-radius: var(--borderRadius);
 }
+
+.form-input.search-input::placeholder {
+  color: var(--grey-700);
+}
+
 .add-new-btn {
   flex: 1 1 0px;
   padding: 0;
@@ -918,6 +923,7 @@ Spinner
 Employee list
 ===============
 */
+
 .employee-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -1029,8 +1035,6 @@ Single Employee
 .employee-img {
   max-width: 140px;
   border-radius: 10px;
-  border-right: 8px solid var(--green-lime);
-  border-left: 8px solid var(--green-lime);
 }
 
 /*
@@ -1062,4 +1066,14 @@ Employee Form
   height: 4rem;
   width: 4rem;
   border: none;
+}
+
+.active-item {
+  border-right: 8px solid var(--green-lime);
+  border-left: 8px solid var(--green-lime);
+}
+
+.down-item {
+  border-right: 8px solid var(--red-dark);
+  border-left: 8px solid var(--red-dark);
 }

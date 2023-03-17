@@ -151,10 +151,13 @@ export class EmployeeListComponent {
   }
 
   onPatch(event: EmployeePatch) {
-    console.log('patches', event);
-    this.employeeService.update(event).subscribe(() => {
-      this.employeeService.load();
-      this.showModal = false;
-    });
+    if (event.card || event.patches.length > 0) {
+      this.employeeService.update(event).subscribe({
+        next: () => {
+          this.employeeService.load();
+        },
+      });
+    }
+    this.showModal = false;
   }
 }

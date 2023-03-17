@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { iif, throwError } from 'rxjs';
+import { EMPTY, iif, Observable, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
@@ -77,6 +77,7 @@ export class EmployeeService {
               op: 'add',
               value: response.id.toString(),
             });
+            this.notificationService.addSuccess('New Card Added');
           }),
           switchMap(() =>
             this.http.patch(
@@ -86,6 +87,13 @@ export class EmployeeService {
           )
         ),
         this.http.patch(`${employeeEndpoint}/${payload.id}`, payload.patches)
+      ).pipe(
+        tap(() => this.notificationService.addSuccess('Successful Update')),
+        catchError((err) => {
+          let error = err.error as CleanResponse;
+          this.notificationService.addError(error.reason);
+          return throwError(() => new Error(''));
+        })
       );
     }
 

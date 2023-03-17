@@ -14,6 +14,10 @@
           [src]="'data:image/png;base64,' + employee.avatar"
           alt="Generic placeholder image"
           class="employee-img"
+          [ngClass]="{
+            'active-item': !employee.isRetired,
+            'down-item': employee.isRetired
+          }"
         />
         <div>
           <h5 class="name mb-1">{{ employee.fullName }}</h5>
