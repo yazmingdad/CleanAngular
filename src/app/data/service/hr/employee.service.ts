@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { iif, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
-import { EmployeeCard, EmployeePost } from '../../schema/employee';
+import {
+  EmployeeCard,
+  EmployeePatch,
+  EmployeePost,
+} from '../../schema/employee';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { employeeEndpoint } from 'src/app/core/constants/endpoints';
+import {
+  cardEndpoint,
+  employeeEndpoint,
+} from 'src/app/core/constants/endpoints';
 import { Loading } from 'src/app/shared/utility/loading';
 import { CleanResponse } from '../../schema/response';
 
@@ -54,6 +61,35 @@ export class EmployeeService {
         this.setList(employees);
       },
     });
+  }
+
+  update(payload: EmployeePatch) {
+    if (payload.id) {
+      return iif(
+        () => payload.card !== undefined,
+        this.http.post<CleanResponse>(cardEndpoint, payload.card).pipe(
+          tap((response) => {
+            if (!response.id || response.isFailure || response.id === 0) {
+              throw new Error('Card Update failed');
+            }
+            payload.patches.push({
+              path: '/activeCardId',
+              op: 'add',
+              value: response.id.toString(),
+            });
+          }),
+          switchMap(() =>
+            this.http.patch(
+              `${employeeEndpoint}/${payload.id}`,
+              payload.patches
+            )
+          )
+        ),
+        this.http.patch(`${employeeEndpoint}/${payload.id}`, payload.patches)
+      );
+    }
+
+    return throwError(() => new Error('Id is undefined'));
   }
 
   insert(payload: EmployeePost) {

@@ -129,7 +129,7 @@ export class FileConverter {
       reader.onload = () => {
         const encoded = reader.result as string;
         if (encoded) {
-          fileInfo.content = encoded;
+          fileInfo.content = encoded.split(',')[1];
           switch (this.extension) {
             case Extention.Jpeg:
             case Extention.Jpg:

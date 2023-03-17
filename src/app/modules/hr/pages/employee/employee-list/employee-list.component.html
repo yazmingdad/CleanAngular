@@ -3,7 +3,8 @@
     [employee]="employee"
     [ranks]="ranks"
     [departments]="departments"
-    (employeePost)="onEmployeePost($event)"
+    (employeePost)="onPost($event)"
+    (employeePatch)="onPatch($event)"
   ></app-employee-form>
   <div modalFooter></div>
 </app-modal>

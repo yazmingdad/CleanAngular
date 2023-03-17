@@ -6,7 +6,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent {
-  @Input() title = '';
   @Output() create = new EventEmitter();
   @Output() search = new EventEmitter<string>();
 

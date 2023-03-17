@@ -3,7 +3,8 @@ import { Rank } from './rank';
 import { Department } from './department';
 import { PatchModel } from 'src/app/core/models/patch';
 
-export interface EmployeePatches {
+export interface EmployeePatch {
+  id: number;
   patches: PatchModel[];
   card?: Card;
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {
   Employee,
   EmployeeCard,
+  EmployeePatch,
   EmployeePost,
 } from 'src/app/data/schema/employee';
 import { Rank } from 'src/app/data/schema/rank';
@@ -140,12 +141,20 @@ export class EmployeeListComponent {
     this.showModal = false;
   }
 
-  onEmployeePost(event: EmployeePost) {
+  onPost(event: EmployeePost) {
     this.employeeService.insert(event).subscribe({
       next: () => {
         this.employeeService.load();
         this.showModal = false;
       },
+    });
+  }
+
+  onPatch(event: EmployeePatch) {
+    console.log('patches', event);
+    this.employeeService.update(event).subscribe(() => {
+      this.employeeService.load();
+      this.showModal = false;
     });
   }
 }
