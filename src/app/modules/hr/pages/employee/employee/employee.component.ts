@@ -9,8 +9,12 @@ import { EmployeeCard } from 'src/app/data/schema/employee';
 export class EmployeeComponent {
   @Input() employee: EmployeeCard;
   @Output() edit = new EventEmitter<number>();
-
+  @Output() upDown = new EventEmitter<number>();
   onEdit() {
     this.edit.emit(this.employee.id);
+  }
+
+  onUpDown() {
+    this.upDown.emit(this.employee.id);
   }
 }

@@ -25,6 +25,8 @@ export class EmployeeListComponent {
     lg$: media(`(min-width: 1200px)`),
   };
 
+  isRetired = false;
+
   ranks: Selectable[];
   departments: Selectable[];
 
@@ -159,5 +161,21 @@ export class EmployeeListComponent {
       });
     }
     this.showModal = false;
+  }
+
+  onUpDown(event: number) {
+    console.log(event);
+    this.employeeService
+      .update({
+        id: event,
+        patches: [
+          {
+            path: '/isRetired',
+            op: 'add',
+            value: !this.isRetired,
+          },
+        ],
+      })
+      .subscribe(() => this.employeeService.load());
   }
 }
