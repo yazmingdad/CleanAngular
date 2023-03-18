@@ -1,0 +1,32 @@
+<article
+  class="module"
+  [ngClass]="{ 'show-menu': isExpanded }"
+  *ngIf="menuItem.menuItems && menuItem.menuItems.length > 0"
+  (click)="onClick()"
+>
+  <!-- menu header -->
+  <div class="module-header">
+    <div class="module-title">
+      <i [ngClass]="menuItem.icon"></i>
+      <h6>{{ menuItem.name }}</h6>
+    </div>
+
+    <button type="button" class="module-btn">
+      <span class="plus-icon">
+        <i class="fas fa-chevron-up"></i>
+      </span>
+      <span class="minus-icon">
+        <i class="fas fa-chevron-down"></i>
+      </span>
+    </button>
+  </div>
+  <!-- module menu -->
+  <div class="module-menu">
+    <div *ngFor="let item of menuItem.menuItems" class="module-menu-item">
+      <a [routerLink]="item.route"
+        ><i class="link-icon" [ngClass]="item.icon"></i>
+        <h6>{{ item.name }}</h6></a
+      >
+    </div>
+  </div>
+</article>

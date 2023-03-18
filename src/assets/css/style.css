@@ -789,15 +789,15 @@ Sidebar
   transform: rotate(360deg);
 }
 
-.links a {
+.modules a {
   display: flex;
   font-size: 1.15rem;
   text-transform: capitalize;
   padding: 1rem 1.5rem;
   color: var(--clr-white);
-  transition: var(--transition);
+  transition: var(--transition-slow);
 }
-.links a:hover {
+.modules .module-menu-item:hover {
   background: var(--primary-400);
   color: var(--primary-100);
   padding-left: 1.75rem;
@@ -835,7 +835,7 @@ Sidebar
 }
 
 .link-icon {
-  font-size: 2rem;
+  font-size: 1.25rem;
   margin-right: 1rem;
 }
 
@@ -854,6 +854,98 @@ Sidebar
     visibility: visible;
     z-index: 4;
   } */
+}
+
+/*
+=============== 
+Module
+===============
+*/
+
+.module {
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-1);
+  /* padding: 1.5rem 1.5rem 0 1.5rem; */
+  margin-bottom: 0.25rem;
+}
+.module-menu-item {
+  padding-left: 2rem;
+}
+
+/* .module:hover .module-header {
+  background: var(--primary-400);
+  color: var(--primary-100);
+} */
+
+/* .show-menu.module .module-header {
+  background: var(--primary-400);
+  color: var(--primary-100);
+} */
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: capitalize;
+  padding: 0.75rem 1.5rem;
+  background: var(--grey-300);
+  transition: var(--transition-slow);
+}
+
+/* .module-header:hover {
+  background: var(--primary-400);
+  color: var(--primary-100);
+} */
+
+/* .module-header:hover i {
+  color: var(--primary-100);
+} */
+
+.module-header h6 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.module-title {
+  display: flex;
+  place-items: center;
+  gap: 0.5rem;
+}
+
+.module-btn {
+  border: none;
+  background: transparent;
+  transition: var(--transition);
+}
+
+.module-btn:hover {
+  transform: rotate(180deg);
+}
+
+.plus-icon,
+.minus-icon,
+.module-title i {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.module-menu {
+  display: none;
+  transition: var(--transition-slow);
+}
+
+.show-menu .module-menu {
+  display: block;
+}
+.minus-icon {
+  display: none;
+}
+.show-menu .minus-icon {
+  display: inline;
+}
+.show-menu .plus-icon {
+  display: none;
 }
 
 /*

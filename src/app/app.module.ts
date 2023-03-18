@@ -19,6 +19,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { MenuComponent } from './layout/sidebar/menu/menu.component';
 import { NotificationListComponent } from './layout/notification-list/notification-list.component';
+import { MenuItemComponent } from './layout/sidebar/menu-item/menu-item.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NotificationListComponent } from './layout/notification-list/notificati
     NavbarComponent,
     MenuComponent,
     NotificationListComponent,
+    MenuItemComponent,
   ],
   imports: [
     BrowserModule,

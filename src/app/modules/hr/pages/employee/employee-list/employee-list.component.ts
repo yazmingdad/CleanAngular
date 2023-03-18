@@ -85,6 +85,16 @@ export class EmployeeListComponent {
       },
       error: () => {},
     });
+
+    this.route.params.subscribe(({ isRetired }) => {
+      if (isRetired === 'down') {
+        this.isRetired = true;
+      } else {
+        this.isRetired = false;
+      }
+
+      this.employeeService.load(this.isRetired);
+    });
   }
 
   ngOnInit() {
