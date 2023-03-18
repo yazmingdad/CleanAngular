@@ -13,7 +13,7 @@ export class WelcomeComponent {
   ngOnInit() {
     this.authService.checkAuth().subscribe({
       next: () => {
-        this.router.navigateByUrl('/hr');
+        this.router.navigateByUrl('/hr/employee/up');
       },
       error: (err) => {
         this.router.navigateByUrl('/signin');

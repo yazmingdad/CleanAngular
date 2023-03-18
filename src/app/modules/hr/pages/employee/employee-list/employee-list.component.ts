@@ -11,6 +11,7 @@ import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { RankService } from 'src/app/data/service/hr/rank.service';
 import { media } from 'src/app/shared/utility/media';
 import { Selectable } from 'src/app/shared/utility/select';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -56,7 +57,8 @@ export class EmployeeListComponent {
   constructor(
     private employeeService: EmployeeService,
     private rankService: RankService,
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private route: ActivatedRoute
   ) {
     this.medias.sm$.subscribe(() => {
       this.employeeService.setPageSize(2);
@@ -86,7 +88,13 @@ export class EmployeeListComponent {
   }
 
   ngOnInit() {
-    this.employeeService.load();
+    const status = this.route.snapshot.params['isRetired'];
+
+    if (status === 'down') {
+      this.isRetired = true;
+    }
+
+    this.employeeService.load(this.isRetired);
 
     this.rankService.getAll().subscribe({
       next: (ranks) => {
@@ -156,7 +164,7 @@ export class EmployeeListComponent {
     if (event.card || event.patches.length > 0) {
       this.employeeService.update(event).subscribe({
         next: () => {
-          this.employeeService.load();
+          this.employeeService.load(this.isRetired);
         },
       });
     }
@@ -176,6 +184,6 @@ export class EmployeeListComponent {
           },
         ],
       })
-      .subscribe(() => this.employeeService.load());
+      .subscribe(() => this.employeeService.load(this.isRetired));
   }
 }

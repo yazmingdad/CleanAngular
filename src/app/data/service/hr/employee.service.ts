@@ -54,8 +54,8 @@ export class EmployeeService {
     this.paginator.getPage(page);
   }
 
-  load() {
-    this.getAll().subscribe({
+  load(isRetired: boolean = false) {
+    this.getAll(isRetired).subscribe({
       next: (employees) => {
         this.employees = employees;
         this.setList(employees);

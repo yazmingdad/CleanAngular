@@ -10,7 +10,9 @@
 </app-modal>
 
 <app-search
-  title="Search in active employees"
+  [title]="
+    isRetired ? 'Search for Retired Employees' : 'Search for Active Employees'
+  "
   (create)="onCreate()"
   (search)="search($event)"
 ></app-search>

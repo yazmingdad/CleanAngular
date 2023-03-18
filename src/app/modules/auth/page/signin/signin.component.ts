@@ -31,7 +31,7 @@ export class SigninComponent implements OnInit {
       .authenticate(this.authForm.value as UserCredentials)
       .subscribe({
         next: () => {
-          this.router.navigateByUrl('/hr');
+          this.router.navigateByUrl('/hr/employee/up');
         },
         error: ({ error }) => {
           if (error === 'Wrong Credentials') {

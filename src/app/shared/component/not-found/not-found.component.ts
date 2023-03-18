@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./not-found.component.css'],
 })
 export class NotFoundComponent {
-  @Input() message: string = 'No Element Found';
+  @Input() message: string = 'Not Found';
 }

@@ -863,8 +863,16 @@ Not Found
 */
 
 .not-found {
-  display: flex;
+  display: grid;
   place-items: center;
+  width: 100%;
+  height: calc(100vh - var(--navbar-thick));
+}
+
+@media screen and (min-width: 768px) {
+  .not-found {
+    height: calc(100vh - var(--navbar-thin));
+  }
 }
 
 /*

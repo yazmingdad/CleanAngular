@@ -1,10 +1,28 @@
 <div class="single-employee card">
   <div class="item-icons">
-    <button type="button" class="item-icon" (click)="onEdit()">
+    <button
+      *ngIf="!employee.isRetired"
+      type="button"
+      class="item-icon"
+      (click)="onEdit()"
+    >
       <i class="fas fa-pen"></i>
     </button>
-    <button class="item-icon bg-danger" (click)="onUpDown()">
-      <i class="fas fa-arrow-down"></i>
+    <button
+      class="item-icon"
+      [ngClass]="{
+        'bg-danger': !employee.isRetired,
+        'bg-success': employee.isRetired
+      }"
+      (click)="onUpDown()"
+    >
+      <i
+        class="fas"
+        [ngClass]="{
+          'fa-arrow-down': !employee.isRetired,
+          'fa-arrow-up': employee.isRetired
+        }"
+      ></i>
     </button>
   </div>
   <div class="card-body">
