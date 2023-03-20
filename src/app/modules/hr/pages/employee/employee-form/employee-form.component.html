@@ -23,14 +23,12 @@
     label="New Card"
     [control]="getControl('cardNumber')"
   ></app-input>
-  <!-- <app-input
-    inputType="text"
-    label="Confirm New Card"
-    [control]="getControl('confirmCardNumber')"
-  ></app-input> -->
-
-  <!-- </div> -->
-  <!-- <div class="employee-form-select"> -->
+  <app-select
+    *ngIf="!isCreateForm && cards && cards.length > 0"
+    [options]="cards"
+    label="Card"
+    [control]="getControl('activeCardId')"
+  ></app-select>
   <app-select
     [options]="ranks"
     label="Rank"
@@ -41,14 +39,6 @@
     label="Department"
     [control]="getControl('departmentId')"
   ></app-select>
-  <app-select
-    *ngIf="!isCreateForm && cards.length > 0"
-    [options]="cards"
-    label="Card"
-    [control]="getControl('activeCardId')"
-  ></app-select>
-  <!-- </div>
-  </div> -->
 
   <app-input-file
     label="Picture"

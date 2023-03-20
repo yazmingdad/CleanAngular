@@ -93,19 +93,12 @@ export class EmployeeListComponent {
         this.isRetired = false;
       }
 
+      this.isLoading = true;
       this.employeeService.load(this.isRetired);
     });
   }
 
   ngOnInit() {
-    const status = this.route.snapshot.params['isRetired'];
-
-    if (status === 'down') {
-      this.isRetired = true;
-    }
-
-    this.employeeService.load(this.isRetired);
-
     this.rankService.getAll().subscribe({
       next: (ranks) => {
         this.ranks = ranks.map<Selectable>(({ id, name }) => {
@@ -140,7 +133,7 @@ export class EmployeeListComponent {
   onEdit = (event: number) => {
     const card = this.employees.find((e) => e.id === event) as EmployeeCard;
 
-    const { id, firstName, lastName, ssn, isRetired } = card;
+    const { id, firstName, lastName, ssn, isRetired, cards } = card;
 
     this.employee = {
       id,
@@ -149,9 +142,10 @@ export class EmployeeListComponent {
       ssn,
       rankId: card.rank.id,
       departmentId: card.department.id,
-      activeCardId: 0,
+      activeCardId: card.activeCard?.id,
       avatar: `${card.avatar}`,
       isRetired,
+      cards,
     };
 
     this.showModal = true;

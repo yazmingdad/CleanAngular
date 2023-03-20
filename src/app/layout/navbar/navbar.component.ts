@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { AuthService, LoggedInUser } from 'src/app/core/service/auth.service';
+import { NavigationService } from 'src/app/core/service/navigation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,12 @@ import { AuthService, LoggedInUser } from 'src/app/core/service/auth.service';
 })
 export class NavbarComponent {
   loggedInUser: LoggedInUser | null = null;
-  @Output() toggleMenu = new EventEmitter();
+  //@Output() toggleMenu = new EventEmitter();
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private navigationService: NavigationService
+  ) {}
 
   ngOnInit() {
     this.authService.loggedIn$.subscribe((loggedInUser) => {
@@ -19,6 +23,7 @@ export class NavbarComponent {
   }
 
   onLogoClick() {
-    this.toggleMenu.emit();
+    // this.toggleMenu.emit();
+    this.navigationService.toggleMenu();
   }
 }

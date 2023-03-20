@@ -30,6 +30,7 @@ export interface Employee {
   ssn: string;
   avatar: string;
   isRetired: boolean;
+  cards?: Card[];
 }
 
 export interface EmployeeCard {
@@ -43,4 +44,5 @@ export interface EmployeeCard {
   rank: Rank;
   activeCard?: Card;
   department: Department;
+  cards?: Card[];
 }

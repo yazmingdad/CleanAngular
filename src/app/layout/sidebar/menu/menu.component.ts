@@ -1,6 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { MenuItem, modules } from 'src/app/shared/utility/menu';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import {
+  MenuItem,
+  modules,
+  NavigationService,
+} from 'src/app/core/service/navigation.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,19 +12,29 @@ import { MenuItem, modules } from 'src/app/shared/utility/menu';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent {
-  @Input() showMenu = false;
-  @Output() close = new EventEmitter();
+  // @Input() showMenu = false;
+  // @Output() close = new EventEmitter();
 
-  index$ = new Subject<number>();
-
-  currentIndex = -1;
+  index$ = new Observable<number>();
   modules: MenuItem[] = modules;
 
-  constructor() {
+  showMenu = false;
+
+  constructor(private navigationService: NavigationService) {
+    this.navigationService.showMenu$.subscribe((value) => {
+      this.showMenu = value;
+    });
+
+    this.index$ = this.navigationService.index$;
+
     console.log('new menu instance');
   }
 
+  onExpand(index: number) {
+    this.navigationService.expand(index);
+  }
+
   onClose() {
-    this.close.emit();
+    this.navigationService.toggleMenu();
   }
 }

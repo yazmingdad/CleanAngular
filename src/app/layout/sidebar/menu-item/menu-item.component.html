@@ -23,7 +23,7 @@
   <!-- module menu -->
   <div class="module-menu">
     <div *ngFor="let item of menuItem.menuItems" class="module-menu-item">
-      <a [routerLink]="item.route"
+      <a [routerLink]="item.route" (click)="onNavigate()"
         ><i class="link-icon" [ngClass]="item.icon"></i>
         <h6>{{ item.name }}</h6></a
       >

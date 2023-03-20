@@ -6,9 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  showMenu = false;
-
-  toggleMenu() {
-    this.showMenu = !this.showMenu;
-  }
+  //showMenu = false;
+  // toggleMenu() {
+  //   this.showMenu = !this.showMenu;
+  // }
 }

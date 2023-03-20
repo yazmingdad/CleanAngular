@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Card } from 'src/app/data/schema/card';
 import {
   Employee,
   EmployeePatch,
@@ -26,11 +27,7 @@ export class EmployeeFormComponent {
     return this.employee ? false : true;
   }
 
-  cards = [
-    { id: 1, value: '7875 9854 2587 5547' },
-    { id: 2, value: '1598 8657 6258 3321' },
-    { id: 3, value: '1457 6325 8745 5896' },
-  ];
+  cards: Selectable[] | undefined;
 
   ngOnInit() {
     console.log('id', Math.random());
@@ -46,6 +43,11 @@ export class EmployeeFormComponent {
 
     if (this.employee) {
       employee = this.employee;
+      if (this.employee.cards) {
+        this.cards = this.employee.cards.map<Selectable>((card) => {
+          return { id: card.id as number, value: card.number };
+        });
+      }
     } else {
       employee = {
         id: 0,
@@ -100,7 +102,7 @@ export class EmployeeFormComponent {
         Validators.required,
       ]);
     } else {
-      if (this.cards.length > 0) {
+      if (this.cards && this.cards.length > 0) {
         this.employeeForm.addControl(
           'activeCardId',
           new FormControl(activeCardId, [Validators.required])

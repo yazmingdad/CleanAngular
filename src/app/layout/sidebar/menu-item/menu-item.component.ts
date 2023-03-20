@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { MenuItem } from 'src/app/shared/utility/menu';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { MenuItem } from 'src/app/core/service/navigation.service';
 
 @Component({
   selector: 'app-menu-item',
@@ -8,10 +8,11 @@ import { MenuItem } from 'src/app/shared/utility/menu';
   styleUrls: ['./menu-item.component.css'],
 })
 export class MenuItemComponent {
-  @Input() index$: Subject<number>;
+  @Input() index$: Observable<number>;
+
   @Input() menuItem: MenuItem;
   @Output() expand = new EventEmitter();
-
+  @Output() navigate = new EventEmitter();
   isExpanded = false;
 
   ngOnInit() {
@@ -31,5 +32,9 @@ export class MenuItemComponent {
     } else {
       this.isExpanded = false;
     }
+  }
+
+  onNavigate() {
+    this.navigate.emit();
   }
 }

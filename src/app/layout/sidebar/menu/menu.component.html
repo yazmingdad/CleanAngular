@@ -6,7 +6,8 @@
       <app-menu-item
         [index$]="index$"
         [menuItem]="module"
-        (expand)="index$.next($event)"
+        (expand)="onExpand($event)"
+        (navigate)="onClose()"
       ></app-menu-item>
     </ng-container>
 
@@ -24,4 +25,8 @@
     </li>
   </ul>
 </aside>
-<div class="overlay up-overlay" [ngClass]="{ show: showMenu }"></div>
+<div
+  class="overlay up-overlay"
+  [ngClass]="{ show: showMenu }"
+  (click)="onClose()"
+></div>

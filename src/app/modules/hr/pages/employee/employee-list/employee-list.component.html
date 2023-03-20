@@ -13,11 +13,12 @@
   [title]="
     isRetired ? 'Search for Retired Employees' : 'Search for Active Employees'
   "
+  [hasAddNew]="!isRetired"
   (create)="onCreate()"
   (search)="search($event)"
 ></app-search>
 
-<div class="employee-list" [ngClass]="{ 'no-element': notFound }">
+<div class="employee-list" [ngClass]="{ 'no-element': notFound || isLoading }">
   <ng-container *ngIf="!notFound && !isLoading; else elseNotFoundOrLoading">
     <app-employee
       *ngFor="let employee of employees"
