@@ -20,6 +20,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { MenuComponent } from './layout/sidebar/menu/menu.component';
 import { NotificationListComponent } from './layout/notification-list/notification-list.component';
 import { MenuItemComponent } from './layout/sidebar/menu-item/menu-item.component';
+import { ConfirmationComponent } from './layout/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MenuItemComponent } from './layout/sidebar/menu-item/menu-item.componen
     MenuComponent,
     NotificationListComponent,
     MenuItemComponent,
+    ConfirmationComponent,
   ],
   imports: [
     BrowserModule,

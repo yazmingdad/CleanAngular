@@ -5,13 +5,13 @@ import {
   EmployeePatch,
   EmployeePost,
 } from 'src/app/data/schema/employee';
-import { Rank } from 'src/app/data/schema/rank';
 import { DepartmentService } from 'src/app/data/service/hr/department.service';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { RankService } from 'src/app/data/service/hr/rank.service';
 import { media } from 'src/app/shared/utility/media';
 import { Selectable } from 'src/app/shared/utility/select';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmationService } from 'src/app/core/service/confirmation.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -58,7 +58,8 @@ export class EmployeeListComponent {
     private employeeService: EmployeeService,
     private rankService: RankService,
     private departmentService: DepartmentService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService
   ) {
     this.medias.sm$.subscribe(() => {
       this.employeeService.setPageSize(2);
@@ -95,6 +96,12 @@ export class EmployeeListComponent {
 
       this.isLoading = true;
       this.employeeService.load(this.isRetired);
+    });
+
+    this.confirmationService.confirmation$.subscribe((value) => {
+      if (value !== 'No') {
+        this.employeeService.load(this.isRetired);
+      }
     });
   }
 
@@ -176,9 +183,30 @@ export class EmployeeListComponent {
   }
 
   onUpDown(event: number) {
-    console.log(event);
-    this.employeeService
-      .update({
+    // this.employeeService
+    //   .update({
+    //     id: event,
+    //     patches: [
+    //       {
+    //         path: '/isRetired',
+    //         op: 'add',
+    //         value: !this.isRetired,
+    //       },
+    //     ],
+    //   })
+    //   .subscribe((value) => this.employeeService.load(this.isRetired));
+
+    let message = '';
+    const card = this.employees.find((e) => e.id === event) as EmployeeCard;
+
+    if (this.isRetired) {
+      message = `Are you sure you want to enable ${card.firstName} ${card.lastName}?`;
+    } else {
+      message = `Are you sure you want to disable ${card.firstName} ${card.lastName}?`;
+    }
+    this.confirmationService.confirm(
+      message,
+      this.employeeService.update({
         id: event,
         patches: [
           {
@@ -188,6 +216,6 @@ export class EmployeeListComponent {
           },
         ],
       })
-      .subscribe(() => this.employeeService.load(this.isRetired));
+    );
   }
 }

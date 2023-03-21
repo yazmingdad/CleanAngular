@@ -245,8 +245,15 @@ img:not(.logo) {
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-2);
   padding: 0.5rem 1rem;
-  margin: 0.5rem auto;
   transition: var(--transition);
+}
+
+.top {
+  margin: 0.5rem auto;
+}
+
+.center {
+  margin: auto;
 }
 
 .form:hover {
@@ -988,6 +995,18 @@ Modal
 
 .modal-footer {
   gap: 1rem;
+}
+
+.modal-body:empty {
+  display: none;
+}
+
+.modal-body-default {
+  display: none;
+}
+
+.modal-body:empty + .modal-body-default {
+  display: block;
 }
 
 .modal-footer:empty {

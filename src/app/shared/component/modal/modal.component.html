@@ -1,5 +1,8 @@
 <div class="overlay show down-overlay">
-  <div class="form modal-content">
+  <div
+    class="form modal-content"
+    [ngClass]="{ top: !isCentered, center: isCentered }"
+  >
     <div class="modal-header">
       <h4 class="modal-title">{{ title }}</h4>
       <button (click)="onDismissClick()" class="close-btn">
@@ -9,11 +12,17 @@
     <div class="modal-body">
       <ng-content></ng-content>
     </div>
+    <div class="modal-body modal-body-default">
+      <h5>{{ message }}</h5>
+    </div>
     <div class="modal-footer">
       <ng-content select="[modalFooter]"></ng-content>
     </div>
     <div class="modal-footer modal-footer-default">
-      <button type="button" class="btn btn-hipster">OK</button>
+      <button (click)="onConfirm(true)" type="button" class="btn">Yes</button>
+      <button (click)="onConfirm(false)" type="button" class="btn btn-hipster">
+        No
+      </button>
     </div>
   </div>
 </div>

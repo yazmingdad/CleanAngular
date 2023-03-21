@@ -1,4 +1,4 @@
-<app-modal (dismiss)="onDismiss()" *ngIf="showModal">
+<app-modal (dismiss)="onDismiss()" *ngIf="showModal" [isCentered]="false">
   <app-employee-form
     [employee]="employee"
     [ranks]="ranks"

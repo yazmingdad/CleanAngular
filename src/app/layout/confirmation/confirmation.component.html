@@ -1,0 +1,8 @@
+<app-modal
+  [message]="message"
+  (dismiss)="onDismiss()"
+  (validate)="onValidate($event)"
+  *ngIf="show"
+  [isCentered]="true"
+>
+</app-modal>

@@ -13,7 +13,11 @@ import {
 })
 export class ModalComponent {
   @Input() title = '';
+  @Input() message = '';
+  @Input() isCentered = true;
   @Output() dismiss = new EventEmitter();
+  @Output() validate = new EventEmitter<boolean>();
+
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
@@ -29,5 +33,9 @@ export class ModalComponent {
 
   onDismissClick() {
     this.dismiss.emit();
+  }
+
+  onConfirm(confirmation: boolean) {
+    this.validate.emit(confirmation);
   }
 }
