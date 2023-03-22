@@ -13,7 +13,7 @@
   [title]="
     isRetired ? 'Search for Retired Employees' : 'Search for Active Employees'
   "
-  [hasAddNew]="!isRetired"
+  [hasAddNew]="!isRetired && permission.canPost"
   (create)="onCreate()"
   (search)="search($event)"
 ></app-search>
@@ -23,6 +23,7 @@
     <app-employee
       *ngFor="let employee of employees"
       [employee]="employee"
+      [canEdit]="permission.canPatch"
       (edit)="onEdit($event)"
       (upDown)="onUpDown($event)"
     ></app-employee>

@@ -8,6 +8,7 @@ import { EmployeeCard } from 'src/app/data/schema/employee';
 })
 export class EmployeeComponent {
   @Input() employee: EmployeeCard;
+  @Input() canEdit: boolean = false;
   @Output() edit = new EventEmitter<number>();
   @Output() upDown = new EventEmitter<number>();
   onEdit() {

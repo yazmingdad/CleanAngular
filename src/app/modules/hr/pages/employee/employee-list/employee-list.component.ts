@@ -12,6 +12,11 @@ import { media } from 'src/app/shared/utility/media';
 import { Selectable } from 'src/app/shared/utility/select';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'src/app/core/service/confirmation.service';
+import { Subscription } from 'rxjs';
+import {
+  Permission,
+  PermissionService,
+} from 'src/app/core/service/permission.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -25,13 +30,20 @@ export class EmployeeListComponent {
     md$: media(`(min-width: 768px) and (max-width: 1199px)`),
     lg$: media(`(min-width: 1200px)`),
   };
-
+  isLoading = true;
+  showModal = false;
   isRetired = false;
+  permission: Permission = {
+    module: 'hr',
+    field: 'employee',
+    canGet: true,
+    canPost: true,
+    canPatch: true,
+  };
 
   ranks: Selectable[];
   departments: Selectable[];
 
-  showModal = false;
   employee: Employee | null = {
     id: 0,
     firstName: '',
@@ -44,85 +56,90 @@ export class EmployeeListComponent {
     avatar: '',
   };
 
-  isLoading = true;
-
   employees: EmployeeCard[];
-
   numberOfPages: { value: number };
 
   get notFound() {
     return !this.employees || this.employees.length === 0;
   }
 
+  uniqueNumber = Math.random();
+  subscriptions: Subscription[] = [];
+
   constructor(
     private employeeService: EmployeeService,
     private rankService: RankService,
     private departmentService: DepartmentService,
     private route: ActivatedRoute,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private permissionService: PermissionService
   ) {
-    this.medias.sm$.subscribe(() => {
-      this.employeeService.setPageSize(2);
-    });
-    this.medias.md$.subscribe(() => {
-      this.employeeService.setPageSize(4);
-    });
-    this.medias.lg$.subscribe(() => {
-      this.employeeService.setPageSize(6);
-    });
-
-    this.employeeService.page$.subscribe({
-      next: (employees) => {
-        this.isLoading = false;
-        this.employees = employees;
-        console.log('employees', employees);
-      },
-      error: () => {},
-    });
-
-    this.employeeService.numberOfPages$.subscribe({
-      next: (value) => {
-        this.numberOfPages = { value };
-      },
-      error: () => {},
-    });
-
-    this.route.params.subscribe(({ isRetired }) => {
-      if (isRetired === 'down') {
-        this.isRetired = true;
-      } else {
-        this.isRetired = false;
-      }
-
-      this.isLoading = true;
-      this.employeeService.load(this.isRetired);
-    });
-
-    this.confirmationService.confirmation$.subscribe((value) => {
-      if (value !== 'No') {
+    this.subscriptions = [
+      this.medias.sm$.subscribe(() => {
+        this.employeeService.setPageSize(2);
+      }),
+      this.medias.md$.subscribe(() => {
+        this.employeeService.setPageSize(4);
+      }),
+      this.medias.lg$.subscribe(() => {
+        this.employeeService.setPageSize(6);
+      }),
+      this.employeeService.page$.subscribe({
+        next: (employees) => {
+          this.isLoading = false;
+          this.employees = employees;
+          console.log('employees', employees);
+        },
+        error: () => {},
+      }),
+      this.employeeService.numberOfPages$.subscribe({
+        next: (value) => {
+          this.numberOfPages = { value };
+        },
+        error: () => {},
+      }),
+      this.confirmationService.confirmation$.subscribe((value) => {
+        console.log('confirmation', value);
+        console.log('employeeList', this.uniqueNumber);
+        if (value !== 'No') {
+          this.employeeService.load(this.isRetired);
+        }
+      }),
+      this.rankService.getAll().subscribe({
+        next: (ranks) => {
+          this.ranks = ranks.map<Selectable>(({ id, name }) => {
+            return { id, value: name };
+          });
+        },
+        error: () => {},
+      }),
+      this.departmentService.getAll().subscribe({
+        next: (departments) => {
+          this.departments = departments.map<Selectable>(({ id, name }) => {
+            return { id, value: name };
+          });
+        },
+        error: () => {},
+      }),
+      this.route.params.subscribe(({ isRetired }) => {
+        if (isRetired === 'down') {
+          this.isRetired = true;
+        } else {
+          this.isRetired = false;
+        }
+        this.isLoading = true;
         this.employeeService.load(this.isRetired);
-      }
-    });
+      }),
+      this.permissionService.employeePermission$.subscribe((permission) => {
+        if (permission) {
+          this.permission = permission;
+        }
+      }),
+    ];
   }
 
-  ngOnInit() {
-    this.rankService.getAll().subscribe({
-      next: (ranks) => {
-        this.ranks = ranks.map<Selectable>(({ id, name }) => {
-          return { id, value: name };
-        });
-      },
-      error: () => {},
-    });
-
-    this.departmentService.getAll().subscribe({
-      next: (departments) => {
-        this.departments = departments.map<Selectable>(({ id, name }) => {
-          return { id, value: name };
-        });
-      },
-      error: () => {},
-    });
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   search(event: string) {
@@ -166,9 +183,9 @@ export class EmployeeListComponent {
     this.employeeService.insert(event).subscribe({
       next: () => {
         this.employeeService.load();
-        this.showModal = false;
       },
     });
+    this.showModal = false;
   }
 
   onPatch(event: EmployeePatch) {
@@ -183,19 +200,7 @@ export class EmployeeListComponent {
   }
 
   onUpDown(event: number) {
-    // this.employeeService
-    //   .update({
-    //     id: event,
-    //     patches: [
-    //       {
-    //         path: '/isRetired',
-    //         op: 'add',
-    //         value: !this.isRetired,
-    //       },
-    //     ],
-    //   })
-    //   .subscribe((value) => this.employeeService.load(this.isRetired));
-
+    console.log('updown');
     let message = '';
     const card = this.employees.find((e) => e.id === event) as EmployeeCard;
 

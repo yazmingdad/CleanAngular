@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { AuthService, LoggedInUser } from 'src/app/core/service/auth.service';
-import { NavigationService } from 'src/app/core/service/navigation.service';
+import { MenuService } from 'src/app/core/service/menu.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +13,7 @@ export class NavbarComponent {
 
   constructor(
     private authService: AuthService,
-    private navigationService: NavigationService
+    private menuService: MenuService
   ) {}
 
   ngOnInit() {
@@ -23,7 +23,6 @@ export class NavbarComponent {
   }
 
   onLogoClick() {
-    // this.toggleMenu.emit();
-    this.navigationService.toggleMenu();
+    this.menuService.toggleMenu();
   }
 }

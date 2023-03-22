@@ -1,7 +1,7 @@
 <div class="single-employee card">
   <div class="item-icons">
     <button
-      *ngIf="!employee.isRetired"
+      *ngIf="!employee.isRetired && canEdit"
       type="button"
       class="item-icon"
       (click)="onEdit()"
@@ -9,6 +9,7 @@
       <i class="fas fa-pen"></i>
     </button>
     <button
+      *ngIf="canEdit"
       class="item-icon"
       [ngClass]="{
         'bg-danger': !employee.isRetired,

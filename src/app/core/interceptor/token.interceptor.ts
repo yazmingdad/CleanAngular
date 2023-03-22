@@ -4,8 +4,10 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -29,12 +31,28 @@ export class TokenInterceptor implements HttpInterceptor {
           setHeaders: headersConfig,
         });
 
-        console.log(modifiedReq);
-
-        return next.handle(modifiedReq);
+        return next.handle(modifiedReq).pipe(
+          tap((value) => console.log('interceptor', value)),
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 403 || error.status === 401) {
+              localStorage.clear();
+            }
+            return throwError(() => new Error(error.message));
+          })
+        );
       }
     } catch {}
 
     return next.handle(request);
+    // .pipe(
+    //   tap((value) => console.log('interceptor', value)),
+    //   catchError((error: HttpErrorResponse) => {
+    //     console.log('interceptor', error);
+    //     if (error.status === 403 || error.status === 401) {
+    //       localStorage.clear();
+    //     }
+    //     return throwError(() => new Error());
+    //   })
+    // )
   }
 }

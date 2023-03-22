@@ -14,11 +14,13 @@ export interface Confirmation {
 })
 export class ConfirmationService {
   constructor() {
+    console.log('confirmation service', Math.random());
     this._show$ = new Subject<Confirmation>();
     this._confirmation$ = new Subject<boolean>();
 
     this.confirmation$ = this._confirmation$.pipe(
       switchMap((value) => {
+        console.log('confirmation observable', value);
         if (value) {
           if (this._observable) {
             return this._observable;
@@ -57,6 +59,7 @@ export class ConfirmationService {
   }
 
   validate(confirmation: boolean) {
+    console.log('validate', confirmation);
     this._confirmation$.next(confirmation);
     this.dismiss();
   }

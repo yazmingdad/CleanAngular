@@ -90,9 +90,22 @@ export class EmployeeService {
       ).pipe(
         tap(() => this.notificationService.addSuccess('Successful Update')),
         catchError((err) => {
-          let error = err.error as CleanResponse;
-          this.notificationService.addError(error.reason);
-          return throwError(() => new Error(''));
+          if (err) {
+            console.log(err);
+            if (err.status === 403) {
+              this.notificationService.addError('Not authorized Update');
+            } else {
+              let error = err.error as CleanResponse;
+
+              if (error && error.reason) {
+                this.notificationService.addError(error.reason);
+              } else {
+                this.notificationService.addError('Error, Try later');
+              }
+            }
+          }
+
+          return EMPTY;
         })
       );
     }

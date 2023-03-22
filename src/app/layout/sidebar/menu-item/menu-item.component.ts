@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { MenuItem } from 'src/app/core/service/navigation.service';
+import { MenuItem } from 'src/app/core/service/menu.service';
 
 @Component({
   selector: 'app-menu-item',
