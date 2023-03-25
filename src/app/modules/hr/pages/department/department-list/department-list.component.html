@@ -1,0 +1,84 @@
+<div class="section-title">
+  <h5>Active Departments</h5>
+</div>
+<app-search></app-search>
+
+<div class="departments">
+  <table class="table table-responsive align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Department Name</th>
+        <th>Type</th>
+        <th>Parent Department</th>
+        <th>City</th>
+        <th>Manager</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-title="Name">Human Resources</td>
+        <td data-title="Type">
+          <span class="badge bg-success">Central</span>
+        </td>
+        <td data-title="Parent">Clean Corporation</td>
+        <td data-title="City">Rabat</td>
+        <td data-title="Manager">
+          <div class="d-flex department-manager">
+            <img
+              src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+              alt=""
+              style="width: 45px; height: 45px"
+              class="rounded-circle"
+            />
+            <div class="ms-3">
+              <p class="fw-bold mb-1">John Doe</p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="btn-container">
+            <button type="button" class="btn btn-hipster text-warning">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button type="button" class="btn btn-hipster text-danger">
+              <i class="fas fa-arrow-circle-up"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td data-title="Name">Human Resources</td>
+        <td data-title="Type">
+          <span class="badge bg-success">Central</span>
+        </td>
+        <td data-title="Parent">Clean Corporation</td>
+        <td data-title="City">Rabat</td>
+        <td data-title="Manager">
+          <div class="d-flex department-manager">
+            <img
+              src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+              alt=""
+              style="width: 45px; height: 45px"
+              class="rounded-circle"
+            />
+            <div class="ms-3">
+              <p class="fw-bold mb-1">John Doe</p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="btn-container">
+            <button type="button" class="btn btn-hipster text-warning">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button type="button" class="btn btn-hipster text-danger">
+              <i class="fas fa-arrow-circle-up"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-pagination [numberOfPages]="{ value: 10 }"></app-pagination>

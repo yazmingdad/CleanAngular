@@ -393,7 +393,7 @@ Searcher
 .search-form {
   display: flex;
   max-width: var(--fixed-width);
-  margin: 1rem auto;
+  margin: 0.5rem auto;
 }
 .form-input.search-input {
   flex: 4 1 0px;
@@ -1195,4 +1195,95 @@ Employee Form
 .down-item {
   border-right: 8px solid var(--red-dark);
   border-left: 8px solid var(--red-dark);
+}
+
+/*
+=============== 
+Department List
+===============
+*/
+
+.section-title h5,
+h4 {
+  margin-bottom: 0;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: left;
+  gap: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
+  box-shadow: var(--shadow-3);
+}
+
+table tr {
+  padding: 0.45rem;
+}
+
+thead tr {
+  background-color: var(--primary-400);
+}
+
+thead th {
+  color: var(--white);
+  font-size: 1.15rem;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--grey-100);
+}
+
+table th,
+table td {
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+  table {
+    border: 3px solid var(--primary-500);
+  }
+
+  table thead tr {
+    display: none;
+  }
+
+  table tr {
+    display: block;
+  }
+
+  table th,
+  table td {
+    padding: 0.25rem;
+  }
+
+  table td {
+    text-align: right;
+    display: block;
+    font-size: 1rem;
+  }
+
+  table .department-manager {
+    justify-content: right;
+  }
+
+  table td::before {
+    content: attr(data-title);
+    float: left;
+    font-weight: 600;
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--grey-200);
+    color: var(--grey-900);
+  }
+
+  .btn-container {
+    justify-content: center;
+  }
 }

@@ -7,6 +7,10 @@ import { EmployeeComponent } from './pages/employee/employee/employee.component'
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EmployeeFormComponent } from './pages/employee/employee-form/employee-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DepartmentListComponent } from './pages/department/department-list/department-list.component';
+import { DepartmentFormComponent } from './pages/department/department-form/department-form.component';
+import { DepartmentChartComponent } from './pages/department/department-chart/department-chart.component';
+import { DepartmentCardComponent } from './pages/department/department-card/department-card.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +18,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     EmployeeListComponent,
     EmployeeComponent,
     EmployeeFormComponent,
+    DepartmentListComponent,
+    DepartmentFormComponent,
+    DepartmentChartComponent,
+    DepartmentCardComponent,
   ],
   imports: [CommonModule, HRRoutingModule, ReactiveFormsModule, SharedModule],
 })

@@ -96,14 +96,14 @@ export class MenuService {
               color: 'bg-danger',
               menuItems: [
                 {
-                  route: '/hr/employee/up',
-                  name: 'Active Employees',
+                  route: '/hr/department/up',
+                  name: 'Departments',
                   icon: 'fas fa-user-check',
                   color: 'bg-success',
                 },
                 {
-                  route: '/hr/employee/down',
-                  name: 'Retired Employees',
+                  route: '/hr/department/down',
+                  name: 'Old Departments',
                   icon: 'fas fa-user-check',
                   color: 'bg-danger',
                 },
