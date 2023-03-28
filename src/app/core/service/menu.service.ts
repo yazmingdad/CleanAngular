@@ -96,6 +96,12 @@ export class MenuService {
               color: 'bg-danger',
               menuItems: [
                 {
+                  route: '/hr/chart',
+                  name: 'Organization chart',
+                  icon: 'fas fa-user-check',
+                  color: 'bg-danger',
+                },
+                {
                   route: '/hr/department/up',
                   name: 'Departments',
                   icon: 'fas fa-user-check',

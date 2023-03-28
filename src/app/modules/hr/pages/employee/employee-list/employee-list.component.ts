@@ -64,7 +64,7 @@ export class EmployeeListComponent {
   }
 
   uniqueNumber = Math.random();
-  subscriptions: Subscription[] = [];
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private employeeService: EmployeeService,

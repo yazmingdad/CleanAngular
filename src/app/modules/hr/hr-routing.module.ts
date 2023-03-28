@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from 'src/app/shared/component/not-found/not-found.component';
+import { DepartmentChartComponent } from './pages/department/department-chart/department-chart.component';
 import { DepartmentListComponent } from './pages/department/department-list/department-list.component';
 import { EmployeeListComponent } from './pages/employee/employee-list/employee-list.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -18,18 +19,26 @@ const routes: Routes = [
         path: 'employee/:isRetired',
         component: EmployeeListComponent,
       },
-    ],
-  },
-  {
-    path: '',
-    component: HomeComponent,
-    children: [
       {
-        path: 'department/:isDown',
+        path: 'department/:nature',
         component: DepartmentListComponent,
+      },
+      {
+        path: 'chart',
+        component: DepartmentChartComponent,
       },
     ],
   },
+  // {
+  //   path: '',
+  //   component: HomeComponent,
+  //   children: [
+  //     {
+  //       path: 'department/:isDown',
+  //       component: DepartmentListComponent,
+  //     },
+  //   ],
+  // },
 ];
 
 @NgModule({

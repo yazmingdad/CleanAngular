@@ -1202,6 +1202,13 @@ Employee Form
 Department List
 ===============
 */
+tbody {
+  width: 100%;
+}
+.departments.no-element {
+  display: grid;
+  place-items: center;
+}
 
 .section-title h5,
 h4 {
@@ -1245,6 +1252,10 @@ table td {
 }
 
 @media screen and (max-width: 800px) {
+  .department-manager {
+    margin: 0 0 0 auto;
+  }
+
   table {
     border: 3px solid var(--primary-500);
   }
@@ -1266,10 +1277,6 @@ table td {
     text-align: right;
     display: block;
     font-size: 1rem;
-  }
-
-  table .department-manager {
-    justify-content: right;
   }
 
   table td::before {

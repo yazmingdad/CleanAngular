@@ -46,3 +46,9 @@ export interface EmployeeCard {
   department: Department;
   cards?: Card[];
 }
+
+export interface EmployeeBrief {
+  id: number;
+  fullName: string;
+  avatar: string;
+}
