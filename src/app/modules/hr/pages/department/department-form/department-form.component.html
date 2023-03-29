@@ -1,1 +1,38 @@
-<p>department-form works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="departmentForm">
+  <!-- <div class="employee-form">
+    <div class="employee-form-input"> -->
+  <app-input
+    inputType="text"
+    label="Name"
+    [control]="getControl('Name')"
+  ></app-input>
+  <app-input
+    inputType="text"
+    label="Short Name"
+    [control]="getControl('shortName')"
+  ></app-input>
+  <app-select
+    [options]="managers"
+    label="Department Type"
+    [control]="getControl('departmentTypeId')"
+  ></app-select>
+  <app-select
+    [options]="cities"
+    label="City"
+    [control]="getControl('cityId')"
+  ></app-select>
+  <app-select
+    [options]="parents"
+    label="Parent Department"
+    [control]="getControl('parentId')"
+  ></app-select>
+  <app-select
+    [options]="managers"
+    label="Manager"
+    [control]="getControl('managerId')"
+  ></app-select>
+
+  <button type="submit" class="btn btn-block">
+    {{ isCreateForm ? "add department" : "update department" }}
+  </button>
+</form>

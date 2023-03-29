@@ -14,6 +14,7 @@ import { ModalComponent } from './component/modal/modal.component';
 import { SpinnerComponent } from './component/spinner/spinner.component';
 import { SelectComponent } from './component/select/select.component';
 import { InputFileComponent } from './component/input-file/input-file.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,12 @@ import { InputFileComponent } from './component/input-file/input-file.component'
     SelectComponent,
     InputFileComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    FontAwesomeModule,
+  ],
   exports: [
     InputComponent,
     InputFileComponent,

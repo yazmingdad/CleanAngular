@@ -10,9 +10,14 @@
     </ng-container>
   </div>
 
-  <select [formControl]="control" class="form-input">
+  <!-- <select [formControl]="control" class="form-input">
     <option *ngFor="let option of options" [ngValue]="option.id">
       {{ option.value }}
     </option>
-  </select>
+  </select> -->
+  <ng-select [searchable]="true" [formControl]="control">
+    <ng-option *ngFor="let option of options" [value]="option.id">
+      {{ option.value }}
+    </ng-option>
+  </ng-select>
 </div>

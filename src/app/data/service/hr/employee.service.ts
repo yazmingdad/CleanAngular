@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, iif, Observable, throwError } from 'rxjs';
+import { EMPTY, iif, Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Paginator } from 'src/app/shared/utility/paginator';
@@ -12,13 +12,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   cardEndpoint,
   employeeEndpoint,
+  employeeLightEndPoint,
 } from 'src/app/core/constants/endpoints';
-import { Loading } from 'src/app/shared/utility/loading';
 import { CleanResponse } from '../../schema/response';
+import { Selectable } from 'src/app/shared/utility/select';
 
 @Injectable()
 export class EmployeeService {
   private paginator = new Paginator<EmployeeCard>();
+  private _selection$ = new Subject<Selectable[]>();
 
   private employees: EmployeeCard[] = [];
 
@@ -28,6 +30,10 @@ export class EmployeeService {
 
   get page$() {
     return this.paginator.page$;
+  }
+
+  get selection$() {
+    return this._selection$.asObservable();
   }
 
   constructor(
@@ -44,6 +50,17 @@ export class EmployeeService {
 
   private setList(list: EmployeeCard[]) {
     this.paginator.list = list;
+  }
+
+  getSelection() {
+    return this.http.get<EmployeeCard[]>(employeeLightEndPoint).subscribe({
+      next: (employees) => {
+        const managers = employees.map<Selectable>(({ id, fullName }) => {
+          return { id, value: fullName };
+        });
+        this._selection$.next(managers);
+      },
+    });
   }
 
   setPageSize(pageSize: number) {

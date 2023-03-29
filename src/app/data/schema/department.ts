@@ -10,6 +10,11 @@ export interface Department {
   id: number;
   name: string;
   shortName: string;
+  departmentTypeId?: number;
+  parentId?: number;
+  managerId?: number;
+  cityId?: number;
+  isDown?: boolean;
 }
 
 export interface DepartmentCard {

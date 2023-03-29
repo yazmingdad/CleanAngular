@@ -45,14 +45,14 @@
     [control]="getControl('avatar')"
   ></app-input-file>
 
-  <div *ngIf="employeeForm.errors" class="text-danger">
+  <!-- <div *ngIf="employeeForm.errors" class="text-danger">
     <p *ngIf="employeeForm.errors['credentials']">
       Invalid username or password
     </p>
     <p *ngIf="employeeForm.errors?.['unknownError']">
       Failed to sign up,try later
     </p>
-  </div>
+  </div> -->
 
   <button type="submit" class="btn btn-block">
     {{ isCreateForm ? "add employee" : "update employee" }}

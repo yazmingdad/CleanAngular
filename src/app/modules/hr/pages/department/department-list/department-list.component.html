@@ -1,13 +1,51 @@
+<app-modal (dismiss)="showModal = false" *ngIf="showModal" [isCentered]="false">
+  <app-department-form
+    [department]="department"
+    [parents]="parents"
+    [cities]="cities"
+    [managers]="managers"
+    [departmentTypes]="departmentTypes"
+  ></app-department-form>
+  <div modalFooter></div>
+</app-modal>
 <div class="section-title">
-  <h5>Active Departments</h5>
+  <h5>
+    <span
+      class="badge"
+      [ngClass]="{
+        primary: nature === 'Central',
+        'bg-primary': nature === 'Regional',
+        'bg-warning': nature === 'Provincial'
+      }"
+      >{{ nature }} Departments</span
+    >
+  </h5>
 </div>
-<app-search></app-search>
+<app-search
+  title="Type to Search"
+  [btnColor]="
+    nature === 'Regional'
+      ? 'bg-primary'
+      : nature === 'Provincial'
+      ? 'bg-warning'
+      : ''
+  "
+  [hasAddNew]="nature !== 'Down' && permission.canPost"
+  (create)="onCreate()"
+  (search)="search($event)"
+></app-search>
 
 <div class="departments" [ngClass]="{ 'no-element': notFound || isLoading }">
   <ng-container *ngIf="!notFound && !isLoading; else elseNotFoundOrLoading">
     <table class="table table-responsive align-middle mb-0 bg-white">
       <thead class="bg-light">
-        <tr>
+        <tr
+          [ngClass]="{
+            primary: nature === 'Central',
+            'bg-primary': nature === 'Regional',
+            'bg-warning': nature === 'Provincial'
+          }"
+        >
           <th>Department Name</th>
           <th>Type</th>
           <th>Parent Department</th>
@@ -21,9 +59,15 @@
         <tr *ngFor="let department of departments">
           <td data-title="Name">{{ department.name }}</td>
           <td data-title="Type">
-            <span class="badge bg-success">{{
-              department.departmentType.name
-            }}</span>
+            <span
+              class="badge"
+              [ngClass]="{
+                primary: nature === 'Central',
+                'bg-primary': nature === 'Regional',
+                'bg-warning': nature === 'Provincial'
+              }"
+              >{{ department.departmentType.name }}</span
+            >
           </td>
           <td data-title="Parent">{{ department.parent?.name }}</td>
           <td data-title="City">{{ department.city.name }}</td>
@@ -55,13 +99,14 @@
     </table>
   </ng-container>
   <ng-template #elseNotFoundOrLoading>
-    <tr>
-      <app-spinner *ngIf="isLoading"></app-spinner>
-      <app-not-found
-        *ngIf="notFound && !isLoading"
-        message="sorry no department was found"
-      ></app-not-found>
-    </tr>
+    <app-spinner *ngIf="isLoading"></app-spinner>
+    <app-not-found
+      *ngIf="notFound && !isLoading"
+      message="sorry no department was found"
+    ></app-not-found>
   </ng-template>
 </div>
-<app-pagination [numberOfPages]="{ value: 10 }"></app-pagination>
+<app-pagination
+  [numberOfPages]="numberOfPages"
+  (getPage)="getPage($event)"
+></app-pagination>

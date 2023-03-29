@@ -7,6 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SearchComponent {
   @Input() title = 'Search';
+  @Input() btnColor = 'primary';
   @Input() hasAddNew = true;
   @Output() create = new EventEmitter();
   @Output() search = new EventEmitter<string>();

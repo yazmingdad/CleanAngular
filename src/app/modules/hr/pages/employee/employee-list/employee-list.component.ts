@@ -44,17 +44,7 @@ export class EmployeeListComponent {
   ranks: Selectable[];
   departments: Selectable[];
 
-  employee: Employee | null = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    ssn: '',
-    rankId: 0,
-    departmentId: 0,
-    activeCardId: 0,
-    isRetired: false,
-    avatar: '',
-  };
+  employee: Employee | null = null;
 
   employees: EmployeeCard[];
   numberOfPages: { value: number };
