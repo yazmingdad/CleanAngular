@@ -6,7 +6,12 @@ import {
   Permission,
   PermissionService,
 } from 'src/app/core/service/permission.service';
-import { Department, DepartmentCard } from 'src/app/data/schema/department';
+import {
+  Department,
+  DepartmentCard,
+  DepartmentPatch,
+  DepartmentPost,
+} from 'src/app/data/schema/department';
 import { departments } from 'src/app/data/service/fake.data';
 import { DepartmentService } from 'src/app/data/service/hr/department.service';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
@@ -29,7 +34,7 @@ export class DepartmentListComponent {
 
   isLoading = true;
   showModal = false;
-  nature = 'Regional';
+  isDown = false;
 
   get notFound() {
     return !this.departments || this.departments.length === 0;
@@ -85,7 +90,7 @@ export class DepartmentListComponent {
       }),
       this.confirmationService.confirmation$.subscribe((value) => {
         if (value !== 'No') {
-          this.departmentService.refresh(this.nature);
+          this.departmentService.refresh(this.isDown);
         }
       }),
 
@@ -113,14 +118,12 @@ export class DepartmentListComponent {
         });
       }),
       this.route.params.subscribe(({ nature }) => {
-        if (
-          nature === 'Central' ||
-          nature === 'Regional' ||
-          nature === 'Provincial'
-        ) {
-          this.nature = nature;
+        if (nature === 'up') {
+          this.isDown = false;
+        } else {
+          this.isDown = true;
         }
-        this.departmentService.load(nature);
+        this.departmentService.load(this.isDown);
         this.employeeService.getSelection();
         this.localizationService.getCities();
       }),
@@ -129,10 +132,40 @@ export class DepartmentListComponent {
 
   ngOnInit() {}
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
   onCreate() {
     this.department = null;
     this.showModal = true;
   }
+
+  onEdit = (event: number) => {
+    const card = this.departments.find((e) => e.id === event) as DepartmentCard;
+
+    const {
+      id,
+      name,
+      shortName,
+      departmentTypeId,
+      parentId,
+      managerId,
+      cityId,
+    } = card;
+
+    this.department = {
+      id,
+      name,
+      shortName,
+      departmentTypeId,
+      parentId,
+      managerId,
+      cityId,
+    };
+
+    this.showModal = true;
+  };
 
   getPage(event: number) {
     this.departmentService.getPage(event);
@@ -140,5 +173,50 @@ export class DepartmentListComponent {
 
   search(event: string) {
     this.departmentService.search(event);
+  }
+
+  onPost(event: DepartmentPost) {
+    this.departmentService.insert(event).subscribe({
+      next: () => {
+        this.departmentService.refresh(this.isDown);
+      },
+    });
+    this.showModal = false;
+  }
+
+  onPatch(event: DepartmentPatch) {
+    if (event.patches.length > 0) {
+      this.departmentService.update(event).subscribe({
+        next: () => {
+          this.departmentService.refresh(this.isDown);
+        },
+      });
+    }
+    this.showModal = false;
+    console.log('patches', event);
+  }
+
+  onUpDown(event: number) {
+    console.log('updown');
+    let message = '';
+    const card = this.departments.find((e) => e.id === event) as DepartmentCard;
+    if (this.isDown) {
+      message = `Are you sure you want to enable ${card.name}?`;
+    } else {
+      message = `Are you sure you want to disable ${card.name}?`;
+    }
+    this.confirmationService.confirm(
+      message,
+      this.departmentService.update({
+        id: event,
+        patches: [
+          {
+            path: '/isDown',
+            op: 'add',
+            value: !this.isDown,
+          },
+        ],
+      })
+    );
   }
 }

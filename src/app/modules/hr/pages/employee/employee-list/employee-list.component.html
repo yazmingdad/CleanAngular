@@ -8,7 +8,18 @@
   ></app-employee-form>
   <div modalFooter></div>
 </app-modal>
-
+<div class="section-title">
+  <h5>
+    <span
+      class="badge"
+      [ngClass]="{
+        primary: !isRetired,
+        'bg-danger': isRetired
+      }"
+      >{{ isRetired ? "Retired" : "Active" }} Employees</span
+    >
+  </h5>
+</div>
 <app-search
   [title]="
     isRetired ? 'Search for Retired Employees' : 'Search for Active Employees'

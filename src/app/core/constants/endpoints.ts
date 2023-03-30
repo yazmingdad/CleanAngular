@@ -10,9 +10,11 @@ export const employeeLightEndPoint = `${employeeEndpoint}/Light`;
 export const cardEndpoint = `${collectorUrl}/api/Card`;
 export const rankEndPoint = `${collectorUrl}/api/Rank`;
 export const departmentEndPoint = `${collectorUrl}/api/Department`;
-export const centralDepartmentEndPoint = `${departmentEndPoint}/Central`;
-export const regionalDepartmentEndPoint = `${departmentEndPoint}/Regional`;
-export const provincialDepartmentEndPoint = `${departmentEndPoint}/Provincial`;
+export const upDepartmentEndPoint = `${departmentEndPoint}/up`;
+export const downDepartmentEndPoint = `${departmentEndPoint}/down`;
+// export const centralDepartmentEndPoint = `${departmentEndPoint}/Central`;
+// export const regionalDepartmentEndPoint = `${departmentEndPoint}/Regional`;
+// export const provincialDepartmentEndPoint = `${departmentEndPoint}/Provincial`;
 export const departmentTypesEndPoint = `${departmentEndPoint}/Types`;
 
 export const localizationEndpoint = `${collectorUrl}/api/Localization`;

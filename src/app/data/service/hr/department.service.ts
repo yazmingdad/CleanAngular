@@ -3,18 +3,20 @@ import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   catchError,
+  EMPTY,
+  iif,
   Observable,
   Subject,
+  tap,
   throwError,
 } from 'rxjs';
 import {
-  centralDepartmentEndPoint,
   citiesEndPoint,
   departmentEndPoint,
   departmentTypesEndPoint,
+  downDepartmentEndPoint,
   employeeLightEndPoint,
-  provincialDepartmentEndPoint,
-  regionalDepartmentEndPoint,
+  upDepartmentEndPoint,
 } from 'src/app/core/constants/endpoints';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
 import { Loading } from 'src/app/shared/utility/loading';
@@ -24,9 +26,12 @@ import { City } from '../../schema/city';
 import {
   Department,
   DepartmentCard,
+  DepartmentPatch,
+  DepartmentPost,
   DepartmentType,
 } from '../../schema/department';
 import { Employee, EmployeeCard } from '../../schema/employee';
+import { CleanResponse } from '../../schema/response';
 
 @Injectable()
 export class DepartmentService {
@@ -72,20 +77,15 @@ export class DepartmentService {
     return this.http.get<DepartmentType[]>(departmentTypesEndPoint);
   }
 
-  private getDepartments(type: string) {
+  private getDepartments(isDown: boolean = false) {
     this.loading.show();
 
-    let url = '';
-    switch (type) {
-      case 'Provincial':
-        url = provincialDepartmentEndPoint;
-        break;
-      case 'Regional':
-        url = regionalDepartmentEndPoint;
-        break;
-      default:
-        url = centralDepartmentEndPoint;
+    let url = upDepartmentEndPoint;
+
+    if (isDown) {
+      url = downDepartmentEndPoint;
     }
+
     return this.http.get<DepartmentCard[]>(url).pipe(
       catchError(() => {
         this.notificationService.addError('Internal Server Error');
@@ -106,18 +106,7 @@ export class DepartmentService {
     this.paginator.getPage(page);
   }
 
-  load(type: string = 'Central') {
-    if (type === 'Provincial') {
-      this.getDepartments('Regional').subscribe({
-        next: (departments) => {
-          const parents = departments.map<Selectable>(({ id, name }) => {
-            return { id, value: name };
-          });
-          this._parents$.next(parents);
-        },
-      });
-    }
-
+  load(isDown: boolean = false) {
     this.getDepartmentTypes().subscribe({
       next: (departementTypes) => {
         const types = departementTypes.map<Selectable>(({ id, name }) => {
@@ -127,13 +116,13 @@ export class DepartmentService {
       },
     });
 
-    this.refresh(type);
+    this.refresh(isDown);
   }
 
-  refresh(type: string = 'Central') {
-    this.getDepartments(type).subscribe({
+  refresh(isDown: boolean = false) {
+    this.getDepartments(isDown).subscribe({
       next: (departments) => {
-        if (type === 'Central' || type === 'Regional') {
+        if (!isDown) {
           const parents = departments.map<Selectable>(({ id, name }) => {
             return { id, value: name };
           });
@@ -161,8 +150,59 @@ export class DepartmentService {
         d.manager.fullName.toLowerCase().includes(query) ||
         d.city.name.toLowerCase().includes(query) ||
         d.parent?.name.toLowerCase().includes(query) ||
-        d.parent?.shortName.toLowerCase().includes(query)
+        d.parent?.shortName.toLowerCase().includes(query) ||
+        d.departmentType.name.toLowerCase().includes(query)
     );
     this.setList(list);
+  }
+
+  insert(payload: DepartmentPost) {
+    return this.http.post(departmentEndPoint, payload).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('Department Added successfully');
+      }),
+      catchError((err) => {
+        let error = err.error as CleanResponse;
+
+        if (!error) {
+          error = {
+            reason: 'Department Insert Failed',
+          };
+        }
+        console.log(error.reason);
+        this.notificationService.addError(error.reason);
+        return throwError(() => new Error(''));
+      })
+    );
+  }
+
+  update(payload: DepartmentPatch) {
+    if (payload.id) {
+      return this.http
+        .patch(`${departmentEndPoint}/${payload.id}`, payload.patches)
+        .pipe(
+          tap(() => this.notificationService.addSuccess('Successful Update')),
+          catchError((err) => {
+            if (err) {
+              console.log(err);
+
+              try {
+                let error = err.error as CleanResponse;
+                if (error.reason) {
+                  this.notificationService.addError(error.reason);
+                } else {
+                  throw new Error();
+                }
+              } catch {
+                this.notificationService.addError('Error, Try later');
+              }
+            }
+
+            return EMPTY;
+          })
+        );
+    }
+
+    return throwError(() => new Error('Id is undefined'));
   }
 }

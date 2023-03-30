@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Department } from 'src/app/data/schema/department';
+import {
+  Department,
+  DepartmentPatch,
+  DepartmentPost,
+} from 'src/app/data/schema/department';
 import { Selectable } from 'src/app/shared/utility/select';
 
 @Component({
@@ -15,8 +19,8 @@ export class DepartmentFormComponent {
   @Input() managers: Selectable[] = [];
   @Input() cities: Selectable[] = [];
 
-  // @Output() departmentPost = new EventEmitter<DepartmentPost>();
-  // @Output() departmentPatch = new EventEmitter<DepartmentPatch>();
+  @Output() departmentPost = new EventEmitter<DepartmentPost>();
+  @Output() departmentPatch = new EventEmitter<DepartmentPatch>();
 
   departmentForm: FormGroup;
 
@@ -57,7 +61,7 @@ export class DepartmentFormComponent {
     console.log('init', department);
 
     this.departmentForm = new FormGroup({
-      Name: new FormControl(name, [
+      name: new FormControl(name, [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(30),
@@ -77,7 +81,87 @@ export class DepartmentFormComponent {
   }
 
   onSubmit() {
-    console.log('Submit');
-    console.log('value', this.departmentForm.value);
+    if (this.departmentForm.invalid) {
+      console.log('invalid form', this.departmentForm.value);
+      return;
+    }
+
+    if (this.isCreateForm) {
+      this.departmentPost.emit(this.departmentForm.value);
+    } else {
+      try {
+        const payload = this.getPatches();
+        this.departmentPatch.emit(payload);
+      } catch {}
+    }
+  }
+
+  private getPatches() {
+    const payload: DepartmentPatch = {
+      id: this.department?.id as number,
+      patches: [],
+    };
+
+    const { name, shortName, departmentTypeId, parentId, managerId, cityId } =
+      this.departmentForm.value;
+
+    const {
+      name: nameInitial,
+      shortName: shortNameInitial,
+      departmentTypeId: departmentTypeIdInitial,
+      parentId: parentIdInitial,
+      managerId: managerIdInitial,
+      cityId: cityIdInitial,
+    } = this.department as Department;
+
+    if (name !== nameInitial) {
+      payload.patches.push({
+        path: '/name',
+        op: 'add',
+        value: name,
+      });
+    }
+
+    if (shortName !== shortNameInitial) {
+      payload.patches.push({
+        path: '/shortName',
+        op: 'add',
+        value: shortName,
+      });
+    }
+
+    if (departmentTypeId !== departmentTypeIdInitial) {
+      payload.patches.push({
+        path: '/departmentTypeId',
+        op: 'add',
+        value: departmentTypeId,
+      });
+    }
+
+    if (parentId !== parentIdInitial) {
+      payload.patches.push({
+        path: '/parentId',
+        op: 'add',
+        value: parentId,
+      });
+    }
+
+    if (managerId !== managerIdInitial) {
+      payload.patches.push({
+        path: '/managerId',
+        op: 'add',
+        value: managerId,
+      });
+    }
+
+    if (cityId !== cityIdInitial) {
+      payload.patches.push({
+        path: '/cityId',
+        op: 'add',
+        value: cityId,
+      });
+    }
+
+    return payload;
   }
 }

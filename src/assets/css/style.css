@@ -88,6 +88,7 @@ body {
   --transition-slow: 1.5s ease-in-out all;
   --max-width: 1420px;
   --fixed-width: 600px;
+  --fixed-large-width: 630px;
   --navbar-thick: 7.5rem;
   --navbar-thin: 4rem;
   --message-img-height: 10rem;
@@ -212,6 +213,15 @@ img:not(.logo) {
   color: var(--primary-200);
   background: var(--primary-700);
 }
+
+.btn-transparent {
+  color: var(--primary-500);
+  background: transparent;
+}
+.btn-transparent:hover {
+  color: var(--primary-200);
+  background: transparent;
+}
 .btn-block {
   width: 100%;
 }
@@ -228,6 +238,13 @@ img:not(.logo) {
   background: var(--grey-400);
 }
 
+.bg-success {
+  background: var(--green-lime) !important;
+}
+
+.text-success {
+  color: var(--green-lime) !important;
+}
 /* alerts */
 /* .alert {
   padding: 0.375rem 0.75rem; 
@@ -248,7 +265,7 @@ img:not(.logo) {
 
 .form {
   width: 90vw;
-  max-width: var(--fixed-width);
+  max-width: var(--fixed-large-width);
   background: var(--white);
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-2);
@@ -1211,6 +1228,13 @@ Employee Form
 Department List
 ===============
 */
+.department-type span {
+  font-size: 1rem;
+}
+
+.department-type {
+  text-align: center;
+}
 
 tbody {
   width: 100%;
@@ -1243,7 +1267,7 @@ table tr {
 }
 
 /* thead tr {
-  background-color: var(--primary-400);
+  background-color: var(--primary-500);
 } */
 
 thead th {
@@ -1262,6 +1286,9 @@ table td {
 }
 
 @media screen and (max-width: 800px) {
+  .department-type {
+    text-align: right;
+  }
   .department-manager {
     margin: 0 0 0 auto;
   }

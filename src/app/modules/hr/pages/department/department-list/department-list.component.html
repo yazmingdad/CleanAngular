@@ -5,6 +5,8 @@
     [cities]="cities"
     [managers]="managers"
     [departmentTypes]="departmentTypes"
+    (departmentPatch)="onPatch($event)"
+    (departmentPost)="onPost($event)"
   ></app-department-form>
   <div modalFooter></div>
 </app-modal>
@@ -13,24 +15,16 @@
     <span
       class="badge"
       [ngClass]="{
-        primary: nature === 'Central',
-        'bg-primary': nature === 'Regional',
-        'bg-warning': nature === 'Provincial'
+        primary: !isDown,
+        'bg-danger': isDown
       }"
-      >{{ nature }} Departments</span
+      >{{ isDown ? "Disabled" : "Active" }} Departments</span
     >
   </h5>
 </div>
 <app-search
   title="Type to Search"
-  [btnColor]="
-    nature === 'Regional'
-      ? 'bg-primary'
-      : nature === 'Provincial'
-      ? 'bg-warning'
-      : ''
-  "
-  [hasAddNew]="nature !== 'Down' && permission.canPost"
+  [hasAddNew]="!isDown && permission.canPost"
   (create)="onCreate()"
   (search)="search($event)"
 ></app-search>
@@ -38,39 +32,42 @@
 <div class="departments" [ngClass]="{ 'no-element': notFound || isLoading }">
   <ng-container *ngIf="!notFound && !isLoading; else elseNotFoundOrLoading">
     <table class="table table-responsive align-middle mb-0 bg-white">
-      <thead class="bg-light">
-        <tr
-          [ngClass]="{
-            primary: nature === 'Central',
-            'bg-primary': nature === 'Regional',
-            'bg-warning': nature === 'Provincial'
-          }"
-        >
+      <thead
+        [ngClass]="{
+          primary: !isDown,
+          'bg-danger': isDown
+        }"
+      >
+        <tr>
           <th>Department Name</th>
-          <th>Type</th>
           <th>Parent Department</th>
           <th>City</th>
+          <th class="text-center">Type</th>
           <th>Manager</th>
-          <th>Actions</th>
+          <th *ngIf="permission.canPatch">Actions</th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let department of departments">
           <td data-title="Name">{{ department.name }}</td>
-          <td data-title="Type">
+          <td data-title="Parent">{{ department.parent?.name }}</td>
+          <td data-title="City">{{ department.city.name }}</td>
+          <td data-title="Type" class="department-type">
             <span
               class="badge"
               [ngClass]="{
-                primary: nature === 'Central',
-                'bg-primary': nature === 'Regional',
-                'bg-warning': nature === 'Provincial'
+                'bg-danger': isDown,
+                'bg-success':
+                  department.departmentType.name === 'Central' && !isDown,
+                'bg-primary':
+                  department.departmentType.name === 'Regional' && !isDown,
+                'bg-warning':
+                  department.departmentType.name === 'Provincial' && !isDown
               }"
               >{{ department.departmentType.name }}</span
             >
           </td>
-          <td data-title="Parent">{{ department.parent?.name }}</td>
-          <td data-title="City">{{ department.city.name }}</td>
           <td data-title="Manager" class="d-flex justify-content-between">
             <div class="d-flex align-items-center">
               <img
@@ -84,13 +81,32 @@
               </div>
             </div>
           </td>
-          <td>
+          <td *ngIf="permission.canPatch">
             <div class="btn-container">
-              <button type="button" class="btn btn-hipster text-warning">
+              <button
+                *ngIf="!isDown"
+                type="button"
+                class="btn btn-transparent text-warning"
+                (click)="onEdit(department.id)"
+              >
                 <i class="fas fa-pen"></i>
               </button>
-              <button type="button" class="btn btn-hipster text-danger">
-                <i class="fas fa-arrow-circle-up"></i>
+              <button
+                type="button"
+                class="btn btn-transparent"
+                [ngClass]="{
+                  'text-danger': !isDown,
+                  'text-success': isDown
+                }"
+                (click)="onUpDown(department.id)"
+              >
+                <i
+                  class="fas"
+                  [ngClass]="{
+                    'fa-arrow-circle-down': !isDown,
+                    'fa-arrow-circle-up': isDown
+                  }"
+                ></i>
               </button>
             </div>
           </td>

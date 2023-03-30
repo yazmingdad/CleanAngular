@@ -96,25 +96,13 @@ export class MenuService {
               color: 'bg-danger',
               menuItems: [
                 {
-                  route: '/hr/department/Central',
-                  name: 'Central Departments',
+                  route: '/hr/department/up',
+                  name: 'Active Departments',
                   icon: 'fas fa-user-check',
                   color: 'bg-success',
                 },
                 {
-                  route: '/hr/department/Regional',
-                  name: 'Regional Departments',
-                  icon: 'fas fa-user-check',
-                  color: 'bg-success',
-                },
-                {
-                  route: '/hr/department/Provincial',
-                  name: 'Provincial Departments',
-                  icon: 'fas fa-user-check',
-                  color: 'bg-success',
-                },
-                {
-                  route: '/hr/department/Disabled',
+                  route: '/hr/department/Down',
                   name: 'Disabled Departments',
                   icon: 'fas fa-user-check',
                   color: 'bg-danger',
