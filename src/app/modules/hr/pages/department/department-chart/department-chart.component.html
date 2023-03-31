@@ -1,1 +1,19 @@
-<p>department-chart works!</p>
+<div class="section-title">
+  <h5>
+    <span class="badge primary"> Corporation Structure</span>
+  </h5>
+</div>
+<div class="chartWrapper">
+  <highcharts-chart
+    [Highcharts]="Highcharts"
+    [options]="chartOptions"
+  ></highcharts-chart>
+</div>
+<div class="legend">
+  <ng-container *ngFor="let l of legend">
+    <div class="legend-item">
+      <div class="legend-color" [ngClass]="l.className"></div>
+      <span>{{ l.className | titlecase }}</span>
+    </div>
+  </ng-container>
+</div>

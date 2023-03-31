@@ -1331,3 +1331,29 @@ table td {
     justify-content: center;
   }
 }
+
+/*
+=============== 
+Department Chart
+===============
+*/
+
+.highcharts-label h4 {
+  font-size: 1.15rem;
+}
+
+.corporation {
+  background: #a855f7;
+}
+
+.central {
+  background: #0f52ba;
+}
+
+.regional {
+  background: #228b22;
+}
+
+.provincial {
+  background: #ffac1c;
+}

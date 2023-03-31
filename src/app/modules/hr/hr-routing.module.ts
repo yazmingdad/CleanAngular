@@ -24,7 +24,7 @@ const routes: Routes = [
         component: DepartmentListComponent,
       },
       {
-        path: 'chart',
+        path: 'structure',
         component: DepartmentChartComponent,
       },
     ],

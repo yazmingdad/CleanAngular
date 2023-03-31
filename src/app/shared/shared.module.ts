@@ -15,6 +15,7 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
 import { SelectComponent } from './component/select/select.component';
 import { InputFileComponent } from './component/input-file/input-file.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TreeViewComponent } from './component/tree-view/tree-view.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SpinnerComponent,
     SelectComponent,
     InputFileComponent,
+    TreeViewComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +44,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NotFoundComponent,
     SpinnerComponent,
     ModalComponent,
+    TreeViewComponent,
   ],
 })
 export class SharedModule {

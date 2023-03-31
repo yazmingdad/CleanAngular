@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DepartmentListComponent } from './pages/department/department-list/department-list.component';
 import { DepartmentFormComponent } from './pages/department/department-form/department-form.component';
 import { DepartmentChartComponent } from './pages/department/department-chart/department-chart.component';
-import { DepartmentCardComponent } from './pages/department/department-card/department-card.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,13 @@ import { DepartmentCardComponent } from './pages/department/department-card/depa
     DepartmentListComponent,
     DepartmentFormComponent,
     DepartmentChartComponent,
-    DepartmentCardComponent,
   ],
-  imports: [CommonModule, HRRoutingModule, ReactiveFormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    HRRoutingModule,
+    ReactiveFormsModule,
+    HighchartsChartModule,
+    SharedModule,
+  ],
 })
 export class HRModule {}

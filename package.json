@@ -24,9 +24,12 @@
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@ng-select/ng-select": "^10.0.4",
+    "angular-highcharts": "^15.0.1",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "crypto-js": "^4.1.1",
+    "highcharts": "^10.3.3",
+    "highcharts-angular": "^3.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

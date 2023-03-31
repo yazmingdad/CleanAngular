@@ -1,0 +1,43 @@
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: calc(100vh - var(--navbar-thick));
+  padding: 0 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  :host {
+    height: calc(100vh - var(--navbar-thin));
+  }
+}
+
+.chartWrapper {
+  position: relative;
+  margin-top: 3rem;
+  display: grid;
+  justify-content: center;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.legend {
+  position: absolute;
+  bottom: 5rem;
+  left: 3rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.legend-item span {
+  font-weight: 600;
+}
+
+.legend-color {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+}

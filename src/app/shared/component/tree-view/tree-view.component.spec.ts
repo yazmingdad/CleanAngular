@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DepartmentCardComponent } from './department-card.component';
+import { TreeViewComponent } from './tree-view.component';
 
-describe('DepartmentCardComponent', () => {
-  let component: DepartmentCardComponent;
-  let fixture: ComponentFixture<DepartmentCardComponent>;
+describe('TreeViewComponent', () => {
+  let component: TreeViewComponent;
+  let fixture: ComponentFixture<TreeViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DepartmentCardComponent ]
+      declarations: [ TreeViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DepartmentCardComponent);
+    fixture = TestBed.createComponent(TreeViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
