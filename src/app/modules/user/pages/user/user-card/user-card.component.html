@@ -1,0 +1,77 @@
+<article class="card user-card">
+  <div class="user-card-form">
+    <h4>{{ user.userName }}</h4>
+    <h6 class="text-secondary">{{ user.fullName }}</h6>
+  </div>
+  <!-- list -->
+  <div class="user-card-container">
+    <div class="user-card-list" *ngFor="let role of user.roles">
+      <div class="user-card-item">
+        <p class="title">{{ role.name }}</p>
+        <div class="btn-container">
+          <!-- edit btn -->
+          <span
+            [ngClass]="{
+              'up-btn': role.isEnabled,
+              'down-btn': !role.isEnabled
+            }"
+          >
+            <i
+              class="fas"
+              [ngClass]="{
+                'fa-check': role.isEnabled,
+                'text-warning fa-exclamation-triangle': !role.isEnabled
+              }"
+            ></i>
+          </span>
+          <!-- delete btn -->
+          <button
+            type="button"
+            [title]="role.isEnabled ? 'Disable' : 'Enable'"
+            [ngClass]="{
+              'down-btn': role.isEnabled,
+              'up-btn': !role.isEnabled
+            }"
+          >
+            <i
+              class="fas"
+              [ngClass]="{
+                'fa-arrow-alt-circle-down': role.isEnabled,
+                'text-warning fa-arrow-alt-circle-up': !role.isEnabled
+              }"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <!-- <div class="user-card-item">
+        <p class="title">Config</p>
+        <div class="btn-container">
+
+          <span type="button" class="status-btn">
+            <i class="fas fa-check-circle"></i>
+          </span>
+
+          <button type="button" class="delete-btn">
+            <i class="fas fa-arrow-alt-circle-down"></i>
+          </button>
+        </div>
+      </div>
+      <div class="user-card-item">
+        <p class="title">Member</p>
+        <div class="btn-container">
+
+          <span type="button" class="status-btn text-danger">
+            <i class="fas fa-times-circle"></i>
+          </span>
+
+          <button type="button" class="delete-btn text-warning">
+            <i class="fas fa-arrow-alt-circle-up"></i>
+          </button>
+        </div>
+      </div> -->
+    </div>
+    <button class="clear-btn">
+      {{ user.userName === "cleaner" ? "Super Admin" : "Disable" }}
+    </button>
+  </div>
+</article>

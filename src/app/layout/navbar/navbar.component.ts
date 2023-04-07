@@ -9,7 +9,8 @@ import { MenuService } from 'src/app/core/service/menu.service';
 })
 export class NavbarComponent {
   loggedInUser: LoggedInUser | null = null;
-  //@Output() toggleMenu = new EventEmitter();
+
+  date = new Date();
 
   constructor(
     private authService: AuthService,

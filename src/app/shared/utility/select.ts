@@ -1,4 +1,4 @@
-export interface Selectable {
-  id: number;
+export interface Selectable<T> {
+  id: T;
   value: string;
 }

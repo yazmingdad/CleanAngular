@@ -14,10 +14,10 @@ import { Selectable } from 'src/app/shared/utility/select';
 })
 export class DepartmentFormComponent {
   @Input() department: Department | null;
-  @Input() parents: Selectable[] = [];
-  @Input() departmentTypes: Selectable[] = [];
-  @Input() managers: Selectable[] = [];
-  @Input() cities: Selectable[] = [];
+  @Input() parents: Selectable<number>[] = [];
+  @Input() departmentTypes: Selectable<number>[] = [];
+  @Input() managers: Selectable<number>[] = [];
+  @Input() cities: Selectable<number>[] = [];
 
   @Output() departmentPost = new EventEmitter<DepartmentPost>();
   @Output() departmentPatch = new EventEmitter<DepartmentPatch>();

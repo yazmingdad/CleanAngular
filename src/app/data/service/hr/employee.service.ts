@@ -20,7 +20,7 @@ import { Selectable } from 'src/app/shared/utility/select';
 @Injectable()
 export class EmployeeService {
   private paginator = new Paginator<EmployeeCard>();
-  private _selection$ = new Subject<Selectable[]>();
+  private _selection$ = new Subject<Selectable<number>[]>();
 
   private employees: EmployeeCard[] = [];
 
@@ -55,9 +55,11 @@ export class EmployeeService {
   getSelection() {
     return this.http.get<EmployeeCard[]>(employeeLightEndPoint).subscribe({
       next: (employees) => {
-        const managers = employees.map<Selectable>(({ id, fullName }) => {
-          return { id, value: fullName };
-        });
+        const managers = employees.map<Selectable<number>>(
+          ({ id, fullName }) => {
+            return { id, value: fullName };
+          }
+        );
         this._selection$.next(managers);
       },
     });

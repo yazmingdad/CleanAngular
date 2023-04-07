@@ -1,6 +1,8 @@
 const rootUrl = 'https://localhost:7297';
 export const tokenEndpoint = `${rootUrl}/token`;
 export const userEndpoint = `${rootUrl}/api/User`;
+export const usersEndpoint = `${userEndpoint}/up`;
+export const rolesEndPoint = `${userEndpoint}/roles`;
 
 const collectorUrl = 'https://localhost:7083';
 
@@ -12,9 +14,7 @@ export const rankEndPoint = `${collectorUrl}/api/Rank`;
 export const departmentEndPoint = `${collectorUrl}/api/Department`;
 export const upDepartmentEndPoint = `${departmentEndPoint}/up`;
 export const downDepartmentEndPoint = `${departmentEndPoint}/down`;
-// export const centralDepartmentEndPoint = `${departmentEndPoint}/Central`;
-// export const regionalDepartmentEndPoint = `${departmentEndPoint}/Regional`;
-// export const provincialDepartmentEndPoint = `${departmentEndPoint}/Provincial`;
+
 export const departmentTypesEndPoint = `${departmentEndPoint}/Types`;
 
 export const localizationEndpoint = `${collectorUrl}/api/Localization`;

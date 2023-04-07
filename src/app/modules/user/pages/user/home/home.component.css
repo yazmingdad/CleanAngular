@@ -1,0 +1,12 @@
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: calc(100vh - var(--navbar-thick));
+  padding: 0 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  :host {
+    height: calc(100vh - var(--navbar-thin));
+  }
+}

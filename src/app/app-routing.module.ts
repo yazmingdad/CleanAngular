@@ -10,6 +10,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/hr/hr.module').then((m) => m.HRModule),
   },
+  {
+    path: 'user',
+    canMatch: [AuthGuard],
+    loadChildren: () =>
+      import('./modules/user/user.module').then((m) => m.UserModule),
+  },
   { path: '**', component: NotFoundComponent },
 ];
 

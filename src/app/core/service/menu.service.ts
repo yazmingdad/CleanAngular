@@ -47,21 +47,15 @@ export class MenuService {
             Menu = [
               {
                 index: Date.now(),
-                name: 'User Management',
+                name: 'Users Management',
                 icon: 'fas fa-sitemap',
                 color: 'bg-danger',
                 menuItems: [
                   {
-                    route: '/hr/employee/up',
-                    name: 'Active Employees',
+                    route: '/user',
+                    name: 'Users',
                     icon: 'fas fa-user-check',
                     color: 'bg-success',
-                  },
-                  {
-                    route: '/hr/employee/down',
-                    name: 'Retired Employees',
-                    icon: 'fas fa-user-check',
-                    color: 'bg-danger',
                   },
                 ],
               },

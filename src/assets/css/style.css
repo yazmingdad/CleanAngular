@@ -1251,8 +1251,8 @@ h4 {
 
 .btn-container {
   display: flex;
-  justify-content: left;
-  gap: 1rem;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 table {
@@ -1326,10 +1326,6 @@ table td {
     background: var(--grey-200);
     color: var(--grey-900);
   }
-
-  .btn-container {
-    justify-content: center;
-  }
 }
 
 /*
@@ -1356,4 +1352,172 @@ Department Chart
 
 .provincial {
   background: #ffac1c;
+}
+
+.highcharts-label h4 {
+  font-size: 0.75rem;
+}
+
+/*
+=============== 
+User Management
+===============
+*/
+
+.users-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+.users-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+@media screen and (max-width: 968px) {
+  .users-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .users-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .users-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.user-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+/*
+=============== 
+User Card
+===============
+*/
+.user-card {
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-1);
+  transition: var(--transition);
+  padding: 0.4rem;
+}
+.user-card:hover {
+  box-shadow: var(--shadow-3);
+}
+
+.user-card-form h4 {
+  color: var(--primary-500);
+  /* margin-bottom: 1.5rem; */
+  text-align: center;
+}
+
+.user-card-form h6 {
+  color: var(--primary-400);
+  /* margin-bottom: 1.5rem; */
+  text-align: center;
+}
+.form-control {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn {
+  background: var(--primary-800);
+  border-color: transparent;
+  flex: 0 0 5rem;
+  display: grid;
+  align-items: center;
+  padding: 0.25rem;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+  border-top-right-radius: var(--borderRadius);
+  border-bottom-right-radius: var(--borderRadius);
+  cursor: pointer;
+  content: var(--primary-500);
+  transition: var(--transition);
+  font-size: 0.85rem;
+}
+.submit-btn:hover {
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+.user-card-container {
+  /* margin-top: 2rem; */
+  transition: var(--transition);
+  /* visibility: hidden; */
+}
+.show-container {
+  visibility: visible;
+}
+.user-card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  transition: var(--transition);
+  padding: 0.25rem 1rem;
+  border-radius: var(--borderRadius);
+  text-transform: capitalize;
+}
+.user-card-item:hover {
+  color: var(--grey-500);
+  background: var(--grey-100);
+}
+.user-card-item:hover .title {
+  color: var(--grey-500);
+}
+.title {
+  margin-bottom: 0;
+  letter-spacing: 2px;
+  transition: var(--transition);
+}
+.up-btn,
+.down-btn {
+  background: transparent;
+  border-color: transparent;
+  font-size: 1.2rem;
+  margin: 0 0.15rem;
+  transition: var(--transition);
+}
+.up-btn {
+  cursor: auto;
+  color: var(--green-lime);
+}
+
+.down-btn {
+  cursor: auto;
+  color: var(--red-light);
+}
+.down-btn:hover {
+  color: var(--red-dark);
+}
+.clear-btn {
+  text-transform: capitalize;
+  width: 10rem;
+  height: 1.5rem;
+  display: grid;
+  align-items: center;
+  background: transparent;
+  border-color: transparent;
+  color: var(--red-dark);
+  margin: 0 auto;
+  font-size: 0.85rem;
+  letter-spacing: var(--spacing);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.clear-btn:hover {
+  color: var(--red-light);
 }

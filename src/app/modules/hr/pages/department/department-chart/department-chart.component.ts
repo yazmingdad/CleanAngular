@@ -6,6 +6,7 @@ import { ChartBranch, ChartNode } from 'src/app/core/models/chart';
 import { media } from 'src/app/shared/utility/media';
 import { Subscription } from 'rxjs';
 import { Department, DepartmentType } from 'src/app/data/schema/department';
+import { DepartmentService } from 'src/app/data/service/hr/department.service';
 
 HCSankey(Highcharts);
 HCOrganization(Highcharts);
@@ -14,6 +15,7 @@ HCOrganization(Highcharts);
   selector: 'app-department-chart',
   templateUrl: './department-chart.component.html',
   styleUrls: ['./department-chart.component.css'],
+  providers: [DepartmentService],
 })
 export class DepartmentChartComponent {
   private medias = {
@@ -21,15 +23,7 @@ export class DepartmentChartComponent {
     lg$: media(`(min-width: 768px)`),
   };
 
-  private data: ChartBranch[] = [
-    { from: '1', to: '2' },
-    { from: '1', to: '3' },
-    { from: '1', to: '4' },
-    { from: '1', to: '5' },
-    { from: '3', to: '8' },
-    { from: '5', to: '6' },
-    { from: '5', to: '7' },
-  ];
+  private data: ChartBranch[] = [];
 
   private departmentTypes: DepartmentType[] = [
     {
@@ -77,7 +71,7 @@ export class DepartmentChartComponent {
     },
     {
       id: 3,
-      name: 'Marrakech Regional Department',
+      name: 'Marrakech Regional',
       shortName: 'MRD',
       departmentTypeId: 2,
       parentId: 1,
@@ -117,6 +111,20 @@ export class DepartmentChartComponent {
       departmentTypeId: 3,
       parentId: 3,
     },
+    {
+      id: 9,
+      name: 'Sales',
+      shortName: 'SD',
+      departmentTypeId: 3,
+      parentId: 3,
+    },
+    {
+      id: 10,
+      name: 'Sales',
+      shortName: 'SD',
+      departmentTypeId: 3,
+      parentId: 3,
+    },
   ];
 
   private subscriptions: Subscription[] = [];
@@ -125,7 +133,8 @@ export class DepartmentChartComponent {
 
   chartOptions: Highcharts.Options;
 
-  constructor() {
+  constructor(private departmentService: DepartmentService) {
+    this.buildBranches();
     this.subscriptions = [
       this.medias.sm$.subscribe(() => {
         const nodes = this.departments.map((d) => {
@@ -140,6 +149,7 @@ export class DepartmentChartComponent {
         });
         this.chartOptions = this.getOptions(nodes, {
           height: 400,
+          // width: 400,
           width: 400,
           inverted: false,
         });
@@ -155,14 +165,21 @@ export class DepartmentChartComponent {
                 : this.getColor(d.departmentTypeId as number),
           };
         });
-        this.chartOptions = this.getOptions(nodes, {
-          height: 450,
-          width: 769,
-          inverted: true,
-        });
+        this.chartOptions = this.getOptions(
+          nodes,
+          {
+            height: 450,
+            //width: 769,
+            width: 1000,
+            inverted: true,
+          },
+          13
+        );
       }),
     ];
   }
+
+  ngOnInit() {}
 
   private getColor(id: number): string {
     const type = this.departmentTypes.find(
@@ -178,13 +195,41 @@ export class DepartmentChartComponent {
         return '#FFAC1C';
     }
   }
+
+  private buildBranches() {
+    this.data = [];
+    this.departments.forEach((d) => this.getBranches(d.id));
+  }
+
+  private getBranches(parentId: number) {
+    const branches = this.departments
+      .filter(
+        (d) =>
+          d.parentId === parentId &&
+          (d.parentId !== d.id || d.parentId === null)
+      )
+      .map((d) => {
+        return {
+          from: parentId.toString(),
+          to: d.id.toString(),
+        };
+      });
+
+    if (branches && branches.length > 0) {
+      this.data = [...this.data, ...branches];
+    }
+
+    console.log('branches', this.data, branches);
+  }
   private getOptions(
     nodes: ChartNode[],
     chart: Highcharts.ChartOptions = {
       height: 450,
-      width: 850,
+      //width: 850,
+      width: null,
       inverted: true,
-    }
+    },
+    fontSize = 13
   ): Highcharts.Options {
     return {
       chart: chart,
@@ -200,6 +245,7 @@ export class DepartmentChartComponent {
           name: 'Department',
           keys: ['from', 'to'],
           data: this.data,
+
           levels: [
             {
               level: 0,
@@ -220,17 +266,49 @@ export class DepartmentChartComponent {
               //color: '#980104',
             },
           ],
+
           nodes: nodes,
           colorByPoint: false,
           color: '#007ad0',
           dataLabels: {
+            align: 'center',
             color: 'white',
+            enabled: true,
             style: {
+              textAlign: 'center',
+              fontSize: '0.5rem',
               fontWeight: 'bold',
             },
+
+            // nodeFormatter: function () {
+            //   const point = this.point;
+            //   const name = point.name;
+            //   const nodeStyle = {
+            //     //backgroundColor: name === 'The Clean' ? 'red' : 'green',
+            //     borderColor: 'black',
+            //     borderWidth: 1,
+            //     borderRadius: 5,
+            //     padding: 1,
+            //     textAlign: 'center',
+            //     verticalAlign: 'middle',
+            //     color: 'white',
+            //     width: 'auto',
+            //   };
+            //   const labelStyle = JSON.stringify(nodeStyle)
+            //     .replace(/["{}]/g, '')
+            //     .replace(/,/g, ';');
+            //   return (
+            //     '<div class=" blabla highcharts-node" style="' +
+            //     labelStyle +
+            //     '">' +
+            //     name +
+            //     '</div>'
+            //   );
+            // },
+            useHTML: true,
           },
+          nodeWidth: 55,
           borderColor: 'white',
-          nodeWidth: 75,
         },
       ],
     };

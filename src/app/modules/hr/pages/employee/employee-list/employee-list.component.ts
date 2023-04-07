@@ -41,8 +41,8 @@ export class EmployeeListComponent {
     canPatch: true,
   };
 
-  ranks: Selectable[];
-  departments: Selectable[];
+  ranks: Selectable<number>[];
+  departments: Selectable<number>[];
 
   employee: Employee | null = null;
 
@@ -97,7 +97,7 @@ export class EmployeeListComponent {
       }),
       this.rankService.getAll().subscribe({
         next: (ranks) => {
-          this.ranks = ranks.map<Selectable>(({ id, name }) => {
+          this.ranks = ranks.map<Selectable<number>>(({ id, name }) => {
             return { id, value: name };
           });
         },
@@ -105,9 +105,11 @@ export class EmployeeListComponent {
       }),
       this.departmentService.getAll().subscribe({
         next: (departments) => {
-          this.departments = departments.map<Selectable>(({ id, name }) => {
-            return { id, value: name };
-          });
+          this.departments = departments.map<Selectable<number>>(
+            ({ id, name }) => {
+              return { id, value: name };
+            }
+          );
         },
         error: () => {},
       }),

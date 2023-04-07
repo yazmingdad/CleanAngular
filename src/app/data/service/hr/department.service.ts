@@ -37,8 +37,8 @@ import { CleanResponse } from '../../schema/response';
 export class DepartmentService {
   private paginator = new Paginator<DepartmentCard>();
   private loading = new Loading();
-  private _parents$ = new Subject<Selectable[]>();
-  private _departmentTypes$ = new Subject<Selectable[]>();
+  private _parents$ = new Subject<Selectable<number>[]>();
+  private _departmentTypes$ = new Subject<Selectable<number>[]>();
 
   private departments: DepartmentCard[] = [];
 
@@ -65,9 +65,7 @@ export class DepartmentService {
   constructor(
     private http: HttpClient,
     private notificationService: NotificationsService
-  ) {
-    console.log('new instance');
-  }
+  ) {}
 
   getAll() {
     return this.http.get<Department[]>(departmentEndPoint);
@@ -109,9 +107,11 @@ export class DepartmentService {
   load(isDown: boolean = false) {
     this.getDepartmentTypes().subscribe({
       next: (departementTypes) => {
-        const types = departementTypes.map<Selectable>(({ id, name }) => {
-          return { id, value: name };
-        });
+        const types = departementTypes.map<Selectable<number>>(
+          ({ id, name }) => {
+            return { id, value: name };
+          }
+        );
         this._departmentTypes$.next(types);
       },
     });
@@ -123,9 +123,11 @@ export class DepartmentService {
     this.getDepartments(isDown).subscribe({
       next: (departments) => {
         if (!isDown) {
-          const parents = departments.map<Selectable>(({ id, name }) => {
-            return { id, value: name };
-          });
+          const parents = departments.map<Selectable<number>>(
+            ({ id, name }) => {
+              return { id, value: name };
+            }
+          );
           this._parents$.next(parents);
         }
 

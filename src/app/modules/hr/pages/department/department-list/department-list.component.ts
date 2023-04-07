@@ -28,7 +28,7 @@ import { Selectable } from 'src/app/shared/utility/select';
 export class DepartmentListComponent {
   private medias = {
     sm$: media(`(max-width: 800px)`),
-    lg$: media(`(min-width: 801px)`),
+    md$: media(`(min-width: 801px)`),
   };
   private subscriptions: Subscription[] = [];
 
@@ -53,10 +53,10 @@ export class DepartmentListComponent {
 
   department: Department | null = null;
 
-  departmentTypes: Selectable[];
-  parents: Selectable[];
-  managers: Selectable[];
-  cities: Selectable[];
+  departmentTypes: Selectable<number>[];
+  parents: Selectable<number>[];
+  managers: Selectable<number>[];
+  cities: Selectable<number>[];
 
   constructor(
     private departmentService: DepartmentService,
@@ -70,7 +70,7 @@ export class DepartmentListComponent {
       this.medias.sm$.subscribe(() => {
         this.departmentService.setPageSize(2);
       }),
-      this.medias.lg$.subscribe(() => {
+      this.medias.md$.subscribe(() => {
         this.departmentService.setPageSize(7);
       }),
       this.departmentService.loading$.subscribe((loading) => {
@@ -113,7 +113,7 @@ export class DepartmentListComponent {
       }),
       this.localizationService.cities$.subscribe((cities) => {
         console.log('cities', cities);
-        this.cities = cities.map<Selectable>(({ id, name }) => {
+        this.cities = cities.map<Selectable<number>>(({ id, name }) => {
           return { id, value: name };
         });
       }),

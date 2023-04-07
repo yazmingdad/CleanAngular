@@ -15,8 +15,8 @@ import { Selectable } from 'src/app/shared/utility/select';
 })
 export class EmployeeFormComponent {
   @Input() employee: Employee | null;
-  @Input() ranks: Selectable[] = [];
-  @Input() departments: Selectable[] = [];
+  @Input() ranks: Selectable<number>[] = [];
+  @Input() departments: Selectable<number>[] = [];
 
   @Output() employeePost = new EventEmitter<EmployeePost>();
   @Output() employeePatch = new EventEmitter<EmployeePatch>();
@@ -27,7 +27,7 @@ export class EmployeeFormComponent {
     return this.employee ? false : true;
   }
 
-  cards: Selectable[] | undefined;
+  cards: Selectable<number>[] | undefined;
 
   ngOnInit() {
     console.log('id', Math.random());
@@ -44,7 +44,7 @@ export class EmployeeFormComponent {
     if (this.employee) {
       employee = this.employee;
       if (this.employee.cards) {
-        this.cards = this.employee.cards.map<Selectable>((card) => {
+        this.cards = this.employee.cards.map<Selectable<number>>((card) => {
           return { id: card.id as number, value: card.number };
         });
       }

@@ -1,0 +1,15 @@
+<div class="section-title">
+  <h5>
+    <span class="badge primary">User Management</span>
+  </h5>
+</div>
+
+<div class="users-container">
+  <app-search [hasAddNew]="true"></app-search>
+  <div class="users-list">
+    <ng-container *ngFor="let user of users">
+      <app-user-card [user]="user"></app-user-card>
+    </ng-container>
+  </div>
+  <app-pagination [numberOfPages]="{ value: 10 }"></app-pagination>
+</div>

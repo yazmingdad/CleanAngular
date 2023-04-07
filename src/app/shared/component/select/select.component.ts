@@ -10,7 +10,7 @@ import { Selectable } from '../../utility/select';
 export class SelectComponent {
   @Input() label: string;
   @Input() control: FormControl;
-  @Input() options: Selectable[];
+  @Input() options: Selectable<number | string>[];
 
   showErrors() {
     const { dirty, touched, errors } = this.control;

@@ -1,0 +1,36 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="userForm">
+  <!-- <div class="employee-form">
+    <div class="employee-form-input"> -->
+  <app-select
+    inputType="text"
+    label="Employees"
+    [control]="getControl('employeeId')"
+  ></app-select>
+  <!-- <app-input
+    inputType="text"
+    label="roles"
+    [control]="getControl('shortName')"
+  ></app-input>
+  <app-select
+    [options]="test"
+    label="Department Type"
+    [control]="getControl('departmentTypeId')"
+  ></app-select>
+  <app-select
+    [options]="test"
+    label="City"
+    [control]="getControl('cityId')"
+  ></app-select>
+  <app-select
+    [options]="test"
+    label="Parent Department"
+    [control]="getControl('parentId')"
+  ></app-select>
+  <app-select
+    [options]="test"
+    label="Manager"
+    [control]="getControl('managerId')"
+  ></app-select> -->
+
+  <button type="submit" class="btn btn-block">Add User</button>
+</form>
