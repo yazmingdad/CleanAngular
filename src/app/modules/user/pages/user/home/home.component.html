@@ -1,3 +1,11 @@
+<app-modal (dismiss)="showModal = false" *ngIf="showModal" [isCentered]="true">
+  <app-user-form
+    [roles]="roles"
+    [employees]="employees"
+    (userPost)="onPost($event)"
+  ></app-user-form>
+  <div modalFooter></div>
+</app-modal>
 <div class="section-title">
   <h5>
     <span class="badge primary">User Management</span>
@@ -5,11 +13,23 @@
 </div>
 
 <div class="users-container">
-  <app-search [hasAddNew]="true"></app-search>
+  <app-search
+    [hasAddNew]="true"
+    (create)="onCreate()"
+    (search)="search($event)"
+  ></app-search>
   <div class="users-list">
     <ng-container *ngFor="let user of users">
-      <app-user-card [user]="user"></app-user-card>
+      <app-user-card
+        [user]="user"
+        (addRole)="addRole($event)"
+        (removeRole)="removeRole($event)"
+        (disableUser)="disableUser($event)"
+      ></app-user-card>
     </ng-container>
   </div>
-  <app-pagination [numberOfPages]="{ value: 10 }"></app-pagination>
+  <app-pagination
+    [numberOfPages]="numberOfPages"
+    (getPage)="getPage($event)"
+  ></app-pagination>
 </div>

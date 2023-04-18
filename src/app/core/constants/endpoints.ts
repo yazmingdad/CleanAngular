@@ -3,6 +3,9 @@ export const tokenEndpoint = `${rootUrl}/token`;
 export const userEndpoint = `${rootUrl}/api/User`;
 export const usersEndpoint = `${userEndpoint}/up`;
 export const rolesEndPoint = `${userEndpoint}/roles`;
+export const addRoleEndPoint = `${userEndpoint}/addrole`;
+export const removeRoleEndPoint = `${userEndpoint}/removerole`;
+export const disableUserEndPoint = `${userEndpoint}/disableuser`;
 
 const collectorUrl = 'https://localhost:7083';
 

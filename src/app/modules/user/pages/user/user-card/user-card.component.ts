@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { ApplicationUser } from 'src/app/data/schema/user';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ApplicationUser, Role, UserRole } from 'src/app/data/schema/user';
 
 @Component({
   selector: 'app-user-card',
@@ -8,4 +8,28 @@ import { ApplicationUser } from 'src/app/data/schema/user';
 })
 export class UserCardComponent {
   @Input() user: ApplicationUser;
+
+  @Output() addRole = new EventEmitter<UserRole>();
+  @Output() removeRole = new EventEmitter<UserRole>();
+  @Output() disableUser = new EventEmitter<string>();
+
+  onEditRole(role: Role) {
+    if (role.isEnabled) {
+      this.removeRole.emit({
+        userId: this.user.id,
+        roleName: role.name,
+      });
+    } else {
+      this.addRole.emit({
+        userId: this.user.id,
+        roleName: role.name,
+      });
+    }
+  }
+
+  onDisable() {
+    if (this.user.userName.toLowerCase() !== 'cleaner') {
+      this.disableUser.emit(this.user.id);
+    }
+  }
 }

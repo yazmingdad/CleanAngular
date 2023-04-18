@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ApplicationUser, Role } from '../../schema/user';
+import { ApplicationUser, Role, UserPost, UserRole } from '../../schema/user';
 import { Paginator } from 'src/app/shared/utility/paginator';
 import { Loading } from 'src/app/shared/utility/loading';
 import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from 'src/app/core/service/notifications.service';
-import { rolesEndPoint, usersEndpoint } from 'src/app/core/constants/endpoints';
+import {
+  addRoleEndPoint,
+  disableUserEndPoint,
+  removeRoleEndPoint,
+  rolesEndPoint,
+  userEndpoint,
+  usersEndpoint,
+} from 'src/app/core/constants/endpoints';
 import { Selectable } from 'src/app/shared/utility/select';
-import { Subject } from 'rxjs';
+import { Subject, catchError, tap, throwError } from 'rxjs';
+import { CleanResponse } from '../../schema/response';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserService {
   private paginator = new Paginator<ApplicationUser>();
   private _roles$ = new Subject<Selectable<string>[]>();
@@ -85,5 +91,61 @@ export class UserService {
         this.loading.hide();
       },
     });
+  }
+
+  insert(payload: UserPost) {
+    return this.http.post(userEndpoint, payload).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('User added');
+      }),
+      catchError((err) => {
+        let error = err.error as CleanResponse;
+
+        if (!error) {
+          error = {
+            reason: 'User Insert Failed',
+          };
+        }
+        console.log(error.reason);
+        this.notificationService.addError(error.reason);
+        return throwError(() => new Error(''));
+      })
+    );
+  }
+
+  addRole(payload: UserRole) {
+    return this.http.post(addRoleEndPoint, payload).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('Role Added');
+      }),
+      catchError((err) => {
+        this.notificationService.addError('Could not add role');
+        return throwError(() => new Error(''));
+      })
+    );
+  }
+
+  removeRole(payload: UserRole) {
+    return this.http.post(removeRoleEndPoint, payload).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('Role Removed');
+      }),
+      catchError((err) => {
+        this.notificationService.addError('Could not remove role');
+        return throwError(() => new Error(''));
+      })
+    );
+  }
+
+  disableUser(userId: string) {
+    return this.http.post(disableUserEndPoint, { userId }).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('User Disabled');
+      }),
+      catchError((err) => {
+        this.notificationService.addError('Could not disable User');
+        return throwError(() => new Error(''));
+      })
+    );
   }
 }

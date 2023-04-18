@@ -6,7 +6,13 @@ import {
   Permission,
   PermissionService,
 } from 'src/app/core/service/permission.service';
-import { ApplicationUser, Role } from 'src/app/data/schema/user';
+import {
+  ApplicationUser,
+  Role,
+  UserPost,
+  UserRole,
+} from 'src/app/data/schema/user';
+import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { UserService } from 'src/app/data/service/user/user.service';
 import { media } from 'src/app/shared/utility/media';
 import { Selectable } from 'src/app/shared/utility/select';
@@ -15,6 +21,7 @@ import { Selectable } from 'src/app/shared/utility/select';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  providers: [EmployeeService, UserService],
 })
 export class HomeComponent {
   private medias = {
@@ -42,13 +49,14 @@ export class HomeComponent {
 
   roles: Selectable<string>[] = [];
   users: ApplicationUser[] = [];
-
+  employees: Selectable<number>[];
   splitScreen = false;
 
   private subscriptions: Subscription[] = [];
 
   constructor(
     private userService: UserService,
+    private employeeService: EmployeeService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private permissionService: PermissionService
@@ -87,9 +95,72 @@ export class HomeComponent {
         },
         error: () => {},
       }),
+      this.employeeService.selection$.subscribe((employees) => {
+        console.log('employees', employees);
+        this.employees = employees;
+      }),
+      this.confirmationService.confirmation$.subscribe((value) => {
+        if (value !== 'No') {
+          this.userService.load();
+        }
+      }),
       this.route.params.subscribe(() => {
         this.userService.load();
+        this.employeeService.getSelection();
       }),
     ];
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  onCreate() {
+    console.log('add new');
+    //this.user = null;
+    this.showModal = true;
+  }
+
+  search(event: string) {
+    console.log('search', event);
+  }
+
+  getPage(event: number) {
+    console.log('getPage', event);
+    this.userService.getPage(event);
+  }
+
+  onPost(event: UserPost) {
+    console.log('userPost', event);
+    this.userService.insert(event).subscribe({
+      next: () => {
+        this.userService.refresh();
+      },
+    });
+    this.showModal = false;
+  }
+
+  addRole(event: UserRole) {
+    console.log('add Role', event);
+    const message = `Are you sure you want to enable the role ${event.roleName} for this user`;
+    this.confirmationService.confirm(message, this.userService.addRole(event));
+  }
+
+  removeRole(event: UserRole) {
+    console.log('remove Role', event);
+    const message = `Are you sure you want to remove the role ${event.roleName} for this user`;
+    this.confirmationService.confirm(
+      message,
+      this.userService.removeRole(event)
+    );
+  }
+
+  disableUser(event: string) {
+    console.log('disable User', event);
+    const message = `Are you sure you want to disable this user`;
+    this.confirmationService.confirm(
+      message,
+      this.userService.disableUser(event)
+    );
   }
 }

@@ -10,6 +10,16 @@ export interface User {
   role: Role;
 }
 
+export interface UserPost {
+  employeeId: number;
+  roleName: string;
+}
+
+export interface UserRole {
+  userId: string;
+  roleName: string;
+}
+
 export interface ApplicationUser {
   id: string;
   userName: string;

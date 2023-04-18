@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { User } from 'src/app/data/schema/user';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User, UserPost } from 'src/app/data/schema/user';
 import { Selectable } from 'src/app/shared/utility/select';
 
 @Component({
@@ -10,13 +10,10 @@ import { Selectable } from 'src/app/shared/utility/select';
 })
 export class UserFormComponent {
   userForm: FormGroup;
-  @Input() test: Selectable<number>[] = [
-    {
-      id: 1,
-      value: 'RERE',
-    },
-  ];
-  @Input() user: User | null;
+  @Input() employees: Selectable<number>[] = [];
+  @Input() roles: Selectable<string>[] = [];
+
+  @Output() userPost = new EventEmitter<UserPost>();
 
   ngOnInit() {
     console.log('id', Math.random());
@@ -24,49 +21,30 @@ export class UserFormComponent {
   }
 
   private initForm() {
-    let user;
-
-    if (this.user) {
-      user = this.user;
-    } else {
-      user = {
-        id: 0,
-        employeeId: '',
-        shortName: '',
-        departmentTypeId: null,
-        parentId: null,
-        managerId: null,
-        cityId: null,
-        isDown: false,
-      };
-    }
-
-    // const { name, shortName, departmentTypeId, parentId, managerId, cityId } =
-    //   department;
-
-    // console.log('init', department);
-
-    // this.departmentForm = new FormGroup({
-    //   name: new FormControl(name, [
-    //     Validators.required,
-    //     Validators.minLength(8),
-    //     Validators.maxLength(30),
-    //   ]),
-    //   shortName: new FormControl(shortName, [
-    //     Validators.required,
-    //     Validators.minLength(2),
-    //     Validators.maxLength(10),
-    //   ]),
-    //   departmentTypeId: new FormControl(departmentTypeId, [
-    //     Validators.required,
-    //   ]),
-    //   parentId: new FormControl(parentId, [Validators.required]),
-    //   managerId: new FormControl(managerId, [Validators.required]),
-    //   cityId: new FormControl(cityId, [Validators.required]),
-    // });
+    this.userForm = new FormGroup({
+      employeeId: new FormControl(null, [Validators.required]),
+      roleId: new FormControl(null, [Validators.required]),
+    });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    if (this.userForm.invalid) {
+      console.log('invalid form', this.userForm.value);
+      return;
+    }
+
+    const { employeeId, roleId } = this.userForm.value;
+
+    const { value } = this.roles.find(
+      (r) => r.id === roleId
+    ) as Selectable<string>;
+
+    this.userPost.emit({
+      employeeId,
+      roleName: value,
+    });
+  }
+
   getControl(name: string) {
     return this.userForm.get(name) as FormControl;
   }

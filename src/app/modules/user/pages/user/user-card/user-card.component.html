@@ -32,6 +32,7 @@
               'down-btn': role.isEnabled,
               'up-btn': !role.isEnabled
             }"
+            (click)="onEditRole(role)"
           >
             <i
               class="fas"
@@ -43,34 +44,8 @@
           </button>
         </div>
       </div>
-      <!-- <div class="user-card-item">
-        <p class="title">Config</p>
-        <div class="btn-container">
-
-          <span type="button" class="status-btn">
-            <i class="fas fa-check-circle"></i>
-          </span>
-
-          <button type="button" class="delete-btn">
-            <i class="fas fa-arrow-alt-circle-down"></i>
-          </button>
-        </div>
-      </div>
-      <div class="user-card-item">
-        <p class="title">Member</p>
-        <div class="btn-container">
-
-          <span type="button" class="status-btn text-danger">
-            <i class="fas fa-times-circle"></i>
-          </span>
-
-          <button type="button" class="delete-btn text-warning">
-            <i class="fas fa-arrow-alt-circle-up"></i>
-          </button>
-        </div>
-      </div> -->
     </div>
-    <button class="clear-btn">
+    <button class="clear-btn" (click)="onDisable()">
       {{ user.userName === "cleaner" ? "Super Admin" : "Disable" }}
     </button>
   </div>

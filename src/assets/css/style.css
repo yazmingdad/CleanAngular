@@ -1372,6 +1372,7 @@ User Management
 
 .users-list {
   display: grid;
+  gap: 0.2rem;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
@@ -1467,7 +1468,7 @@ User Card
   justify-content: space-between;
   margin-bottom: 0.5rem;
   transition: var(--transition);
-  padding: 0.25rem 1rem;
+  padding: 0.15rem 0.25rem;
   border-radius: var(--borderRadius);
   text-transform: capitalize;
 }
