@@ -7,6 +7,7 @@ import { SignupComponent } from './page/signup/signup.component';
 import { SignoutComponent } from './page/signout/signout.component';
 import { WelcomeComponent } from './page/welcome/welcome.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ResetComponent } from './page/reset/reset.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SignupComponent,
     SignoutComponent,
     WelcomeComponent,
+    ResetComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, SharedModule],
 })

@@ -8,6 +8,7 @@ import {
   addRoleEndPoint,
   disableUserEndPoint,
   removeRoleEndPoint,
+  resetPasswordEndPoint,
   rolesEndPoint,
   userEndpoint,
   usersEndpoint,
@@ -46,6 +47,7 @@ export class UserService {
   ) {}
 
   getAll() {
+    this.loading.show();
     return this.http.get<ApplicationUser[]>(usersEndpoint);
   }
 
@@ -144,6 +146,18 @@ export class UserService {
       }),
       catchError((err) => {
         this.notificationService.addError('Could not disable User');
+        return throwError(() => new Error(''));
+      })
+    );
+  }
+
+  resetPassword(userId: string) {
+    return this.http.post(resetPasswordEndPoint, { userId }).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('Password Reset');
+      }),
+      catchError((err) => {
+        this.notificationService.addError('Could not reset password');
         return throwError(() => new Error(''));
       })
     );

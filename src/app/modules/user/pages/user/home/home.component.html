@@ -18,15 +18,24 @@
     (create)="onCreate()"
     (search)="search($event)"
   ></app-search>
-  <div class="users-list">
-    <ng-container *ngFor="let user of users">
+  <div class="users-list" [ngClass]="{ 'no-element': notFound || isLoading }">
+    <ng-container *ngIf="!notFound && !isLoading; else elseNotFoundOrLoading">
       <app-user-card
+        *ngFor="let user of users"
         [user]="user"
         (addRole)="addRole($event)"
         (removeRole)="removeRole($event)"
         (disableUser)="disableUser($event)"
+        (resetPassword)="resetPassword($event)"
       ></app-user-card>
     </ng-container>
+    <ng-template #elseNotFoundOrLoading>
+      <app-spinner *ngIf="isLoading"></app-spinner>
+      <app-not-found
+        *ngIf="notFound && !isLoading"
+        message="sorry no user was found"
+      ></app-not-found>
+    </ng-template>
   </div>
   <app-pagination
     [numberOfPages]="numberOfPages"

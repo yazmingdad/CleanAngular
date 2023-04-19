@@ -1377,6 +1377,12 @@ User Management
   grid-template-rows: 1fr 1fr;
 }
 
+.users-list.no-element {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  place-items: center;
+}
+
 @media screen and (max-width: 968px) {
   .users-list {
     grid-template-columns: 1fr 1fr 1fr;

@@ -30,6 +30,7 @@ export class HomeComponent {
     lg$: media(`(min-width: 821px) and (max-width: 968px)`),
     xl$: media(`(min-width: 969px)`),
   };
+
   isLoading = true;
   showModal = false;
 
@@ -161,6 +162,15 @@ export class HomeComponent {
     this.confirmationService.confirm(
       message,
       this.userService.disableUser(event)
+    );
+  }
+
+  resetPassword(event: string) {
+    console.log('reset password', event);
+    const message = `Are you sure you want to reset the password of this user`;
+    this.confirmationService.confirm(
+      message,
+      this.userService.resetPassword(event)
     );
   }
 }

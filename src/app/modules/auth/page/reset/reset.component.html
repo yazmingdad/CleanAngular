@@ -1,0 +1,22 @@
+<div class="section-center">
+  <form (ngSubmit)="onSubmit()" class="form" [formGroup]="resetForm">
+    <h4>Reset Password</h4>
+    <app-input
+      *ngIf="!isFirstLogin"
+      inputType="password"
+      label="Old Password"
+      [control]="resetForm.controls.oldPassword"
+    ></app-input>
+    <app-input
+      inputType="password"
+      label="New Password"
+      [control]="resetForm.controls.newPassword"
+    ></app-input>
+    <app-input
+      inputType="password"
+      label="Confirm New Password"
+      [control]="resetForm.controls.confirmNewPassword"
+    ></app-input>
+    <button type="submit" class="btn btn-block">Reset</button>
+  </form>
+</div>

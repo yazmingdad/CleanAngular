@@ -4,11 +4,16 @@ import { SigninComponent } from './page/signin/signin.component';
 import { SignoutComponent } from './page/signout/signout.component';
 import { SignupComponent } from './page/signup/signup.component';
 import { WelcomeComponent } from './page/welcome/welcome.component';
+import { ResetComponent } from './page/reset/reset.component';
 
 const routes: Routes = [
   {
     path: '',
     component: WelcomeComponent,
+  },
+  {
+    path: 'reset',
+    component: ResetComponent,
   },
   {
     path: 'signin',

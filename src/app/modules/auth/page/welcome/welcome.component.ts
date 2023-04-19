@@ -13,10 +13,22 @@ export class WelcomeComponent {
   ngOnInit() {
     this.authService.checkAuth().subscribe({
       next: () => {
-        this.router.navigateByUrl('/hr/employee/up');
+        //this.router.navigateByUrl('/hr/employee/up');
       },
       error: (err) => {
         this.router.navigateByUrl('/signin');
+      },
+    });
+
+    this.authService.loggedIn$.subscribe({
+      next: (loggedInUser) => {
+        if (loggedInUser) {
+          if (loggedInUser.isFirstLogin) {
+            this.router.navigateByUrl('/reset');
+          } else {
+            this.router.navigateByUrl('/hr/employee/up');
+          }
+        }
       },
     });
   }

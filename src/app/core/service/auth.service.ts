@@ -56,8 +56,8 @@ export class AuthService {
       .pipe(
         tap(({ access_Token }) => {
           localStorage.setItem('token', JSON.stringify(access_Token));
-        }),
-        switchMap((value) => this.getLoggedInUserInfo())
+        })
+        // switchMap((value) => this.getLoggedInUserInfo())
       );
   }
 

@@ -1,7 +1,26 @@
 <article class="card user-card">
   <div class="user-card-form">
-    <h4>{{ user.userName }}</h4>
-    <h6 class="text-secondary">{{ user.fullName }}</h6>
+    <h4>
+      {{ user.userName }}
+    </h4>
+    <h6 class="text-secondary">
+      <!-- edit btn -->
+      <button
+        title="Reset Password"
+        [ngClass]="{
+          'down-btn': true
+        }"
+        (click)="onReset()"
+      >
+        <i
+          class="fas"
+          [ngClass]="{
+            'fa-unlock-alt': true
+          }"
+        ></i>
+      </button>
+      {{ user.fullName }}
+    </h6>
   </div>
   <!-- list -->
   <div class="user-card-container">
