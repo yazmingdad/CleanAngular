@@ -19,11 +19,16 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.authService.loggedIn$.subscribe((loggedInUser) => {
+      console.log('loggedinUser navbar', loggedInUser);
       this.loggedInUser = loggedInUser;
     });
   }
 
   onLogoClick() {
-    this.menuService.toggleMenu();
+    if (this.loggedInUser) {
+      if (!this.loggedInUser.isFirstLogin) {
+        this.menuService.toggleMenu();
+      }
+    }
   }
 }
