@@ -26,3 +26,9 @@ export interface ApplicationUser {
   fullName: string;
   roles: Role[];
 }
+
+export interface PasswordSet {
+  oldPassword: string;
+  password: string;
+  confirmPassword: string;
+}

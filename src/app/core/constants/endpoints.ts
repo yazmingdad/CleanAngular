@@ -7,6 +7,7 @@ export const addRoleEndPoint = `${userEndpoint}/addrole`;
 export const removeRoleEndPoint = `${userEndpoint}/removerole`;
 export const disableUserEndPoint = `${userEndpoint}/disableuser`;
 export const resetPasswordEndPoint = `${userEndpoint}/resetpassword`;
+export const setPasswordEndPoint = `${userEndpoint}/setpassword`;
 
 const collectorUrl = 'https://localhost:7083';
 

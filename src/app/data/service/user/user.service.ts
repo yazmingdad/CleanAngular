@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ApplicationUser, Role, UserPost, UserRole } from '../../schema/user';
+import {
+  ApplicationUser,
+  PasswordSet,
+  Role,
+  UserPost,
+  UserRole,
+} from '../../schema/user';
 import { Paginator } from 'src/app/shared/utility/paginator';
 import { Loading } from 'src/app/shared/utility/loading';
 import { HttpClient } from '@angular/common/http';
@@ -10,6 +16,7 @@ import {
   removeRoleEndPoint,
   resetPasswordEndPoint,
   rolesEndPoint,
+  setPasswordEndPoint,
   userEndpoint,
   usersEndpoint,
 } from 'src/app/core/constants/endpoints';
@@ -158,6 +165,18 @@ export class UserService {
       }),
       catchError((err) => {
         this.notificationService.addError('Could not reset password');
+        return throwError(() => new Error(''));
+      })
+    );
+  }
+
+  changePassword(payload: PasswordSet) {
+    return this.http.post(setPasswordEndPoint, payload).pipe(
+      tap(() => {
+        this.notificationService.addSuccess('Password changed');
+      }),
+      catchError((err) => {
+        this.notificationService.addError('Could not change password');
         return throwError(() => new Error(''));
       })
     );

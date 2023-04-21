@@ -9,14 +9,19 @@
     ></app-input>
     <app-input
       inputType="password"
+      format="password"
       label="New Password"
-      [control]="resetForm.controls.newPassword"
+      [control]="resetForm.controls.password"
     ></app-input>
     <app-input
       inputType="password"
+      format="password"
       label="Confirm New Password"
-      [control]="resetForm.controls.confirmNewPassword"
+      [control]="resetForm.controls.confirmPassword"
     ></app-input>
+    <div *ngIf="resetForm.errors" class="text-danger">
+      <p *ngIf="resetForm.errors['passwordsDontMatch']">Password don't match</p>
+    </div>
     <button type="submit" class="btn btn-block">Reset</button>
   </form>
 </div>
