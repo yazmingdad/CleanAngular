@@ -1,6 +1,6 @@
 <div class="section-center">
   <form (ngSubmit)="onSubmit()" class="form" [formGroup]="resetForm">
-    <h4>Reset Password</h4>
+    <h4>{{ isFirstLogin ? "Reset your password" : "Change Your Password" }}</h4>
     <app-input
       *ngIf="!isFirstLogin"
       inputType="password"
