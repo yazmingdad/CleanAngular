@@ -73,7 +73,7 @@ export class ResetComponent {
     const payload = this.resetForm.value as PasswordSet;
 
     this.userService.changePassword(payload).subscribe(() => {
-      this.router.navigateByUrl('/hr/employee/up');
+      this.router.navigateByUrl('/');
     });
   }
 }

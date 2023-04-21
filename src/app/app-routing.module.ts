@@ -5,6 +5,12 @@ import { NotFoundComponent } from './shared/component/not-found/not-found.compon
 
 const routes: Routes = [
   {
+    path: 'mission',
+    canMatch: [AuthGuard],
+    loadChildren: () =>
+      import('./modules/mission/mission.module').then((m) => m.MissionModule),
+  },
+  {
     path: 'hr',
     canMatch: [AuthGuard],
     loadChildren: () =>

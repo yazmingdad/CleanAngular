@@ -122,16 +122,10 @@ export class MenuService {
               color: 'bg-danger',
               menuItems: [
                 {
-                  route: '/hr/employee/up',
-                  name: 'Active Employees',
+                  route: '/mission/active',
+                  name: 'Active Missions',
                   icon: 'fas fa-user-check',
                   color: 'bg-success',
-                },
-                {
-                  route: '/hr/employee/down',
-                  name: 'Retired Employees',
-                  icon: 'fas fa-user-check',
-                  color: 'bg-danger',
                 },
               ],
             },

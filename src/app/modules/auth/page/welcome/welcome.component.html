@@ -1,6 +1,7 @@
-<div class="section-center">
+<div class="section-center" [ngClass]="{ welcome: !isLoading }">
   <div class="welcome">
-    <img src="assets/images/welcome.gif" alt="welcome logo" />
+    <img *ngIf="isLoading" src="assets/images/welcome.gif" alt="welcome logo" />
+    <img *ngIf="!isLoading" src="assets/images/logo.ico" alt="welcome logo" />
     <h5>Welcome to the Clean app</h5>
     <h5>Licenced to TTC</h5>
   </div>
