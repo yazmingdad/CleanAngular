@@ -378,6 +378,7 @@ img:not(.logo) {
   margin: 0 auto;
   max-width: var(--max-width);
   height: calc(100vh - var(--navbar-thick));
+  background: var(--grey-200);
   /* box-shadow: var(--shadow-2); */
 }
 

@@ -1,0 +1,55 @@
+.missions-list {
+  scrollbar-width: none;
+}
+
+.missions-list {
+  overflow-y: scroll; /* Add the ability to scroll */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.missions-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.missions-list {
+  background: var(--grey-200);
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.mission-map {
+  height: 66%;
+}
+
+.mission-detail {
+  display: flex;
+  height: 34%;
+}
+
+@media screen and (max-width: 992px) {
+  .mission-detail {
+    display: block;
+    height: 50%;
+  }
+
+  .mission-map {
+    height: 50%;
+  }
+  .mission-detail > * {
+    height: 50%;
+  }
+}
+
+.row > * {
+  padding: 0;
+}
+
+.mission-list-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.mission-filter {
+  background: var(--grey-200);
+}
