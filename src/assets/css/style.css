@@ -419,7 +419,7 @@ Searcher
 .search-form {
   display: flex;
   max-width: var(--fixed-width);
-  margin: 0.5rem auto;
+  margin: 0.25rem auto;
 }
 .form-input.search-input {
   flex: 4 1 0px;
@@ -1528,4 +1528,51 @@ User Card
 }
 .clear-btn:hover {
   color: var(--red-light);
+}
+
+/*
+=============== 
+missions
+===============
+*/
+
+.mission-list {
+  scrollbar-width: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: auto;
+}
+
+.mission-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+/*
+=============== 
+mission-item
+===============
+*/
+
+.mission-item {
+  margin-bottom: 0.15rem;
+  padding: 0.5rem;
+  background: var(--primary-900);
+  color: var(--white);
+  border-radius: var(--borderRadius);
+}
+
+.mission-item h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.mission-item-badges {
+  display: flex;
+  gap: 3rem;
 }

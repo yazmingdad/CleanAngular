@@ -1,0 +1,50 @@
+<div class="mission-item">
+  <div class="mission-item-title">
+    <h5>Data interconnection between regions</h5>
+  </div>
+  <h6>Department : Human Resources</h6>
+  <div class="mission-item-badges">
+    <h6>
+      <span class="badge bg-success"> {{ mission.code }}</span
+      >,&nbsp;In Morocco
+    </h6>
+    <h6>
+      Priority :
+      <span
+        class="badge"
+        [ngClass]="{
+          'bg-danger': mission.priority === 'High',
+          'bg-success': mission.priority === 'Normal',
+          'bg-secondary': mission.priority === 'Low'
+        }"
+        >{{ mission.priority }}</span
+      >
+    </h6>
+  </div>
+
+  <h6 class="d-none">Budget : {{ "$" + mission.budget }}</h6>
+  <div class="d-flex justify-content-between d-none">
+    <h6>
+      From :
+      <span class="badge bg-secondary">{{ mission.startDate | date }}</span>
+      To :
+      <span class="badge bg-secondary">{{ mission.startDate | date }}</span>
+    </h6>
+  </div>
+  <div class="mission-item-badges d-none">
+    <h6>
+      Priority :
+      <span
+        [ngClass]="{
+          'badge bg-danger': mission.priority === 'High',
+          'badge bg-success': mission.priority === 'Normal',
+          'badge bg-secondary': mission.priority === 'Low'
+        }"
+        >{{ mission.priority }}</span
+      >
+    </h6>
+    <h6>
+      Status : <span class="badge bg-warning">{{ mission.status }}</span>
+    </h6>
+  </div>
+</div>

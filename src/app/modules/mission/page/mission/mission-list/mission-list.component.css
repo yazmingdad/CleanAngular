@@ -1,21 +1,21 @@
-.missions-list {
+/* .missions-list {
   scrollbar-width: none;
 }
 
 .missions-list {
-  overflow-y: scroll; /* Add the ability to scroll */
+  overflow-y: scroll;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+
 .missions-list::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
+
 .missions-list {
   background: var(--grey-200);
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
 }
 
 .mission-map {
@@ -29,7 +29,6 @@
 
 @media screen and (max-width: 992px) {
   .mission-detail {
-    display: block;
     height: 50%;
   }
 
@@ -52,4 +51,110 @@
 
 .mission-filter {
   background: var(--grey-200);
+} */
+
+.mission-container {
+  height: calc(100vh - var(--navbar-thick));
+  background: orange;
 }
+
+.missions {
+  background: var(--primary-500);
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.mission-map {
+  background: green;
+  /* background: var(--grey-overlay); */
+  position: fixed;
+  height: 50%;
+  width: 100%;
+  top: var(--navbar-thick);
+  display: none;
+  z-index: 1;
+}
+
+.show-details .mission-map {
+  display: block;
+}
+
+.mission-info {
+  background: yellow;
+  position: fixed;
+  width: 100%;
+  height: 50vh;
+  bottom: 0;
+  transform: translateY(100%);
+  transition: var(--transition);
+  z-index: 2;
+}
+
+.show-details .mission-info {
+  transform: translateY(0);
+}
+
+.mission-filter {
+  background: var(--grey-200);
+}
+
+.mission-list {
+  scrollbar-width: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.mission-list::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .mission-container {
+    height: calc(100vh - var(--navbar-thin));
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      "a a a a b b b b"
+      "a a a a b b b b"
+      "c c c c b b b b";
+  }
+
+  .missions {
+    grid-area: b;
+  }
+
+  .mission-map {
+    background: green;
+    display: block;
+    position: static;
+    height: auto;
+    grid-area: a;
+  }
+
+  .mission-info {
+    position: relative;
+    transform: translateY(0);
+    height: auto;
+    grid-area: c;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .mission-container {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-areas:
+      "a a a a a a b b b"
+      "a a a a a a b b b"
+      "c c c c c c b b b";
+  }
+}
+
+/*
+=============== 
+mission-info
+===============
+*/
