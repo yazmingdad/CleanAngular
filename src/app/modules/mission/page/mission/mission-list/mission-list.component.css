@@ -59,7 +59,7 @@
 }
 
 .missions {
-  background: var(--primary-500);
+  background: var(--grey-200);
   height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;

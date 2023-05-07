@@ -1557,9 +1557,11 @@ mission-item
 .mission-item {
   margin-bottom: 0.15rem;
   padding: 0.5rem;
-  background: var(--primary-900);
-  color: var(--white);
+  background: var(--grey-400);
+  color: var(--grey-900);
   border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  border: 0.25px solid var(--grey-500);
 }
 
 .mission-item h1,
