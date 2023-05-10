@@ -273,6 +273,10 @@ img:not(.logo) {
   transition: var(--transition);
 }
 
+.large-form {
+  max-width: var(--fixed-large-width);
+}
+
 .top {
   margin: 0.5rem auto;
 }
@@ -302,6 +306,10 @@ img:not(.logo) {
   border: 1px solid var(--grey-200);
 }
 
+.form-textarea {
+  max-height: 5rem;
+}
+
 .form-row {
   margin-bottom: 0.25rem;
 }
@@ -329,6 +337,11 @@ img:not(.logo) {
   to {
     transform: rotate(360deg);
   }
+}
+
+.composed-row {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .loading {
@@ -814,7 +827,7 @@ Sidebar
 }
 
 .down-overlay {
-  z-index: 1;
+  z-index: 3;
 }
 
 .close-btn:hover {
@@ -1536,6 +1549,12 @@ missions
 ===============
 */
 
+.mission-container {
+  /* background: url(../images/ecosystem2023.png);
+  background-size: cover;
+  background-repeat: no-repeat; */
+}
+
 .mission-list {
   scrollbar-width: none;
   overflow-y: scroll;
@@ -1545,7 +1564,7 @@ missions
 }
 
 .mission-list::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
 }
 
 /*
@@ -1557,11 +1576,11 @@ mission-item
 .mission-item {
   margin-bottom: 0.15rem;
   padding: 0.5rem;
-  background: var(--grey-400);
+  /* background: var(--grey-300); */
   color: var(--grey-900);
   border-radius: var(--borderRadius);
-  box-shadow: var(--shadow-2);
-  border: 0.25px solid var(--grey-500);
+  box-shadow: var(--shadow-3);
+  border: 0.15px solid var(--grey-400);
 }
 
 .mission-item h1,
@@ -1577,4 +1596,65 @@ h6 {
 .mission-item-badges {
   display: flex;
   gap: 3rem;
+}
+
+/*
+==================== 
+mission detail title
+====================
+*/
+
+.mission-details-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--primary-900);
+  box-shadow: var(--shadow-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mission-details h6 {
+  margin-bottom: 0;
+}
+.mission-details p {
+  font-size: 1rem;
+  color: var(--grey-700);
+  margin-bottom: 0;
+  max-width: 100%;
+}
+
+.label,
+.value {
+  padding: 0.5rem;
+}
+
+.mission-description {
+  background: var(--grey-200);
+  border: 1px solid var(--grey-500);
+  padding: 0.5rem;
+  border-radius: var(--borderRadius);
+}
+
+.mission-details-period {
+  gap: 1rem;
+}
+
+.mission-info {
+  scrollbar-width: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: auto;
+}
+
+.mission-info::-webkit-scrollbar {
+  width: 0px;
+}
+
+.mission-details-title {
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  z-index: 3;
 }

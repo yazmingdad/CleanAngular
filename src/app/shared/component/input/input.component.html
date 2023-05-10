@@ -27,5 +27,10 @@
     </ng-container>
   </div>
 
-  <input [type]="inputType" [formControl]="control" class="form-input" />
+  <ng-container *ngIf="inputType !== 'textarea'; else area">
+    <input [type]="inputType" [formControl]="control" class="form-input" />
+  </ng-container>
+  <ng-template #area>
+    <textarea [formControl]="control" class="form-textarea" rows="4"></textarea>
+  </ng-template>
 </div>

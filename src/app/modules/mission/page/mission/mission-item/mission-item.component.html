@@ -1,12 +1,22 @@
 <div class="mission-item">
   <div class="mission-item-title">
-    <h5>Data interconnection between regions</h5>
+    <h6>Data interconnection between regions</h6>
+    <h6>Human Resources</h6>
   </div>
-  <h6>Department : Human Resources</h6>
+
   <div class="mission-item-badges">
     <h6>
-      <span class="badge bg-success"> {{ mission.code }}</span
-      >,&nbsp;In Morocco
+      <span class="badge bg-success"> {{ mission.code }}</span>
+      <span
+        class="badge"
+        [ngClass]="{
+          'bg-warning': mission.status === 'Created',
+          'bg-success':
+            mission.status === 'InProgress' || mission.status === 'Completed',
+          'bg-secondary': mission.status === 'Cancelled'
+        }"
+        >{{ mission.status }}</span
+      >
     </h6>
     <h6>
       Priority :
@@ -22,8 +32,8 @@
     </h6>
   </div>
 
-  <h6 class="d-none">Budget : {{ "$" + mission.budget }}</h6>
-  <div class="d-flex justify-content-between d-none">
+  <h6 class="">Budget : {{ "$" + mission.budget }}</h6>
+  <div class="d-flex justify-content-between">
     <h6>
       From :
       <span class="badge bg-secondary">{{ mission.startDate | date }}</span>

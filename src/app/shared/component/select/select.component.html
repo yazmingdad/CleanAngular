@@ -9,15 +9,22 @@
       </div>
     </ng-container>
   </div>
-
-  <!-- <select [formControl]="control" class="form-input">
-    <option *ngFor="let option of options" [ngValue]="option.id">
-      {{ option.value }}
-    </option>
-  </select> -->
-  <ng-select [searchable]="true" [formControl]="control">
+  <!-- <ng-select [searchable]="true" [formControl]="control">
     <ng-option *ngFor="let option of options" [value]="option.id">
       {{ option.value }}
     </ng-option>
+  </ng-select> -->
+  <ng-select
+    [items]="options"
+    bindLabel="value"
+    bindValue="id"
+    [searchable]="true"
+    [formControl]="control"
+    appendTo="body"
+    [multiple]="isMultiple"
+    groupBy="selectedAllGroup"
+    [selectableGroup]="isMultiple"
+    [placeholder]="placeholder"
+  >
   </ng-select>
 </div>

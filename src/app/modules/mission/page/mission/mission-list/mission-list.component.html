@@ -1,7 +1,11 @@
-<div class="mission-container">
+<div class="mission-container show-details">
+  <app-modal (dismiss)="onDismiss()" *ngIf="showModal" [isCentered]="false">
+    <app-mission-form></app-mission-form>
+    <div modalFooter></div>
+  </app-modal>
   <div class="missions">
     <div class="mission-filter">
-      <app-search [title]="'Missions'"></app-search>
+      <app-search [title]="'Missions'" (create)="onCreate()"></app-search>
     </div>
     <div class="mission-list">
       <ng-container *ngFor="let mission of missions">
@@ -11,7 +15,6 @@
   </div>
   <div class="mission-map">Mission Map</div>
   <div class="mission-info">
-    <div class="mission-details">Mission details</div>
-    <div class="mission-participants">Mission participants</div>
+    <app-mission-details></app-mission-details>
   </div>
 </div>

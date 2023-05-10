@@ -1,73 +1,17 @@
-/* .missions-list {
-  scrollbar-width: none;
-}
-
-.missions-list {
-  overflow-y: scroll;
-}
-
-
-.missions-list::-webkit-scrollbar {
-  display: none;
-}
-
-
-.missions-list {
-  background: var(--grey-200);
-  -ms-overflow-style: none;
-  scrollbar-width: none; 
-}
-
-.mission-map {
-  height: 66%;
-}
-
-.mission-detail {
-  display: flex;
-  height: 34%;
-}
-
-@media screen and (max-width: 992px) {
-  .mission-detail {
-    height: 50%;
-  }
-
-  .mission-map {
-    height: 50%;
-  }
-  .mission-detail > * {
-    height: 50%;
-  }
-}
-
-.row > * {
-  padding: 0;
-}
-
-.mission-list-container {
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
-
-.mission-filter {
-  background: var(--grey-200);
-} */
-
 .mission-container {
   height: calc(100vh - var(--navbar-thick));
-  background: orange;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .missions {
-  background: var(--grey-200);
+  background: var(--grey-100);
   height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
 }
 
 .mission-map {
-  background: green;
-  /* background: var(--grey-overlay); */
   position: fixed;
   height: 50%;
   width: 100%;
@@ -77,26 +21,28 @@
 }
 
 .show-details .mission-map {
-  display: block;
+  display: none;
 }
 
 .mission-info {
-  background: yellow;
   position: fixed;
   width: 100%;
-  height: 50vh;
+  display: grid;
+  place-items: center;
   bottom: 0;
   transform: translateY(100%);
   transition: var(--transition);
   z-index: 2;
+  background: var(--grey-overlay-dark);
 }
 
 .show-details .mission-info {
+  height: calc(100vh - var(--navbar-thick));
   transform: translateY(0);
 }
 
 .mission-filter {
-  background: var(--grey-200);
+  background: var(--grey-300);
 }
 
 .mission-list {
@@ -116,10 +62,12 @@
     width: auto;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
       "a a a a b b b b"
       "a a a a b b b b"
+      "a a a a b b b b"
+      "c c c c b b b b"
       "c c c c b b b b";
   }
 
@@ -128,14 +76,18 @@
   }
 
   .mission-map {
-    background: green;
+    /* background: green; */
     display: block;
     position: static;
     height: auto;
     grid-area: a;
   }
 
+  .show-details .mission-info {
+    height: auto;
+  }
   .mission-info {
+    background: var(--white);
     position: relative;
     transform: translateY(0);
     height: auto;
@@ -149,6 +101,8 @@
     grid-template-areas:
       "a a a a a a b b b"
       "a a a a a a b b b"
+      "a a a a a a b b b"
+      "c c c c c c b b b"
       "c c c c c c b b b";
   }
 }

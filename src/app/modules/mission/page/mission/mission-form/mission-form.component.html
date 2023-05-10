@@ -1,0 +1,97 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="missionForm">
+  <!-- <div class="composed-row">
+    <app-input
+      class="col-6"
+      inputType="text"
+      label="Title"
+      [control]="getControl('title')"
+    ></app-input>
+    <app-select
+      class="col-6"
+      [options]="priorities"
+      label="Department"
+      [control]="getControl('departmentId')"
+    ></app-select>
+  </div> -->
+  <app-input
+    inputType="text"
+    label="Title"
+    [control]="getControl('title')"
+  ></app-input>
+  <app-select
+    [options]="priorities"
+    label="Department"
+    [control]="getControl('departmentId')"
+  ></app-select>
+  <app-select
+    [options]="employees"
+    label="Participants"
+    [isMultiple]="true"
+    placeholder="Participants"
+    [control]="getControl('participants')"
+  ></app-select>
+
+  <app-select
+    [options]="cities"
+    label="Destinations"
+    [isMultiple]="true"
+    placeholder="Destinations"
+    [control]="getControl('destinations')"
+  ></app-select>
+
+  <div class="composed-row">
+    <app-input
+      class="col-6"
+      inputType="text"
+      label="Code"
+      [control]="getControl('code')"
+    ></app-input>
+    <app-input
+      class="col-6"
+      inputType="text"
+      label="Budget"
+      [control]="getControl('budget')"
+    ></app-input>
+  </div>
+
+  <div class="composed-row">
+    <app-input
+      class="col-6"
+      inputType="date"
+      label="Start Date"
+      [control]="getControl('startDate')"
+    ></app-input>
+    <app-input
+      class="col-6"
+      inputType="date"
+      label="End Date"
+      [control]="getControl('endDate')"
+    ></app-input>
+  </div>
+
+  <div class="composed-row">
+    <app-select
+      class="col-6"
+      [options]="cities"
+      label="Start Point"
+      [control]="getControl('startCityId')"
+    ></app-select>
+    <app-select
+      class="col-6"
+      [options]="priorities"
+      label="Priority"
+      [control]="getControl('priority')"
+    ></app-select>
+  </div>
+
+  <app-input
+    inputType="textarea"
+    label="Description"
+    [control]="getControl('description')"
+  ></app-input>
+  <div class="text-end">
+    <input type="checkbox" [formControl]="getControl('isInCountry')" />
+    isInCountry
+  </div>
+  <button type="submit" class="btn btn-block">Initiate Mission</button>
+</form>

@@ -6,9 +6,23 @@ import { MissionListComponent } from './page/mission/mission-list/mission-list.c
 import { HomeComponent } from './page/home/home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MissionItemComponent } from './page/mission/mission-item/mission-item.component';
+import { MissionDetailsComponent } from './page/mission/mission-details/mission-details.component';
+import { MissionFormComponent } from './page/mission/mission-form/mission-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [MissionListComponent, HomeComponent, MissionItemComponent],
-  imports: [CommonModule, MissionRoutingModule, SharedModule],
+  declarations: [
+    MissionListComponent,
+    HomeComponent,
+    MissionItemComponent,
+    MissionDetailsComponent,
+    MissionFormComponent,
+  ],
+  imports: [
+    CommonModule,
+    MissionRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+  ],
 })
 export class MissionModule {}

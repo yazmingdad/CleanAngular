@@ -8,4 +8,12 @@ import { missions } from 'src/app/data/service/fake.data';
 })
 export class MissionListComponent {
   missions = missions;
+  showModal = false;
+  onCreate() {
+    this.showModal = true;
+    console.log('add new mission');
+  }
+  onDismiss() {
+    this.showModal = false;
+  }
 }

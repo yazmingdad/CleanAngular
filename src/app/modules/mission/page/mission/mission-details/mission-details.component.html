@@ -1,0 +1,94 @@
+<div class="mission-details card">
+  <div class="mission-details-title card-header">
+    <span>Data interconnection between regions</span>
+    <h5>
+      <span class="badge bg-success">{{ mission.code }}</span>
+    </h5>
+  </div>
+  <div class="card-body">
+    <div class="d-md-flex">
+      <div class="value">
+        <h6>{{ mission.department }}</h6>
+      </div>
+    </div>
+    <div class="d-md-flex">
+      <div class="value">
+        <h6>Create in {{ mission.creationDate | date : "EEEE, MMMM d, y" }}</h6>
+      </div>
+    </div>
+    <div class="d-md-flex">
+      <div class="d-flex mission-details-period value">
+        <h6>
+          From :
+
+          <span class="badge bg-secondary">{{ mission.startDate | date }}</span>
+
+          To :
+
+          <span class="badge bg-secondary">{{ mission.startDate | date }}</span>
+        </h6>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="value">
+        <h6>Budget {{ mission.budget | currency }}</h6>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="value">
+        <h6>Cost {{ mission.cost | currency }}</h6>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="value">
+        <h6>
+          Priority
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-danger': mission.priority === 'High',
+              'bg-success': mission.priority === 'Normal',
+              'bg-secondary': mission.priority === 'Low'
+            }"
+            >{{ mission.priority }}</span
+          >
+        </h6>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="value">
+        <h6></h6>
+      </div>
+    </div>
+
+    <div>
+      <div class="mission-description value">
+        <p>{{ mission.description }}</p>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="value w-100">
+        <ul class="list-group mb-1">
+          <li class="list-group-item active" aria-current="true">
+            <h6>Distance 450 KM</h6>
+          </li>
+          <li class="list-group-item"><h6>Marrakech</h6></li>
+          <li class="list-group-item"><h6>Casablanca</h6></li>
+          <li class="list-group-item"><h6>Fes</h6></li>
+        </ul>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="value w-100">
+        <ul class="list-group mb-1">
+          <li class="list-group-item active" aria-current="true">
+            <h6>Participants</h6>
+          </li>
+          <li class="list-group-item"><h6>James Kook</h6></li>
+          <li class="list-group-item"><h6>John Doe</h6></li>
+          <li class="list-group-item"><h6>Mary James</h6></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

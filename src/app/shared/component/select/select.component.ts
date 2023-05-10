@@ -9,6 +9,8 @@ import { Selectable } from '../../utility/select';
 })
 export class SelectComponent {
   @Input() label: string;
+  @Input() isMultiple = false;
+  @Input() placeholder = '';
   @Input() control: FormControl;
   @Input() options: Selectable<number | string>[];
 
