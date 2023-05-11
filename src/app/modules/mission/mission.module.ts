@@ -9,6 +9,7 @@ import { MissionItemComponent } from './page/mission/mission-item/mission-item.c
 import { MissionDetailsComponent } from './page/mission/mission-details/mission-details.component';
 import { MissionFormComponent } from './page/mission/mission-form/mission-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MissionMapComponent } from './page/mission/mission-map/mission-map.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MissionItemComponent,
     MissionDetailsComponent,
     MissionFormComponent,
+    MissionMapComponent,
   ],
   imports: [
     CommonModule,

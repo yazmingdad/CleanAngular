@@ -21,7 +21,7 @@
 }
 
 .show-details .mission-map {
-  display: none;
+  display: block;
 }
 
 .mission-info {
