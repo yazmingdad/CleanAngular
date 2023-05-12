@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="missionForm">
-  <!-- <div class="composed-row">
+  <div class="composed-row">
     <app-input
       class="col-6"
       inputType="text"
@@ -8,12 +8,12 @@
     ></app-input>
     <app-select
       class="col-6"
-      [options]="priorities"
+      [options]="departments"
       label="Department"
       [control]="getControl('departmentId')"
     ></app-select>
-  </div> -->
-  <app-input
+  </div>
+  <!-- <app-input
     inputType="text"
     label="Title"
     [control]="getControl('title')"
@@ -23,23 +23,22 @@
     [options]="priorities"
     label="Department"
     [control]="getControl('departmentId')"
-  ></app-select>
-  <app-select
-    [options]="employees"
-    label="Participants"
-    [isMultiple]="true"
-    placeholder="Participants"
-    [control]="getControl('participants')"
-  ></app-select>
-
-  <app-select
-    [options]="cities"
-    label="Destinations"
-    [isMultiple]="true"
-    placeholder="Destinations"
-    [control]="getControl('destinations')"
-  ></app-select>
-
+  ></app-select> -->
+  <div class="composed-row">
+    <app-select
+      class="col-6"
+      [options]="possibleStartingPoints"
+      label="Start Point"
+      (change)="onStartingSelected($event)"
+      [control]="getControl('startCityId')"
+    ></app-select>
+    <app-select
+      class="col-6"
+      [options]="priorities"
+      label="Priority"
+      [control]="getControl('priority')"
+    ></app-select>
+  </div>
   <div class="composed-row">
     <app-input
       class="col-6"
@@ -69,21 +68,21 @@
       [control]="getControl('endDate')"
     ></app-input>
   </div>
+  <app-select
+    [options]="employees"
+    label="Participants"
+    [isMultiple]="true"
+    placeholder="Participants"
+    [control]="getControl('participants')"
+  ></app-select>
 
-  <div class="composed-row">
-    <app-select
-      class="col-6"
-      [options]="cities"
-      label="Start Point"
-      [control]="getControl('startCityId')"
-    ></app-select>
-    <app-select
-      class="col-6"
-      [options]="priorities"
-      label="Priority"
-      [control]="getControl('priority')"
-    ></app-select>
-  </div>
+  <app-select
+    [options]="possibleDestinations"
+    label="Destinations"
+    [isMultiple]="true"
+    placeholder="Destinations"
+    [control]="getControl('destinations')"
+  ></app-select>
 
   <app-input
     inputType="textarea"
@@ -93,6 +92,14 @@
   <div class="text-end">
     <input type="checkbox" [formControl]="getControl('isInCountry')" />
     isInCountry
+  </div>
+  <div *ngIf="missionForm.errors" class="text-danger">
+    <p *ngIf="missionForm.errors['endDateInferior']">
+      <small><strong>End Date must be superior to start Date</strong> </small>
+    </p>
+    <p *ngIf="missionForm.errors?.['startDateNotFuture']">
+      <small> <strong>Start Date should be in future</strong> </small>
+    </p>
   </div>
   <button type="submit" class="btn btn-block">Initiate Mission</button>
 </form>

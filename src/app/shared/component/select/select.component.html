@@ -25,6 +25,7 @@
     groupBy="selectedAllGroup"
     [selectableGroup]="isMultiple"
     [placeholder]="placeholder"
+    (change)="changeFn($any($event))"
   >
   </ng-select>
 </div>

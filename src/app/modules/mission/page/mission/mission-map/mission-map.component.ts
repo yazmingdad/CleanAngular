@@ -14,22 +14,10 @@ export class MissionMapComponent {
   constructor() {}
 
   ngAfterViewInit() {
-    this.map = new CustomMap('47', this.mapElement);
+    this.map = new CustomMap(this.mapElement);
   }
 
   ngOnInit() {
     console.log('ngOnInit', this.mapElement);
   }
-
-  // ngOnInit(): void {
-  //   const mapProperties = {
-  //     center: new google.maps.LatLng(35.2271, -80.8431),
-  //     zoom: 15,
-  //     mapTypeId: google.maps.MapTypeId.ROADMAP,
-  //   };
-  //   this.map = new google.maps.Map(
-  //     this.mapElement.nativeElement,
-  //     mapProperties
-  //   );
-  // }
 }

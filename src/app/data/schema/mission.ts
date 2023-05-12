@@ -15,3 +15,18 @@ export interface Mission {
   creationDate: Date;
   isInCountry: boolean;
 }
+
+export interface MissionPost {
+  title: string;
+  code: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  departmentId: number;
+  startCityId: number;
+  priority: number;
+  budget: number;
+  isInCountry: boolean;
+  participants: number[];
+  destinations: number[];
+}

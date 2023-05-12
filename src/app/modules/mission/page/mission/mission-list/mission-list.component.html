@@ -1,6 +1,12 @@
 <div class="mission-container show-details">
   <app-modal (dismiss)="onDismiss()" *ngIf="showModal" [isCentered]="false">
-    <app-mission-form></app-mission-form>
+    <app-mission-form
+      [cities]="cities"
+      [employees]="employees"
+      [departments]="departments"
+      [priorities]="priorities"
+      (missionPost)="onPostMission($event)"
+    ></app-mission-form>
     <div modalFooter></div>
   </app-modal>
   <div class="missions">

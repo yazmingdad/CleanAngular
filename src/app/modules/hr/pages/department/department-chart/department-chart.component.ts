@@ -152,6 +152,7 @@ export class DepartmentChartComponent {
           // width: 400,
           width: 400,
           inverted: false,
+          backgroundColor: '#e2e8f0',
         });
       }),
       this.medias.lg$.subscribe(() => {
@@ -172,6 +173,7 @@ export class DepartmentChartComponent {
             //width: 769,
             width: 1000,
             inverted: true,
+            backgroundColor: '#e2e8f0',
           },
           13
         );

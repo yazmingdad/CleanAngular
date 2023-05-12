@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Selectable } from '../../utility/select';
 
@@ -13,9 +13,16 @@ export class SelectComponent {
   @Input() placeholder = '';
   @Input() control: FormControl;
   @Input() options: Selectable<number | string>[];
+  @Output() change = new EventEmitter<string>();
 
   showErrors() {
     const { dirty, touched, errors } = this.control;
     return touched && errors;
+  }
+
+  changeFn(val: Selectable<number | string>) {
+    if (!this.isMultiple) {
+      this.change.emit(val.value);
+    }
   }
 }
