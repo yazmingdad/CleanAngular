@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { City } from 'src/app/data/schema/city';
-import { MissionPost } from 'src/app/data/schema/mission';
-import { missions } from 'src/app/data/service/fake.data';
+import { MissionCard, MissionPost } from 'src/app/data/schema/mission';
 import { DepartmentService } from 'src/app/data/service/hr/department.service';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { LocalizationService } from 'src/app/data/service/localization/localization.service';
 import { MissionService } from 'src/app/data/service/mission/mission.service';
 import { Selectable } from 'src/app/shared/utility/select';
-import { MatchStartEndDate } from 'src/app/shared/validator/match-start-end-date';
 
 @Component({
   selector: 'app-mission-list',
@@ -21,12 +19,18 @@ export class MissionListComponent {
   employees: Selectable<number>[] = [];
   departments: Selectable<number>[] = [];
 
+  missions: MissionCard[];
+
   constructor(
     private missionService: MissionService,
     private departmentService: DepartmentService,
     private employeeService: EmployeeService,
     private localizationService: LocalizationService
   ) {
+    this.missionService.getAll().subscribe((missions) => {
+      this.missions = missions;
+      console.log('missions', missions);
+    });
     this.missionService.priorities$.subscribe((priorities) => {
       console.log('priorities', priorities);
       this.priorities = priorities;
@@ -48,7 +52,6 @@ export class MissionListComponent {
     this.localizationService.getCities();
   }
 
-  missions = missions;
   showModal = false;
   onCreate() {
     this.showModal = true;
@@ -60,5 +63,15 @@ export class MissionListComponent {
 
   onPostMission($event: MissionPost) {
     console.log('post new mission', $event);
+    this.missionService.insert($event).subscribe(() => {
+      this.showModal = false;
+    });
+  }
+
+  onDetails(id: number) {
+    console.log(
+      'details',
+      this.missions.find((m) => m.id === id)
+    );
   }
 }

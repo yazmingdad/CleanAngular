@@ -1,3 +1,9 @@
+import { City } from './city';
+import { Department } from './department';
+import { EmployeeBrief } from './employee';
+import { Priority } from './priority';
+import { Status } from './status';
+
 export interface Mission {
   id: number;
   code: string;
@@ -14,6 +20,26 @@ export interface Mission {
   endDate: Date;
   creationDate: Date;
   isInCountry: boolean;
+}
+
+export interface MissionCard {
+  id: number;
+  title: string;
+  code: string;
+  description: string;
+  createDate: Date;
+  startDate: Date;
+  endDate: Date;
+  status: Status;
+  department: Department;
+  startCity: City;
+  priority: Priority;
+  budget: number;
+  cost: number;
+  distance: number;
+  isInCountry: boolean;
+  participants: EmployeeBrief[];
+  destinations: City[];
 }
 
 export interface MissionPost {

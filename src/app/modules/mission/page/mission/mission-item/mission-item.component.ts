@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Mission } from 'src/app/data/schema/mission';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Mission, MissionCard } from 'src/app/data/schema/mission';
+import { Priority } from 'src/app/data/schema/priority';
 
 @Component({
   selector: 'app-mission-item',
@@ -7,7 +8,12 @@ import { Mission } from 'src/app/data/schema/mission';
   styleUrls: ['./mission-item.component.css'],
 })
 export class MissionItemComponent {
-  @Input() mission: Mission;
+  @Input() mission: MissionCard;
+  @Output() view = new EventEmitter<number>();
+
+  get Priority() {
+    return Priority;
+  }
 
   constructor() {
     console.log('mission-item', this.mission);
@@ -15,5 +21,9 @@ export class MissionItemComponent {
 
   ngOnInit() {
     console.log('mission-item', this.mission);
+  }
+
+  onClick(id: number) {
+    this.view.emit(id);
   }
 }

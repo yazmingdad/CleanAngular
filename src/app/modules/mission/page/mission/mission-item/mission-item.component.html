@@ -1,7 +1,7 @@
-<div class="mission-item">
+<div class="mission-item" (click)="onClick(mission.id)">
   <div class="mission-item-title">
-    <h6>Data interconnection between regions</h6>
-    <h6>Human Resources</h6>
+    <h6>{{ mission.title }}</h6>
+    <h6>{{ mission.department.name }}</h6>
   </div>
 
   <div class="mission-item-badges">
@@ -10,12 +10,13 @@
       <span
         class="badge"
         [ngClass]="{
-          'bg-warning': mission.status === 'Created',
+          'bg-warning': mission.status.name === 'Created',
           'bg-success':
-            mission.status === 'InProgress' || mission.status === 'Completed',
-          'bg-secondary': mission.status === 'Cancelled'
+            mission.status.name === 'InProgress' ||
+            mission.status.name === 'Completed',
+          'bg-secondary': mission.status.name === 'Cancelled'
         }"
-        >{{ mission.status }}</span
+        >{{ mission.status.name }}</span
       >
     </h6>
     <h6>
@@ -23,11 +24,12 @@
       <span
         class="badge"
         [ngClass]="{
-          'bg-danger': mission.priority === 'High',
-          'bg-success': mission.priority === 'Normal',
-          'bg-secondary': mission.priority === 'Low'
+          'bg-danger': mission.priority === Priority.Urgent,
+          'bg-warning': mission.priority === Priority.High,
+          'bg-success': mission.priority === Priority.Normal,
+          'bg-secondary': mission.priority === Priority.Low
         }"
-        >{{ mission.priority }}</span
+        >{{ Priority[mission.priority] }}</span
       >
     </h6>
   </div>
@@ -46,15 +48,16 @@
       Priority :
       <span
         [ngClass]="{
-          'badge bg-danger': mission.priority === 'High',
-          'badge bg-success': mission.priority === 'Normal',
-          'badge bg-secondary': mission.priority === 'Low'
+          'bg-danger': mission.priority === Priority.Urgent,
+          'bg-warning': mission.priority === Priority.High,
+          'bg-success': mission.priority === Priority.Normal,
+          'bg-secondary': mission.priority === Priority.Low
         }"
         >{{ mission.priority }}</span
       >
     </h6>
     <h6>
-      Status : <span class="badge bg-warning">{{ mission.status }}</span>
+      Status : <span class="badge bg-warning">{{ mission.status.name }}</span>
     </h6>
   </div>
 </div>

@@ -15,7 +15,10 @@
     </div>
     <div class="mission-list">
       <ng-container *ngFor="let mission of missions">
-        <app-mission-item [mission]="mission"></app-mission-item>
+        <app-mission-item
+          [mission]="mission"
+          (view)="onDetails($event)"
+        ></app-mission-item>
       </ng-container>
     </div>
   </div>

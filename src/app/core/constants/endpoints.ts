@@ -12,6 +12,8 @@ export const setPasswordEndPoint = `${userEndpoint}/setpassword`;
 const collectorUrl = 'https://localhost:7083';
 
 export const missionEndpoint = `${collectorUrl}/api/Mission`;
+export const activeMissionEndPoint = `${missionEndpoint}/active`;
+export const cancelledMissionEndPoint = `${missionEndpoint}/cancelled`;
 export const priorityEndpoint = `${missionEndpoint}/priorities`;
 
 export const employeeEndpoint = `${collectorUrl}/api/Employee`;
