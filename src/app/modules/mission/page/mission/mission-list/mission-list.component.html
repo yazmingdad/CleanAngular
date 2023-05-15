@@ -1,4 +1,4 @@
-<div class="mission-container show-details">
+<div class="mission-container">
   <app-modal (dismiss)="onDismiss()" *ngIf="showModal" [isCentered]="false">
     <app-mission-form
       [cities]="cities"
@@ -17,6 +17,7 @@
       <ng-container *ngFor="let mission of missions">
         <app-mission-item
           [mission]="mission"
+          [selectedIndex]="selectedIndex"
           (view)="onDetails($event)"
         ></app-mission-item>
       </ng-container>
@@ -26,6 +27,6 @@
     <app-mission-map></app-mission-map>
   </div>
   <div class="mission-info">
-    <app-mission-details></app-mission-details>
+    <app-mission-details [mission]="selected"></app-mission-details>
   </div>
 </div>

@@ -22,7 +22,10 @@ import { CleanResponse } from '../../schema/response';
 })
 export class MissionService {
   private _priorities$ = new BehaviorSubject<Selectable<number>[]>([]);
-
+  private _missions$: Subject<MissionCard[]>;
+  get missions$() {
+    return this._missions$.asObservable();
+  }
   get priorities$() {
     return this._priorities$.asObservable();
   }
@@ -31,6 +34,7 @@ export class MissionService {
     private http: HttpClient,
     private notificationService: NotificationsService
   ) {
+    this._missions$ = new Subject<MissionCard[]>();
     this.http.get<Selectable<number>[]>(priorityEndpoint).subscribe({
       next: (priorities) => {
         this._priorities$.next(priorities);
@@ -38,7 +42,13 @@ export class MissionService {
     });
   }
 
-  getAll(isActive: boolean = true) {
+  reload(isActive: boolean = true) {
+    this.getAll().subscribe((missions) => {
+      this._missions$.next(missions);
+    });
+  }
+
+  private getAll(isActive: boolean = true) {
     let url;
     if (isActive) {
       url = activeMissionEndPoint;

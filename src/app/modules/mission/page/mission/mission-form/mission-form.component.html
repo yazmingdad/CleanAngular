@@ -89,10 +89,10 @@
     label="Description"
     [control]="getControl('description')"
   ></app-input>
-  <div class="text-end">
+  <!-- <div class="text-end">
     <input type="checkbox" [formControl]="getControl('isInCountry')" />
     isInCountry
-  </div>
+  </div> -->
   <div *ngIf="missionForm.errors" class="text-danger">
     <p *ngIf="missionForm.errors['endDateInferior']">
       <small><strong>End Date must be superior to start Date</strong> </small>

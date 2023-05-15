@@ -27,7 +27,7 @@
 .mission-info {
   position: fixed;
   width: 100%;
-  display: grid;
+  display: none;
   place-items: center;
   bottom: 0;
   transform: translateY(100%);
@@ -62,9 +62,8 @@
     width: auto;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-      "a a a a b b b b"
       "a a a a b b b b"
       "a a a a b b b b"
       "c c c c b b b b"
@@ -76,7 +75,6 @@
   }
 
   .mission-map {
-    /* background: green; */
     display: block;
     position: static;
     height: auto;
@@ -87,6 +85,7 @@
     height: auto;
   }
   .mission-info {
+    display: block;
     background: var(--white);
     position: relative;
     transform: translateY(0);
@@ -99,7 +98,6 @@
   .mission-container {
     grid-template-columns: repeat(9, 1fr);
     grid-template-areas:
-      "a a a a a a b b b"
       "a a a a a a b b b"
       "a a a a a a b b b"
       "c c c c c c b b b"

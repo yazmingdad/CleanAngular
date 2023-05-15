@@ -9,6 +9,7 @@ import { Priority } from 'src/app/data/schema/priority';
 })
 export class MissionItemComponent {
   @Input() mission: MissionCard;
+  @Input() selectedIndex: number;
   @Output() view = new EventEmitter<number>();
 
   get Priority() {

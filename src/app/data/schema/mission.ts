@@ -27,7 +27,7 @@ export interface MissionCard {
   title: string;
   code: string;
   description: string;
-  createDate: Date;
+  createdDate: Date;
   startDate: Date;
   endDate: Date;
   status: Status;

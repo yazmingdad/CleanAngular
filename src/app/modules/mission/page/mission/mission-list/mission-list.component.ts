@@ -19,6 +19,8 @@ export class MissionListComponent {
   employees: Selectable<number>[] = [];
   departments: Selectable<number>[] = [];
 
+  selectedIndex: number = 0;
+  selected: MissionCard;
   missions: MissionCard[];
 
   constructor(
@@ -27,8 +29,9 @@ export class MissionListComponent {
     private employeeService: EmployeeService,
     private localizationService: LocalizationService
   ) {
-    this.missionService.getAll().subscribe((missions) => {
+    this.missionService.missions$.subscribe((missions) => {
       this.missions = missions;
+      this.selected = missions[0];
       console.log('missions', missions);
     });
     this.missionService.priorities$.subscribe((priorities) => {
@@ -47,7 +50,8 @@ export class MissionListComponent {
         console.log('cities', cities);
         this.cities = cities;
       }),
-      this.departmentService.load(false);
+      this.missionService.reload();
+    this.departmentService.load(false);
     this.employeeService.getSelection();
     this.localizationService.getCities();
   }
@@ -65,6 +69,7 @@ export class MissionListComponent {
     console.log('post new mission', $event);
     this.missionService.insert($event).subscribe(() => {
       this.showModal = false;
+      this.missionService.reload();
     });
   }
 
@@ -73,5 +78,8 @@ export class MissionListComponent {
       'details',
       this.missions.find((m) => m.id === id)
     );
+
+    this.selectedIndex = id;
+    this.selected = this.missions.find((m) => m.id === id) as MissionCard;
   }
 }

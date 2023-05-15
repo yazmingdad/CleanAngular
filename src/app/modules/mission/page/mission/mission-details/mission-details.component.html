@@ -1,6 +1,6 @@
-<div class="mission-details card">
+<div class="mission-details card" *ngIf="mission">
   <div class="mission-details-title card-header">
-    <span>Data interconnection between regions</span>
+    <span>{{ mission.title }}</span>
     <h5>
       <span class="badge bg-success">{{ mission.code }}</span>
     </h5>
@@ -8,12 +8,12 @@
   <div class="card-body">
     <div class="d-md-flex">
       <div class="value">
-        <h6>{{ mission.department }}</h6>
+        <h6>{{ mission.department.name }}</h6>
       </div>
     </div>
     <div class="d-md-flex">
       <div class="value">
-        <h6>Create in {{ mission.creationDate | date : "EEEE, MMMM d, y" }}</h6>
+        <h6>Create in {{ mission.createdDate | date : "EEEE, MMMM d, y" }}</h6>
       </div>
     </div>
     <div class="d-md-flex">
@@ -46,18 +46,14 @@
           <span
             class="badge"
             [ngClass]="{
-              'bg-danger': mission.priority === 'High',
-              'bg-success': mission.priority === 'Normal',
-              'bg-secondary': mission.priority === 'Low'
+              'bg-danger': mission.priority === Priority.Urgent,
+              'bg-warning': mission.priority === Priority.High,
+              'bg-success': mission.priority === Priority.Normal,
+              'bg-secondary': mission.priority === Priority.Low
             }"
-            >{{ mission.priority }}</span
+            >{{ Priority[mission.priority] }}</span
           >
         </h6>
-      </div>
-    </div>
-    <div class="d-flex">
-      <div class="value">
-        <h6></h6>
       </div>
     </div>
 
@@ -70,7 +66,7 @@
       <div class="value w-100">
         <ul class="list-group mb-1">
           <li class="list-group-item active" aria-current="true">
-            <h6>Distance 450 KM</h6>
+            <h6>Distance {{ mission.distance }} KM</h6>
           </li>
           <li class="list-group-item"><h6>Marrakech</h6></li>
           <li class="list-group-item"><h6>Casablanca</h6></li>
@@ -84,11 +80,32 @@
           <li class="list-group-item active" aria-current="true">
             <h6>Participants</h6>
           </li>
-          <li class="list-group-item"><h6>James Kook</h6></li>
-          <li class="list-group-item"><h6>John Doe</h6></li>
-          <li class="list-group-item"><h6>Mary James</h6></li>
+          <li
+            class="list-group-item d-flex align-items-center"
+            *ngFor="let participant of mission.participants"
+          >
+            <img
+              [src]="'data:image/png;base64,' + participant.avatar"
+              alt=""
+              style="width: 45px; height: 45px"
+              class="rounded-circle"
+            />
+            <h6>
+              {{ participant.fullName }}
+            </h6>
+          </li>
         </ul>
       </div>
+    </div>
+    <div class="d-flex">
+      <button type="button" class="btn btn-hipster me-1" (click)="onDownload()">
+        <span><i class="fas fa-file-download fa-2x"></i></span>
+        Download Order
+      </button>
+      <button type="button" class="btn btn-hipster ms-1" (click)="onView()">
+        <span><i class="far fa-file-pdf fa-2x"></i></span>
+        View Order
+      </button>
     </div>
   </div>
 </div>

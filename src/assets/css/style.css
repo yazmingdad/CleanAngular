@@ -1579,8 +1579,15 @@ mission-item
   /* background: var(--grey-300); */
   color: var(--grey-900);
   border-radius: var(--borderRadius);
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--shadow-1);
   border: 0.15px solid var(--grey-400);
+  transition: var(--transition);
+}
+
+.mission-item.selected {
+  transform: scale(1.02);
+  background: var(--grey-300);
+  box-shadow: var(--shadow-4);
 }
 
 .mission-item h1,
