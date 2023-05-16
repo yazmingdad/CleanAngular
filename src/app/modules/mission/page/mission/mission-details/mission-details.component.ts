@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { MissionCard } from 'src/app/data/schema/mission';
 import { Priority } from 'src/app/data/schema/priority';
 import { MissionOrder } from 'src/app/data/reports/mission-order';
@@ -10,6 +10,8 @@ import { MissionOrder } from 'src/app/data/reports/mission-order';
 })
 export class MissionDetailsComponent {
   @Input() mission: MissionCard;
+  @Output() close = new EventEmitter();
+  @Output() showMap = new EventEmitter();
   private reporter: MissionOrder;
   constructor() {}
   ngOnInit() {
@@ -31,5 +33,13 @@ export class MissionDetailsComponent {
 
   onDownload() {
     this.reporter.DownloadReport(this.mission.code);
+  }
+
+  onClick(){
+    this.close.emit();
+  }
+
+  onShowMap(){
+    this.showMap.emit();
   }
 }

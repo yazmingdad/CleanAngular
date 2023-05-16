@@ -210,8 +210,17 @@ img:not(.logo) {
   background: var(--primary-200);
 }
 .btn-hipster:hover {
-  color: var(--primary-200);
+  color: var(--primary-500);
   background: var(--primary-700);
+}
+
+.btn-hipster-orange {
+  color: var(--white);
+  background: var(--orange-medium);
+}
+.btn-hipster-orange:hover {
+  color: var(--grey-900);
+  background: var(--grey-400);
 }
 
 .btn-transparent {
@@ -1550,11 +1559,118 @@ missions
 */
 
 .mission-container {
-  /* background: url(../images/ecosystem2023.png);
+  height: calc(100vh - var(--navbar-thick));
   background-size: cover;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 }
 
+.missions {
+  background: var(--grey-100);
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.mission-map {
+  height:75vh ;
+  width: 100%;
+  top: var(--navbar-thick);
+  z-index: 1;
+}
+
+.show-details .mission-map {
+  display: block;
+}
+
+.mission-info {
+  position: fixed;
+  width: 100%;
+  display: none;
+  place-items: center;
+  bottom: 0;
+  transform: translateY(100%);
+  transition: var(--transition);
+  z-index: 2;
+  background: var(--grey-overlay-dark);
+  
+}
+
+.show-details .mission-info {
+  height: calc(100vh - var(--navbar-thick));
+  transform: translateY(0);
+  display:block;
+}
+
+.mission-filter {
+  background: var(--grey-300);
+}
+
+.mission-list {
+  scrollbar-width: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.mission-list::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .mission-container {
+    height: calc(100vh - var(--navbar-thin));
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "c c c c b b b b"
+      "c c c c b b b b"
+      "c c c c b b b b"
+      "c c c c b b b b";
+  }
+
+  .missions {
+    grid-area: b;
+  }
+
+  .mission-map {
+    display: block;
+    position: static;
+   
+    /* grid-area: a; */
+  }
+
+  .show-details .mission-info {
+    height: 100%;
+
+  }
+  .mission-info {
+    display: block;
+    background: var(--white);
+    position: relative;
+    transform: translateY(0);
+    height: auto;
+    grid-area: c;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .mission-container {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-areas:
+      "c c c c c c b b b"
+      "c c c c c c b b b"
+      "c c c c c c b b b"
+      "c c c c c c b b b";
+  }
+}
+
+/*
+=============== 
+mission-info
+===============
+*/
 .mission-list {
   scrollbar-width: none;
   overflow-y: scroll;

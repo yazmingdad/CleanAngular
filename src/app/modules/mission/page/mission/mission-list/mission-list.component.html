@@ -1,5 +1,7 @@
-<div class="mission-container">
-  <app-modal (dismiss)="onDismiss()" *ngIf="showModal" [isCentered]="false">
+<div class="mission-container" [ngClass]="{
+  'show-details':showDetails
+}">
+  <app-modal (dismiss)="onDismiss()" *ngIf="showFormModal" [isCentered]="false">
     <app-mission-form
       [cities]="cities"
       [employees]="employees"
@@ -7,6 +9,10 @@
       [priorities]="priorities"
       (missionPost)="onPostMission($event)"
     ></app-mission-form>
+    <div modalFooter></div>
+  </app-modal>
+  <app-modal (dismiss)="onDismiss()" *ngIf="showMapModal" [isCentered]="false">
+    <app-mission-map></app-mission-map>
     <div modalFooter></div>
   </app-modal>
   <div class="missions">
@@ -23,10 +29,13 @@
       </ng-container>
     </div>
   </div>
-  <div class="mission-map">
+  <!-- <div class="mission-map">
     <app-mission-map></app-mission-map>
-  </div>
+  </div> -->
   <div class="mission-info">
-    <app-mission-details [mission]="selected"></app-mission-details>
+    <app-mission-details 
+    [mission]="selected" 
+    (showMap)="onShowMap()"
+    (close)="onHideDetails()"></app-mission-details>
   </div>
 </div>

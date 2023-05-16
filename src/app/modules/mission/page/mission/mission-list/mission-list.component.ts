@@ -5,6 +5,7 @@ import { DepartmentService } from 'src/app/data/service/hr/department.service';
 import { EmployeeService } from 'src/app/data/service/hr/employee.service';
 import { LocalizationService } from 'src/app/data/service/localization/localization.service';
 import { MissionService } from 'src/app/data/service/mission/mission.service';
+import { media } from 'src/app/shared/utility/media';
 import { Selectable } from 'src/app/shared/utility/select';
 
 @Component({
@@ -14,6 +15,8 @@ import { Selectable } from 'src/app/shared/utility/select';
   providers: [DepartmentService, EmployeeService, LocalizationService],
 })
 export class MissionListComponent {
+
+  
   priorities: Selectable<number>[] = [];
   cities: City[] = [];
   employees: Selectable<number>[] = [];
@@ -29,6 +32,9 @@ export class MissionListComponent {
     private employeeService: EmployeeService,
     private localizationService: LocalizationService
   ) {
+
+
+
     this.missionService.missions$.subscribe((missions) => {
       this.missions = missions;
       this.selected = missions[0];
@@ -56,30 +62,38 @@ export class MissionListComponent {
     this.localizationService.getCities();
   }
 
-  showModal = false;
+  showFormModal = false;
+  showMapModal =false;
+  showDetails =false;
+
   onCreate() {
-    this.showModal = true;
+    this.showFormModal = true;
     console.log('add new mission');
   }
   onDismiss() {
-    this.showModal = false;
+    this.showFormModal = false;
+    this.showMapModal = false;
   }
 
   onPostMission($event: MissionPost) {
     console.log('post new mission', $event);
     this.missionService.insert($event).subscribe(() => {
-      this.showModal = false;
+      this.showFormModal = false;
       this.missionService.reload();
     });
   }
 
   onDetails(id: number) {
-    console.log(
-      'details',
-      this.missions.find((m) => m.id === id)
-    );
-
+    this.showDetails=true;
     this.selectedIndex = id;
     this.selected = this.missions.find((m) => m.id === id) as MissionCard;
+  }
+
+  onHideDetails(){
+    this.showDetails=false;
+  }
+
+  onShowMap(){
+    this.showMapModal=true;
   }
 }
